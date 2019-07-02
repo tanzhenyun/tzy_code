@@ -1,0 +1,1308 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>提交订单</title>
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Cache-control" content="no-cache">
+<meta http-equiv="Cache" content="no-cache">
+<meta charset="utf-8">
+<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0" />
+<meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+<link rel="stylesheet" type="text/css" href="../css/styles.css">
+<style type="text/css">
+body {
+	background: #f2f2f2;
+}
+
+.address {
+	position: relative;
+	box-sizing: border-box;
+	width: 100%;
+	margin-bottom: 8px;
+	padding: 8px 16px;
+	background-color: #fff;
+	border-bottom: 1px solid #ddd;
+}
+
+.address .icon {
+	width: 20px;
+	height: 20px;
+	position: absolute;
+	top: 21px;
+	left: 16px;
+	width: 19px;
+	height: 24px;
+	background-image: url(../image/icon_address.png);
+	background-repeat: no-repeat;
+	background-size: auto 20px;
+	background-position: center center;
+	position: absolute;
+}
+
+.address .info {
+	position: relative;
+	box-sizing: border-box;
+	padding-left: 36px;
+	padding-right: 28px;
+	width: 100%;
+	height: auto;
+}
+
+.address .arrow {
+	position: absolute;
+	right: 16px;
+	top: 32px;
+	width: 20px;
+	height: 20px;
+	background-image: url(../image/more.png);
+	background-repeat: no-repeat;
+	background-size: 20px 20px;
+	background-position: right center;
+}
+
+.address .info .top {
+	position: relative;
+	box-sizing: border-box;
+	width: 100%;
+	height: 32px;
+	color: #444;
+	line-height: 32px;
+	font-size: 14px;
+}
+
+.address .info .top .receivename {
+	display: inline-block;
+	width: auto;
+}
+
+.address .info .top .mobile {
+	display: inline-block;
+	width: auto;
+	position: absolute;
+	right: 10px;
+}
+
+.address .info .bottom {
+	position: relative;
+	width: 100%;
+	min-height: 32px;
+	line-height: 32px;
+	color: #888;
+	font-size: 14px;
+}
+
+.address .info .bottom .text {
+	display: inline;
+	width: auto;
+}
+
+.order {
+	position: relative;
+	width: 100%;
+	height: auto;
+}
+
+.order .icon-panel {
+	position: relative;
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: flex;
+	-webkit-box-orient: horizontal;
+	-webkit-flex-flow: row;
+	flex-flow: row;
+	box-sizing: border-box;
+	padding: 8px 16px;
+	width: 100%;
+	height: 80px;
+	background-color: #fff;
+	margin-top: 5px;
+}
+
+.order .icon-panel .icon {
+	width: 64px;
+	height: 64px;
+	background: url("../image/logo.png");
+	background-size: 64px 64px;
+	background-repeat: no-repeat;
+}
+
+.order .shop {
+	background: #fff;
+	margin-top: 10px;
+}
+
+.order .icon-panel .info {
+	position: relative;
+	-webkit-box-flex: 1;
+	-webkit-flex: 1;
+	flex: 1;
+	box-sizing: border-box;
+	padding-left: 16px;
+}
+
+.order .icon-panel .info .top {
+	position: relative;
+	box-sizing: border-box;
+	padding-bottom: 16px;
+	width: 100%;
+	height: 32px;
+	font-size: 14px;
+	color: #444;
+	text-align: left;
+}
+
+.order .icon-panel .info .bottom {
+	position: relative;
+	box-sizing: border-box;
+	padding-top: 16px;
+	width: 100%;
+	height: 32px;
+	font-size: 16px;
+	color: #444;
+	text-align: left;
+}
+
+.order .icon-panel .right {
+	box-sizing: border-box;
+	width: 40px;
+	height: 64px;
+	padding-top: 50px;
+	font-size: 14px;
+	text-align: right;
+}
+
+.order .row {
+	position: relative;
+	box-sizing: border-box;
+	padding-left: 16px;
+	padding-right: 16px;
+	width: 100%;
+	height: 44px;
+	line-height: 44px;
+	font-size: 16px;
+	margin-bottom: 1px;
+	background-color: #fff;
+}
+
+.pay {
+	background: #fff;
+	margin-top: 10px;
+	/* 	height: 40px; */
+	/* 	line-height: 40px; */
+	padding: 0px 10px;
+	border-bottom: 1px solid #eee;
+	border-top: 1px solid #eee;
+}
+
+.pay .title {
+	height: 40px;
+	line-height: 40px;
+	font-size: 16px;
+	color: #666;
+}
+
+.pay .method {
+	height: 40px;
+	line-height: 40px;
+	display: -webkit-flex;
+	justify-content: space-around;
+}
+
+.pay .mode {
+	display: inline-block;
+	height: 26px;
+	font-size: 14px;
+	color: #777;
+	line-height: 26px;
+	margin: 0 5px;
+	padding: 0 5px;
+	border: 1px solid #ff0000;
+	border-radius: 50px;
+}
+
+.coupon {
+	line-height: 40px;
+	margin-top: 10px;
+	padding: 0 10px;
+	background: #fff;
+}
+
+.coupon .rightArrow {
+	display: inline-block;
+	width: 40px;
+	height: 40px;
+	background: url(../image/more.png) no-repeat center;
+	background-size: 16px 16px;
+	vertical-align: middle;
+	float: right;
+}
+
+.coupon .amount, .coupon .text {
+	display: inline-block;
+	font-size: 12px;
+	color: #aaa;
+	height: 40px;
+	line-height: 40px;
+	float: right;
+}
+
+footer {
+	position: fixed;
+	bottom: 0;
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: flex;
+	-webkit-box-orient: horizontal;
+	-webkit-flex-flow: row;
+	flex-flow: row;
+	width: 100%;
+	height: 50px;
+	background-color: #fff;
+	border-top: 1px solid #d1d1d1;
+}
+
+footer .panel {
+	-webkit-box-flex: 1;
+	-webkit-flex: 1;
+	flex: 1;
+	height: 50px;
+	box-sizing: border-box;
+	padding-left: 16px;
+	line-height: 50px;
+	font-size: 16px;
+	font-weight: bolder;
+	text-align: left;
+	-webkit-flex: 1;
+	flex: 1;
+}
+
+footer .panel .mark {
+	color: #ff0000;
+	font-size: 12px;
+}
+
+footer .panel .totalamount {
+	font-weight: bold;
+	color: #ff0000;
+}
+
+footer .buy {
+	width: 112px;
+	height: 50px;
+	background: #ff0000;
+	line-height: 50px;
+	text-align: center;
+}
+
+.order .totalpicre {
+	padding: 0px 15px;
+	height: 30px;
+	line-height: 30px;
+	/* 	text-align: right; */
+	background: #fff;
+}
+
+.order .totalpicre .subtotal {
+	float: right;
+}
+
+.order .totalpicre .reduce {
+	color: #ff0000;
+}
+
+.shopname {
+	height: 30px;
+	line-height: 30px;
+	padding-left: 10px;
+	border-bottom: 1px solid #ddd;
+}
+
+.hi {
+	display: none;
+}
+
+.box {
+	display: none;
+	background-color: rgba(0, 0, 0, .7);
+	width: 100%;
+	height: 100%;
+	position: relative;
+}
+
+.box .couponcontainer {
+	position: absolute;
+	bottom: 0px;
+	left: 0px;
+	padding: 0 10px;
+	overflow-y: auto;
+	background: #f2f2f2;
+	box-sizing: border-box;
+	width: 100%;
+	height: 70%;
+}
+
+.box .couponcontainer .title {
+	font-weight: 700;
+	font-size: 18px;
+	width: 100%;
+	background: #fff;
+	padding: 5px;
+	box-sizing: border-box;
+	line-height: 40px;
+	position: fixed;
+	top: 30%;
+	left: 0px;
+}
+
+.box .couponcontent {
+	margin-top: 50px;
+	width: 100%;
+}
+
+.table {
+	font-size: 12px;
+	line-height: 20px;
+	margin-top: 10px;
+	padding: 0 10px;
+	background: #fff;
+}
+
+.table table tr {
+	height: 30px;
+}
+
+.singlemarkup, .wholemarkup, .couponmarkup {
+	display: -webkit-flex;
+	line-height: 24px;
+	padding: 0 20px;
+	font-size: 10px;
+	-webkit-justify-content: space-between;
+}
+
+.couponmarkup {
+	border-bottom: 1px dashed #ddd;
+}
+
+.wholemarkup, .couponmarkup {
+	font-size: 12px;
+}
+</style>
+</head>
+<body style="margin-bottom:50px;">
+	<section class="address">
+		<div id="address" onclick="fnChanageAddress()">
+			<script type="text/template" charset="utf-8" id="info">
+				<div class="icon"></div>
+				<div class="info">
+					<div class="top">
+					<div class="receivename">
+						{{=it.receivename}}
+					</div>
+					<div class="mobile">
+						{{=it.phonenumber}}
+					</div>
+					</div>
+					<div class="bottom">
+					<div class="appreceiveaddressid hi">
+						{{=it.appreceiveaddressid}}
+					</div>
+					<div class="text">
+						{{=it.province}}{{=it.city}}{{=it.area}}{{=it.address}}
+					</div>
+					</div>
+				</div>
+				<div class="arrow"></div>
+			</script>
+		</div>
+	</section>
+	<div class="pay">
+		<div class="title">支付方式</div>
+		<div class="method">
+			<div class="mode" onclick="fnSetPay(1,this)">在线支付</div>
+			<div class="mode" onclick="fnSetPay(2,this)" style="border-color:#BFBFBF">货到付款</div>
+		</div>
+		<input type="hidden" class="methodtype" value="1">
+	</div>
+	<section class="order">
+		<div id="container">
+			<script type="text/template" charset="utf-8" id="content">
+					{{for(var i=0;i< it.length;i++) { }}
+					<div class="shop shop_{{=it[i].shopid}}">
+					<div class="shopid hi">{{=it[i].shopid}}</div>
+					<div class="shopname"> {{=it[i].shopname}}</div>
+					{{for(var j=0;j< it[i].goodsinfolist.length;j++) { }}
+					<div class="icon-panel">
+					{{ if(it[i].goodsinfolist[j].picname != ""){ }}
+					<div class="icon" style="background:url(http://{{=it[i].goodsinfolist[j].folderpath}}/ecpic/ecgoodspic/{{=it[i].goodsinfolist[j].goodsid}}/{{=it[i].goodsinfolist[j].picname}});background-size:70px 70px;"></div>
+					{{ }else{ }}
+					<div class="icon"></div>
+					{{ } }}
+					<div class="info">
+					<div class="top">
+					{{=it[i].goodsinfolist[j].goodsname}}
+					</div>
+					<div class="bottom">
+					￥<span class="price">{{=it[i].goodsinfolist[j].price}}</span>
+					</div>
+					</div>
+					<div class="right">
+					<span class="goodsqty">{{=it[i].goodsinfolist[j].goodsqty}}</span>
+					</div>
+					</div>
+					<div class="singlemarkup"></div>
+					{{ } }}
+					<div class="wholemarkup"></div>
+					<div class="couponmarkup"></div>
+					<div class="totalpicre"><span class="reduce"></span><span class="markup hi"></span><span class="subtotal">小计：<span class="Tamount Tamount_{{=it[i].shopid}}">0.00</span></span></div>
+					</div>
+					{{ } }}
+			</script>
+		</div>
+		<section class="coupon" onclick="fnChooseCoupon();">
+			<span class="title">使用票券</span>
+			<span class="rightArrow"></span>
+			<span class="text">还未选择票券</span>
+			<span class="amount"></span>
+			<input type="hidden" class="couponid" value="">
+		</section>
+		<section class="table">
+			<table>
+				<tr>
+					<td>商品总金额:</td>
+					<td>
+						￥
+						<span class="Tamount_A">0.00</span>
+					</td>
+				</tr>
+				<tr>
+					<td>优惠金额:</td>
+					<td>
+						￥-
+						<span class="amount">0</span>
+					</td>
+				</tr>
+				<tr>
+					<td>应付金额:</td>
+					<td>
+						￥
+						<span class="Tamount_P">0.00</span>
+					</td>
+				</tr>
+			</table>
+		</section>
+		<footer id="footer">
+			<div class="panel">
+				合计:
+				<span class="mark">￥</span>
+				<span class="totalamount">0.00</span>
+			</div>
+			<div class="buy" onclick="fnBuy();">
+				<div class="buy-button" style="color:#fff">提交订单</div>
+			</div>
+		</footer>
+	</section>
+	<div class="box">
+		<div class="couponcontainer">
+			<div class="title">选择票券</div>
+			<div class="couponcontent"></div>
+		</div>
+	</div>
+</body>
+<script type="text/javascript" src="../js/jquery-3.1.1.min.js"></script>
+<script type="text/javascript" src="../js/config.js"></script>
+<script type="text/javascript" src="../js/doT.min.js"></script>
+<script type="text/javascript" src="../js/layer/mobile/layer.js"></script>
+<script type="text/javascript" src="http://res.wx.qq.com/open/js/jweixin-1.2.0.js"></script>
+<script type="text/javascript">
+	var spstr,
+		couponstr,
+		allInfo,
+		user,
+		index,
+		totalamount = 0;
+	var sparr,
+		couponarr = [];
+	$(document).ready(function() {
+		fnCheckAddress();
+		spstr = decodeURIComponent(getParameter("spstr"));
+		sparr = spstr.split("-");
+		couponstr = decodeURIComponent(getParameter("couponstr"));
+		// 判断防止为空时,截取后数组内有值
+		if (couponstr != "") {
+			couponarr = couponstr.split("-");
+		}
+	});
+
+	// 特殊监听返回,适配手机增加收货地址后返回不刷新
+	pushHistory();
+	window.addEventListener("popstate", function(e) {
+		if ($(".box").is(":hidden")) {
+			window.location.href = "../index.html?flag=3";
+		} else {
+			$(".box").css("display", "none");
+			pushHistory();
+		}
+	}, false);
+	function pushHistory() {
+		var state = {
+			title : "title",
+			url : "#"
+		};
+		window.history.pushState(state, "title", "#");
+	}
+
+	// 检查是否有收货地址
+	function fnCheckAddress() {
+		index = layer.open({
+			shadeClose : false,
+			type : 2
+		});
+		user = $.parseJSON(window.localStorage.getItem("user"));
+		$.ajax({
+			url : ip() + 'checkaddress.do',
+			type : "post",
+			data : {
+				userid : user.userid
+			},
+			dataType : "json",
+			success : function(data) {
+				// 				layer.close(index);
+				if (parseInt(data.dataflag) > 0) {
+					// 有默认地址
+					fnGetGoodsInfo();
+				} else {
+					//没有地址
+					layer.open({
+						content : "你还没有收货地址，确定新增收货地址吗？",
+						shadeClose : false,
+						btn : [ '确定', '不要' ],
+						yes : function(index) {
+							window.location.href = "addaddress.html?orderflag=2&" + timestamp();
+							layer.closeAll();
+						},
+						no : function() {
+							window.history.back();
+							window.top.reload();
+						}
+					});
+				}
+			},
+			error : function(data) {
+				layer.close(index);
+			}
+		});
+	}
+
+	// 订单商品
+	function fnGetGoodsInfo() {
+		$.ajax({
+			url : ip() + 'getordergoods.do',
+			traditional : true,
+			type : "post",
+			data : {
+				userid : user.userid,
+				array : sparr
+			},
+			dataType : "json",
+			success : function(data) {
+				allInfo = data;
+				$("#address").html(doT.template($("#info").text())(data.addressinfo));
+				$("#container").html(doT.template($("#content").text())(data.cartinfolist));
+
+// 				for (var i = 0; i < data.cartinfolist.length; i++) {
+// 					var searchpics = document.getElementsByClassName("shop_" + data.cartinfolist[i].shopid)[0]
+// 						.getElementsByClassName("icon");
+
+// 					for (var j = 0; j < searchpics.length; j++) {
+// 						if (data.cartinfolist[i].goodsinfolist[j].picname == null
+// 							|| data.cartinfolist[i].goodsinfolist[j].picname == "") {
+// 						} else {
+// 							var path = ip() + 'goodspic.do?goodsid=' + data.cartinfolist[i].goodsinfolist[j].goodsid
+// 							+ '&name=' + data.cartinfolist[i].goodsinfolist[j].picname;
+// 							searchpics[j].style.background = "url(" + path + ")";
+// 							searchpics[j].style.backgroundRepeat = "no-repeat";
+// 							searchpics[j].style.backgroundSize = "70px 70px";
+// 						}
+// 					}
+// 				}
+				fnShowMarkup();
+				fnCalculateAmount();
+				layer.close(index);
+			},
+			error : function(data) {
+				layer.close(index);
+			// 				alert(JSON.stringify(data));
+			}
+		});
+	}
+
+	// 显示 赠品/加价购商品/代金券 信息
+	function fnShowMarkup() {
+		var singlemarkup = $(".singlemarkup");
+		for (var i = 0; i < sparr.length; i++) {
+			// 整单
+			var info = sparr[i].split(",");
+			if (info[9] != "") {
+				var warr = info[9].split("~");
+				var wspname = "";
+				if (warr[2] == 0) {
+					wspname = "赠品";
+				} else {
+					wspname = "加价购";
+				}
+				var aa = "<span class='title'>" + wspname + "</span><span class='presentid'>" + warr[0]
+					+ "</span><span class='presentname'>" + warr[1] + "</span><span>￥<span class='addprice'>"
+					+ warr[2] + "</span></span><span>x<span class='presentqty'>" + warr[3] + "</span></span>";
+
+				$(".shop_" + info[0]).find(".wholemarkup").html(aa);
+			}
+			// 单品
+			if (info[10] != "") {
+				var sarr = info[10].split("`");
+				var sspname = "";
+				if (sarr[2] == 0) {
+					sspname = "赠品";
+				} else {
+					sspname = "加价购";
+				}
+				var aa = "<span class='title'>" + sspname + "</span><span class='presentid'>" + sarr[0]
+					+ "</span><span class='presentname'>" + sarr[1] + "</span><span>￥<span class='addprice'>"
+					+ sarr[2] + "</span></span><span>x<span class='presentqty'>" + sarr[3] + "</span></span>";
+				singlemarkup[i].innerHTML = aa;
+			}
+
+		}
+
+		var shop = $(".shop");
+		for (var j = 0, count = shop.length; j < count; j++) {
+			// 整单优惠
+			var wre = 0;
+			// 细单优惠
+			var sre = 0;
+			// 整单加价
+			var wadd = 0;
+			// 细单加价
+			var sadd = 0;
+			var shopid1 = shop[j].getElementsByClassName("shopid")[0].innerHTML;
+			for (var i = 0; i < sparr.length; i++) {
+				if (sparr[i].split(",")[0] == shopid1) {
+					wre = parseFloat(sparr[i].split(",")[4]);
+					sre += parseFloat(parseFloat(sparr[i].split(",")[5]).toFixed(2));
+					if (wre > 0 || sre > 0) {
+						$(".shop_" + sparr[i].split(",")[0]).find(".reduce").html(
+							"优惠:<span>" + sre.toFixed(2) + "+" + wre.toFixed(2) + "</span>");
+					}
+					wadd = parseFloat(sparr[i].split(",")[6]).toFixed(2);
+					sadd += parseFloat(parseFloat(sparr[i].split(",")[7]).toFixed(2));
+					$(".shop_" + sparr[i].split(",")[0]).find(".markup").html(parseFloat(wadd) + parseFloat(sadd));
+
+				}
+			}
+			// 判断代金券数组不为空
+			if (couponarr.length > 0) {
+				var shopcouponarr = couponarr[0].split(",");
+				if (shopcouponarr[0] == shopid1) {
+					$(".shop_" + shopcouponarr[0]).find(".couponmarkup").html("<span>赠券</span><span>金额:<span>"
+						+ shopcouponarr[1] + "</span></span><span>有效期:<span>"
+						+ shopcouponarr[2] + "</span>天</span>");
+				}
+			}
+		}
+	}
+
+	// 计算价格
+	function fnCalculateAmount() {
+		var shopid = $(".shopid");
+
+		for (var i = 0; i < shopid.length; i++) {
+			var prices = $(".shop_" + shopid[i].innerHTML + " .price");
+			var goodsqtys = $(".shop_" + shopid[i].innerHTML + " .goodsqty");
+			var Tamount = 0;
+			for (var j = 0; j < prices.length; j++) {
+				Tamount += (parseFloat(prices[j].innerHTML) * parseFloat(goodsqtys[j].innerHTML));
+			}
+
+			var totalreduce = 0;
+			var reduceSpan = $(".shop_" + shopid[i].innerHTML).find(".reduce").find("span").html();
+			var markup = $(".shop_" + shopid[i].innerHTML).find(".markup").html();
+			if (reduceSpan != undefined) {
+				totalreduce = parseFloat(reduceSpan.split("+")[0]) + parseFloat(reduceSpan.split("+")[1]);
+			}
+
+			Tamount = (Tamount - totalreduce + parseFloat(markup));
+			$(".Tamount_" + shopid[i].innerHTML).html(Tamount.toFixed(2));
+			//　每一个小计金额
+			totalamount += Tamount;
+		}
+
+		// 		for (var i = 0; i < sparr.length; i++) {
+		// 			var info = sparr[i].split(",");
+		// 			shopid1 = info[0];
+		// 			if (shopid1 != shopid2) {
+		// 				totalreduce += parseFloat(info[4]);
+		// 				totalreduce += parseFloat(info[5]);
+		// 				if (info[8] != "") {
+		// 					console.log(info[8].split("~"));
+		// 					totaljia += parseFloat(info[8].split("~")[2]);
+		// 				}
+		// 				if (info[9] != "") {
+		// 					console.log(info[9].split("`"));
+		// 					totaljia += parseFloat(info[9].split("`")[2]);
+		// 				}
+
+		// 			}
+		// 			shopid2 = shopid1;
+		// 		}
+
+		// 		totalamount -= totalreduce;
+		// 		totalamount += totaljia;
+		// 		console.log("最后优惠金额--" + totalreduce + "--结算" + totalamount.toFixed(2) + "--加价" + totaljia);
+		// 全部商品价格
+		$("footer .panel .totalamount").html(totalamount.toFixed(2));
+		$(".table .Tamount_A").html(totalamount.toFixed(2));
+		$(".table .Tamount_P").html(totalamount.toFixed(2));
+	}
+
+	// 切换收货地址
+	function fnChanageAddress() {
+		window.location.href = "address.html?orderflag=2&" + timestamp();
+	}
+
+	// 提交订单
+	function fnBuy() {
+		layer.open({
+			shadeClose : false,
+			type : 2
+		});
+		if ($(".pay .methodtype").val() == 1) {
+			fnPay();
+		} else {
+			fnGenOrder();
+		}
+
+	}
+
+	// 提交订单(微信支付)
+	var appId,
+		timeStamp,
+		nonceStr,
+		pg,
+		signType,
+		paySign;
+	function fnPay() {
+		var index = layer.open({
+			shadeClose : false,
+			type : 2
+		});
+		var arr = fnArr();
+		// 		var Tamount = $(".Tamount");
+		// 		var arr = new Array();
+		// 		// 将所有信息封装到obj内
+		// 		for (var i = 0; i < allInfo.cartinfolist.length; i++) {
+		// 			var obj = new Object();
+		// 			var goodsidarray = [];
+		// 			var goodsqtyarray = [];
+		// 			var pricearray = [];
+		// 			var goodstype = [];
+		// 			var singlereduce = [];
+		// 			obj.entryid = allInfo.cartinfolist[i].entryid;
+		// 			obj.rtlamount = Tamount[i].innerHTML;
+		// 			obj.receivename = $(".receivename").html();
+		// 			obj.phonenumber = $(".mobile").html();
+		// 			obj.memberid = user.memberid;
+		// 			obj.address = $(".text").html();
+		// 			obj.appreceiveaddressid = $(".appreceiveaddressid").html();
+		// 			obj.shopid = allInfo.cartinfolist[i].shopid;
+		// 			obj.shopname = allInfo.cartinfolist[i].shopname;
+		// 			for (var k = 0; k < sparr.length; k++) {
+		// 				var info = sparr[k].split(",");
+		// 				if (allInfo.cartinfolist[i].shopid == info[0]) {
+		// 					obj.wholereduce = info[4];
+		// 				}
+		// 			}
+		// 			// 代金券金额
+		// 			obj.publishamount = $(".coupon .amount").html();
+		// 			// 代金券ID
+		// 			obj.couponid = $(".coupon .couponid").val();
+		// 			for (var j = 0; j < allInfo.cartinfolist[i].goodsinfolist.length; j++) {
+		// 				goodsidarray.push(allInfo.cartinfolist[i].goodsinfolist[j].goodsid);
+		// 				goodsqtyarray.push(allInfo.cartinfolist[i].goodsinfolist[j].goodsqty);
+		// 				pricearray.push(allInfo.cartinfolist[i].goodsinfolist[j].price);
+		// 				goodstype.push("0");
+		// 				for (var l = 0; l < sparr.length; l++) {
+		// 					var infos = sparr[l].split(",");
+		// 					if (allInfo.cartinfolist[i].shopid == infos[0]
+		// 						&& allInfo.cartinfolist[i].goodsinfolist[j].goodsid == infos[1]) {
+		// 						singlereduce.push(infos[5]);
+		// 					}
+		// 				}
+		// 			}
+		// 			// 将加价购商品加入到订单信息里
+		// 			var wholemarkup = $(".shop_" + allInfo.cartinfolist[i].shopid + " .wholemarkup");
+		// 			var singlemarkup = $(".shop_" + allInfo.cartinfolist[i].shopid + " .singlemarkup");
+		// 			if (wholemarkup[0].innerHTML != "") {
+		// 				goodsidarray.push(wholemarkup[0].getElementsByClassName("presentid")[0].innerHTML);
+		// 				goodsqtyarray.push(wholemarkup[0].getElementsByClassName("presentqty")[0].innerHTML);
+		// 				pricearray.push(wholemarkup[0].getElementsByClassName("addprice")[0].innerHTML);
+		// 				if (wholemarkup[0].getElementsByClassName("addprice")[0].innerHTML == 0) {
+		// 					goodstype.push("3")
+		// 				} else {
+		// 					goodstype.push("1");
+		// 				}
+		// 				singlereduce.push("");
+		// 			}
+		// 			for (k = 0, count = singlemarkup.length; k < count; k++) {
+		// 				if (singlemarkup[k].innerHTML != "") {
+		// 					goodsidarray.push(singlemarkup[k].getElementsByClassName("presentid")[0].innerHTML);
+		// 					goodsqtyarray.push(singlemarkup[k].getElementsByClassName("presentqty")[0].innerHTML);
+		// 					pricearray.push(singlemarkup[k].getElementsByClassName("addprice")[0].innerHTML);
+		// 					if (singlemarkup[k].getElementsByClassName("addprice")[0].innerHTML == 0) {
+		// 						goodstype.push("3");
+		// 					} else {
+		// 						goodstype.push("1");
+		// 					}
+		// 					singlereduce.push("");
+		// 				}
+		// 			}
+		// 			obj.goodsid = goodsidarray;
+		// 			obj.goodsqty = goodsqtyarray;
+		// 			obj.price = pricearray;
+		// 			obj.goodstype = goodstype;
+		// 			obj.singlereduce = singlereduce;
+		// 			arr.push(JSON.stringify(obj));
+		// 		}
+
+		$.ajax({
+			type : "post",
+			url : ip() + "dopay.do",
+			dataType : "json",
+			traditional : true,
+			data : {
+				openid : user.wxopenid,
+				total_fee : $(".totalamount").html(),
+				array : arr,
+				couponarr : couponarr,
+				totalamount : totalamount
+			},
+			success : function(data) {
+				layer.close(index);
+				if (data.dataflag != null) {
+					layer.open({
+						content : data.dataflag,
+						btn : '我知道了',
+						shadeClose : false,
+						yes : function(index) {
+							history.back();
+						}
+					});
+				} else if (data.result_code == "FAIL") {
+					layer.open({
+						content : "支付失败,请重新支付!",
+						btn : '我知道了',
+						shadeClose : false,
+						yes : function(index) {
+							history.back();
+						}
+					});
+				} else {
+					appId = data.appid;
+					timeStamp = data.timeStamp;
+					nonceStr = data.nonceStr;
+					pg = data.packageValue;
+					paySign = data.paySign;
+					// 调用微信支付
+					if (typeof WeixinJSBridge == "undefined") { //非微信浏览器
+						if (document.addEventListener) {
+							document.addEventListener('WeixinJSBridgeReady', onBridgeReady, false);
+						} else if (document.attachEvent) {
+							document.attachEvent('WeixinJSBridgeReady', onBridgeReady);
+							document.attachEvent('onWeixinJSBridgeReady', onBridgeReady);
+						}
+					} else { //微信内部浏览器
+						onBridgeReady();
+					}
+					window.event.returnValue = false;
+					return false;
+				}
+			},
+			error : function(data) {
+				layer.close(index);
+			// 				alert(JSON.stringify(data));
+			}
+		});
+
+	}
+
+	// 发起支付
+	function onBridgeReady() {
+		WeixinJSBridge.invoke('getBrandWCPayRequest', {
+			"appId" : appId, //公众号名称，由商户传入     
+			"timeStamp" : timeStamp, //时间戳，自1970年以来的秒数     
+			"nonceStr" : nonceStr, //随机串     
+			"package" : pg,
+			"signType" : "MD5", //微信签名方式：     
+			"paySign" : paySign
+		//微信签名 
+		}, function(res) {
+			if (res.err_msg == "get_brand_wcpay_request:ok") {
+				// 			使用以上方式判断前端返回,微信团队郑重提示：
+				// 			res.err_msg将在用户支付成功后返回ok，但并不保证它绝对可靠。
+				layer.open({
+					content : "支付成功,订单提交成功!",
+					btn : '我知道了',
+					shadeClose : false,
+					yes : function(index) {
+						window.location.href = "afterpay.html";
+					}
+				});
+			} else {
+				layer.open({
+					content : "支付失败,订单为待支付状态,等待付款!",
+					btn : '我知道了',
+					shadeClose : false,
+					yes : function(index) {
+						history.back();
+					}
+				});
+			}
+		});
+	}
+
+	// 提交订单信息(货到付款)
+	function fnGenOrder() {
+		var index = layer.open({
+			shadeClose : false,
+			type : 2
+		});
+		var arr = fnArr();
+		// 		var Tamount = $(".Tamount");
+		// 		var arr = new Array();
+		// 		// 将所有信息封装到obj内
+		// 		for (var i = 0; i < allInfo.cartinfolist.length; i++) {
+		// 			var obj = new Object();
+		// 			var goodsidarray = [];
+		// 			var goodsqtyarray = [];
+		// 			var pricearray = [];
+		// 			var goodstype = [];
+		// 			var singlereduce = [];
+		// 			obj.entryid = allInfo.cartinfolist[i].entryid;
+		// 			obj.rtlamount = Tamount[i].innerHTML;
+		// 			obj.receivename = $(".receivename").html();
+		// 			obj.phonenumber = $(".mobile").html();
+		// 			obj.memberid = user.memberid;
+		// 			obj.address = $(".text").html();
+		// 			obj.appreceiveaddressid = $(".appreceiveaddressid").html();
+		// 			obj.shopid = allInfo.cartinfolist[i].shopid;
+		// 			obj.shopname = allInfo.cartinfolist[i].shopname;
+		// 			for (var k = 0; k < sparr.length; k++) {
+		// 				var info = sparr[k].split(",");
+		// 				if (allInfo.cartinfolist[i].shopid == info[0]) {
+		// 					obj.wholereduce = info[4];
+		// 				}
+		// 			}
+		// 			// 代金券金额
+		// 			obj.publishamount = $(".coupon .amount").html();
+		// 			// 代金券ID
+		// 			obj.couponid = $(".coupon .couponid").val();
+		// 			for (var j = 0; j < allInfo.cartinfolist[i].goodsinfolist.length; j++) {
+		// 				goodsidarray.push(allInfo.cartinfolist[i].goodsinfolist[j].goodsid);
+		// 				goodsqtyarray.push(allInfo.cartinfolist[i].goodsinfolist[j].goodsqty);
+		// 				pricearray.push(allInfo.cartinfolist[i].goodsinfolist[j].price);
+		// 				goodstype.push("0");
+		// 				for (var l = 0; l < sparr.length; l++) {
+		// 					var infos = sparr[l].split(",");
+		// 					if (allInfo.cartinfolist[i].shopid == infos[0]
+		// 						&& allInfo.cartinfolist[i].goodsinfolist[j].goodsid == infos[1]) {
+		// 						singlereduce.push(infos[5]);
+		// 					}
+		// 				}
+		// 			}
+		// 			// 将加价购商品加入到订单信息里
+		// 			var wholemarkup = $(".shop_" + allInfo.cartinfolist[i].shopid + " .wholemarkup");
+		// 			var singlemarkup = $(".shop_" + allInfo.cartinfolist[i].shopid + " .singlemarkup");
+		// 			if (wholemarkup[0].innerHTML != "") {
+		// 				goodsidarray.push(wholemarkup[0].getElementsByClassName("presentid")[0].innerHTML);
+		// 				goodsqtyarray.push(wholemarkup[0].getElementsByClassName("presentqty")[0].innerHTML);
+		// 				pricearray.push(wholemarkup[0].getElementsByClassName("addprice")[0].innerHTML);
+		// 				// 				goodstype.push("1");
+		// 				if (wholemarkup[0].getElementsByClassName("addprice")[0].innerHTML == 0) {
+		// 					goodstype.push("3")
+		// 				} else {
+		// 					goodstype.push("1");
+		// 				}
+		// 				singlereduce.push("");
+		// 			}
+		// 			for (k = 0, count = singlemarkup.length; k < count; k++) {
+		// 				if (singlemarkup[k].innerHTML != "") {
+		// 					goodsidarray.push(singlemarkup[k].getElementsByClassName("presentid")[0].innerHTML);
+		// 					goodsqtyarray.push(singlemarkup[k].getElementsByClassName("presentqty")[0].innerHTML);
+		// 					pricearray.push(singlemarkup[k].getElementsByClassName("addprice")[0].innerHTML);
+		// 					goodstype.push("1");
+		// 					if (singlemarkup[k].getElementsByClassName("addprice")[0].innerHTML == 0) {
+		// 						goodstype.push("3");
+		// 					} else {
+		// 						goodstype.push("1");
+		// 					}
+		// 				// 					singlereduce.push("");
+		// 				}
+		// 			}
+		// 			obj.goodsid = goodsidarray;
+		// 			obj.goodsqty = goodsqtyarray;
+		// 			obj.price = pricearray;
+		// 			obj.goodstype = goodstype;
+		// 			obj.singlereduce = singlereduce;
+		// 			arr.push(JSON.stringify(obj));
+		// 		}
+
+		$.ajax({
+			url : ip() + 'balanceaccounts.do',
+			type : "post",
+			traditional : true,
+			data : {
+				array : arr,
+				totalamount : totalamount,
+				openid : user.wxopenid,
+				couponarr : couponarr,
+				paymethod : $(".pay .methodtype").val()
+			},
+			dataType : "json",
+			success : function(data) {
+				layer.close(index);
+				// 判断订单是否成功
+				if (data.errormsg == null || data.errormsg == "") {
+					layer.open({
+						content : "订单提交成功!",
+						btn : '我知道了',
+						shadeClose : false,
+						yes : function(index) {
+							window.location.href = "afterpay.html";
+						}
+					});
+				} else {
+					layer.open({
+						content : data.errormsg,
+						btn : '我知道了',
+						shadeClose : false,
+						yes : function(index) {
+							history.back();
+						}
+					});
+				}
+			},
+		});
+	}
+
+	// 组建传入后台数据数组
+	function fnArr() {
+		var Tamount = $(".Tamount");
+		var arr = new Array();
+		// 将所有信息封装到obj内
+		for (var i = 0; i < allInfo.cartinfolist.length; i++) {
+			var obj = new Object();
+			var goodsidarray = [];
+			var goodsqtyarray = [];
+			var pricearray = [];
+			var goodstype = [];
+			var singlereduce = [];
+			obj.entryid = allInfo.cartinfolist[i].entryid;
+			obj.rtlamount = Tamount[i].innerHTML;
+			obj.receivename = $(".receivename").html();
+			obj.phonenumber = $(".mobile").html();
+			obj.memberid = user.memberid;
+			obj.address = $(".text").html();
+			obj.appreceiveaddressid = $(".appreceiveaddressid").html();
+			obj.shopid = allInfo.cartinfolist[i].shopid;
+			obj.shopname = allInfo.cartinfolist[i].shopname;
+			for (var k = 0; k < sparr.length; k++) {
+				var info = sparr[k].split(",");
+				if (allInfo.cartinfolist[i].shopid == info[0]) {
+					obj.wholereduce = info[4];
+				}
+			}
+
+			// 代金券金额
+			obj.publishamount = $(".coupon .amount").html();
+			// 代金券ID
+			obj.couponid = $(".coupon .couponid").val();
+			// goodstype (0正常商品,1加价购商品,3赠品)
+			for (var j = 0; j < allInfo.cartinfolist[i].goodsinfolist.length; j++) {
+				goodsidarray.push(allInfo.cartinfolist[i].goodsinfolist[j].goodsid);
+				goodsqtyarray.push(allInfo.cartinfolist[i].goodsinfolist[j].goodsqty);
+				pricearray.push(allInfo.cartinfolist[i].goodsinfolist[j].price);
+				goodstype.push("0");
+				for (var l = 0; l < sparr.length; l++) {
+					var infos = sparr[l].split(",");
+					if (allInfo.cartinfolist[i].shopid == infos[0]
+						&& allInfo.cartinfolist[i].goodsinfolist[j].goodsid == infos[1]) {
+						singlereduce.push(infos[5]);
+					}
+				}
+			}
+
+			// 将 加价购商品/赠品 加入到订单信息里
+			var wholemarkup = $(".shop_" + allInfo.cartinfolist[i].shopid + " .wholemarkup");
+			var singlemarkup = $(".shop_" + allInfo.cartinfolist[i].shopid + " .singlemarkup");
+			if (wholemarkup[0].innerHTML != "") {
+				goodsidarray.push(wholemarkup[0].getElementsByClassName("presentid")[0].innerHTML);
+				goodsqtyarray.push(wholemarkup[0].getElementsByClassName("presentqty")[0].innerHTML);
+				pricearray.push(wholemarkup[0].getElementsByClassName("addprice")[0].innerHTML);
+				if (wholemarkup[0].getElementsByClassName("addprice")[0].innerHTML == 0) {
+					goodstype.push("3")
+				} else {
+					goodstype.push("1");
+				}
+				singlereduce.push("");
+			}
+			for (k = 0, count = singlemarkup.length; k < count; k++) {
+				if (singlemarkup[k].innerHTML != "") {
+					goodsidarray.push(singlemarkup[k].getElementsByClassName("presentid")[0].innerHTML);
+					goodsqtyarray.push(singlemarkup[k].getElementsByClassName("presentqty")[0].innerHTML);
+					pricearray.push(singlemarkup[k].getElementsByClassName("addprice")[0].innerHTML);
+					if (singlemarkup[k].getElementsByClassName("addprice")[0].innerHTML == 0) {
+						goodstype.push("3");
+					} else {
+						goodstype.push("1");
+					}
+					singlereduce.push("");
+				}
+			}
+
+			obj.goodsid = goodsidarray;
+			obj.goodsqty = goodsqtyarray;
+			obj.price = pricearray;
+			obj.goodstype = goodstype;
+			obj.singlereduce = singlereduce;
+			arr.push(JSON.stringify(obj));
+		}
+		return arr;
+	}
+
+	// 数组去除重复数据
+	function unique(arr) {
+		var temp = {},
+			len = arr.length;
+		for (var i = 0; i < len; i++) {
+			var tmp = arr[i];
+			if (!temp.hasOwnProperty(tmp)) { //hasOwnProperty用来判断一个对象是否有你给出名称的属性或对象
+				temp[arr[i]] = "yes";
+			}
+		}
+		len = 0;
+		var tempArr = [];
+		for (var i in temp) {
+			tempArr[len++] = i;
+		}
+		return tempArr;
+	}
+
+	// 设置显示隐藏域用来后期判断支付形式 1线上支付2货到付款
+	function fnSetPay(mode, this_) {
+		$(".mode").css("border-color", "#BFBFBF");
+		$(this_).css("border-color", "#ff0000");
+		if (parseInt(mode) == 1) {
+// 			$(".coupon").css("display", "block");
+			$(".pay .methodtype").val("1");
+		} else {
+			$(".pay .methodtype").val("2");
+// 			$(".coupon").css("display", "none");
+// 			$(".coupon .text").html("还未选择票券");
+// 			$(".amount").html("");
+// 			$(".table .Tamount_P").html(totalamount.toFixed(2));
+// 			$(".table .amount").html("0");
+// 			$(".totalamount").html(totalamount.toFixed(2));
+		}
+	}
+
+	// 选择优惠券
+	function fnChooseCoupon() {
+		var index = layer.open({
+			shadeClose : false,
+			type : 2
+		});
+		$(".box").css({
+			"display" : "block",
+			"position" : "fixed",
+			"top" : "0px",
+			"left" : "0px",
+			"overflow" : "auto",
+		});
+		$
+			.ajax({
+				url : ip() + 'querycoupon.do',
+				type : "post",
+				data : {
+					memberid : user.memberid
+				},
+				dataType : "json",
+				success : function(data) {
+					var str = "";
+					if (data.length <= 0) {
+						str = "您还没有票券哦";
+					} else {
+						for (var i = 0; i < data.length; i++) {
+							if (parseFloat(data[i].publishamount) >= parseFloat($("footer .panel .totalamount")
+									.html())) {
+								str += '<div style="line-height:40px;margin:5px;padding:0 10px 0 0;background:#fff;" onclick="fnCoupon(-1,-1);">';
+								str += '<div style="display:inline-block;background:#bfbfbf;width:120px;text-align:center">'
+									+ data[i].publishamount + '元票券</div>';
+								str += '<div style="display:inline-block;float:right;font-size:12px;">有效期:'
+									+ data[i].validdate + '</div>';
+								str += '</div>';
+
+							} else {
+								str += '<div style="line-height:40px;margin:5px;padding:0 10px 0 0;background:#fff;" onclick="fnCoupon('
+									+ data[i].couponid + ',' + data[i].publishamount + ');">';
+								str += '<div style="display: inline-block;background:#74d2d4;width:120px;text-align:center">'
+									+ data[i].publishamount + '元票券</div>';
+								str += '<div style="display: inline-block;float:right;font-size:12px;">有效期:'
+									+ data[i].validdate + '</div>';
+								str += '</div>';
+
+							}
+						}
+						str += "<div style='line-height:40px;margin:5px;background:#fff;text-align:center' onclick='fnCoupon();'>不使用票券</div>";
+					}
+					$(".couponcontent").html(str);
+					layer.close(index);
+				},
+				error : function(data) {}
+			});
+	}
+
+	// 票券赋值
+	function fnCoupon(couponid, publishamount) {
+		event.stopPropagation();
+		if (couponid == undefined || couponid == "undefined") {
+			$(".totalamount").html(totalamount.toFixed(2));
+			$(".table .Tamount_P").html(totalamount.toFixed(2));
+			$(".coupon .amount").html("");
+			$(".table .amount").html("0.00");
+			$(".coupon .text").html("还未选择票券");
+			$(".coupon .couponid").val("");
+			$(".box").css("display", "none");
+		} else if (parseFloat(couponid) == -1) {
+			layer.open({
+				content : '票券金额不能大于实际金额',
+				skin : 'msg',
+				time : 2
+			});
+		} else {
+			$(".totalamount").html((parseFloat(totalamount) - parseFloat(publishamount)).toFixed(2));
+			$(".table .Tamount_P").html((parseFloat(totalamount) - parseFloat(publishamount)).toFixed(2));
+			$(".table .amount").html(publishamount);
+			$(".coupon .amount").html(publishamount);
+			$(".coupon .text").html("元票券");
+			$(".coupon .couponid").val(couponid);
+			$(".box").css("display", "none");
+		}
+	}
+
+	// 点击关闭弹窗阴影
+	$(".box").click(function() {
+		$(this).css("display", "none");
+		$(".box .couponcontainer").click(function() {
+			event.stopPropagation(); //阻止事件向上冒泡
+		});
+	});
+</script>
+</html>

@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title></title>
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Cache-control" content="no-cache">
+<meta http-equiv="Cache" content="no-cache">
+<meta charset="UTF-8">
+<meta name="viewport"
+	content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0" />
+<style type="text/css">
+body {
+	background: #fff;
+}
+
+.activitytitle {
+	font-size: 15px;
+	width: 65px;
+}
+
+.eventdesc {
+	margin: 5px 0px 20px;
+	-webkit-animation: myfirst .5s linear 0s infinite alternate;
+	line-height: 1.5em;
+	font-size: 14px;
+}
+</style>
+</head>
+<body>
+	<div>
+		<div class="activitytitle">活动说明:</div>
+		<div>
+			<div class="eventdesc"></div>
+			<div class="picture"></div>
+		</div>
+	</div>
+	<div id="container">
+		<script type="text/template" id="content">
+			{{for(var i=0;i< it.piclist.length;i++) { }}
+			<img src="http://{{=it.folderpath}}/ecpic/eventpic/{{=it.eventid}}/{{=it.piclist[i]}}" style="width:100%;height:auto;">
+			</div>
+			{{ } }}
+		</script>
+	</div>
+	<script type="text/javascript" src="../js/jquery-3.1.1.min.js"></script>
+	<script type="text/javascript" src="../js/config.js"></script>
+	<script type="text/javascript" src="../js/doT.min.js"></script>
+	<script type="text/javascript" src="../js/layer/mobile/layer.js"></script>
+	<script type="text/javascript">
+		var paths = [];
+		$(document).ready(function() {
+			$('title').html(titleName());
+			var eventid = decodeURI(getParameter("eventid"));
+			fnGetEvevt(eventid);
+		});
+	
+		// 特殊监听返回
+		listenback();
+	
+		// 获取活动详情信息
+		function fnGetEvevt(eventid) {
+			var index = layer.open({
+				shadeClose : false,
+				type : 2
+			});
+			$.ajax({
+				url : ip() + "event.do",
+				type : "post",
+				data : {
+					eventid : eventid
+				},
+				dataType : "json",
+				success : function(data) {
+					$("#container").html(doT.template($("#content").text())(data));
+					$('title').html(data.eventname);
+					$(".eventdesc").html(data.eventdesc);
+					$(".eventdesc").css("padding-left", "60px");
+// 					var str = "";
+// 					if (data.piclist.length > 0) {
+// 						for (var i = 0; i < data.piclist.length; i++) {
+// 							paths[i] = ip() + 'eventpic.do?eventid=' + data.eventid + '&name=' + data.piclist[i];
+// 							str += '<div onclick="fnActivity(\'' + data.linktype + '\',\'' + data.deflink + '\',\''
+// 								+ data.goodsid + '\',\'' + data.eventid + '\',\'' + data.goodsname + '\')">';
+// 							str += '<img src="' + paths[i] + '" style="width:100%;height:auto;">';
+// 							str += '</div>';
+// 						}
+// 					}
+// 					$(".picture").html(str);
+					layer.close(index);
+				}
+			});
+		}
+	
+		//活动详情跳转
+		function fnActivity(linktype, deflink, goodsid, eventid, goodsname) {
+			var url = "";
+			switch (linktype) {
+			// 商品
+			case "1":
+				url = "goodslist.html?goodsid=" + goodsid + "&goodsname=" + encodeURIComponent(goodsname)
+					+ "&htmlflag=0";
+				window.top.location = url;
+				break;
+			// 活动页
+			case "2":
+				url = encodeURI("activepage.html?eventid=" + eventid);
+				window.top.location = url;
+				break;
+			// 自定义
+			case "3":
+				if (deflink != "") {
+					url = deflink;
+					window.top.location = url;
+				}
+				break;
+			default:
+			}
+		}
+	</script>
+</body>
+</html>

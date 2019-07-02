@@ -1,0 +1,533 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>积分兑换</title>
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Cache-control" content="no-cache">
+<meta http-equiv="Cache" content="no-cache">
+<meta charset="utf-8">
+<meta name="viewport"
+	content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0" />
+<meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+<link rel="stylesheet" type="text/css" href="../../css/styles.css">
+<link rel="stylesheet" href="../../css/bootstrap.min.css">
+<link rel="stylesheet" type="text/css" href="../../css/layui.css">
+<style type="text/css">
+body, html {
+	background: #F8F8FF;
+}
+
+.layui-tab-title {
+	width: 100%;
+	position: fixed;
+	top: 40px;
+	background: #fff;
+	z-index: 999;
+}
+
+.layui-tab-content {
+	position: relative;
+	top: 80px;
+}
+
+.layui-tab-title li {
+	width: 40%;
+	margin: 0px 10px;
+}
+
+.integral_title {
+	width: 100%;
+	height: 45px;
+	line-height: 45px;
+	background: #F0FFFF;
+	margin-bottom: 5px;
+	position: fixed;
+	top: 0px;
+	z-index: 999;
+}
+
+.back {
+	display: inline-block;
+	width: 20px;
+	height: 40px;
+	line-height: 40px;
+	background: url(../../image/back.png) no-repeat center;
+	background-size: auto 20px;
+	vertical-align: middle;
+	padding-left: 20px;
+}
+
+.memtypename {
+	color: #EE5C42;
+}
+
+.coupodsnoused {
+	height: 90px;
+	padding: 0px 10%;
+	margin: 13px 0px;
+	background: #FFFFFF;
+	overflow: hidden;
+}
+
+.coupodsnoused .integral_l {
+	float: left;
+	width: 40%;
+	height: 100%;
+	line-height: 66px;
+	background: #74d2d4;
+	text-align: center;
+	position: relative;
+}
+
+.integral_l_pic {
+	width: 40px;
+	height: 13px;
+	margin: 0px auto;
+	position: relative;
+	left: -46%;
+	top: 41%;
+	background: url("../../image/membericon.png");
+	background-position: -1px 72px;
+	transform: rotate(-90deg);
+}
+
+/* 设置代金券金额 */
+.integral_l_con {
+	/* 	position: relative; */
+	/* 	bottom: 5px; */
+	/* 	margin-top:15px; */
+	
+}
+
+.integral_l_con sub {
+	color: #fff;
+	font-size: 28px;
+}
+
+.integral_l_con span {
+	color: #fff;
+	font-size: 30px;
+}
+
+.integral_l_flag {
+	height: 100%;
+	width: 8px;
+	background: url("../../image/membericon.png");
+	background-position: -305px 340px;
+	position: absolute;
+	top: 0px;
+	right: 0px;
+}
+
+.coupodsnoused .integral_r {
+	float: right;
+	width: 59%;
+	height: 100%;
+	position: relative;
+	left: 15px;
+	top: 5px;
+}
+
+.integral_r div {
+	height: 26px;
+	line-height: 26px;
+	color: #666;
+	font-size: 13px;
+}
+
+.integral_r .integral_r_date {
+	font-size: 10px;
+}
+
+.integral_r_used {
+	display: inline-block;
+	width: 65px;
+	height: 35px;
+	line-height: 35px;
+	border: 1px solid #87CEEB;
+	border-radius: 35px;
+	text-align: center;
+	font-size: 12px;
+	position: absolute;
+	bottom: 15px;
+	right: 0px;
+}
+
+.integral_goods {
+	color: #666;
+	font-size: 12px;
+	line-height: 20px;
+	background: #fff;
+	margin: 4px 0px;
+	padding: 10px 10px 0px;
+	display: flex;
+	justify-content: flex-start;
+	flex-flow: row nowrap;
+}
+
+.integral_goods_pic {
+	width: 70px;
+	height: 70px;
+	background: url(../../image/logo.png);
+	margin-right: 20px;
+	background-size: 70px 70px;
+}
+
+.integral_goods_name {
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+
+.integral_goods_factoryname {
+	overflow: hidden;
+	text-overflow: ellipsis;
+	display: -webkit-box;
+	-webkit-box-orient: vertical;
+	-webkit-line-clamp: 2;
+}
+
+.integral_goods_point {
+	color: #FF4040;
+}
+
+.push-status {
+	width: 100%;
+	height: 40px;
+	font-size: 16px;
+	color: #888;
+	line-height: 40px;
+	text-align: center;
+	background-color: #fff;
+}
+
+.return-top {
+	width: 40px;
+	height: 40px;
+	background-image: url(../../image/return_top.png);
+	background-repeat: no-repeat;
+	background-size: 40px 40px;
+	position: fixed;
+	bottom: 0px;
+	right: 10px;
+	cursor: pointer;
+	display: none;
+}
+
+.active {
+	display: block;
+}
+</style>
+</head>
+<body>
+	<div class="integral_title">
+		<div class="integral_con">
+			<span class="back" onclick="javaScript:history.back()"></span>
+			<span>
+				尊敬的
+				<span class="memtypename"></span>
+				用户，您当前积分:
+				<span class="integral"></span>
+			</span>
+		</div>
+	</div>
+	<div class="layui-tab layui-tab-brief" lay-filter="docDemoTabBrief">
+		<ul class="layui-tab-title">
+			<li class="layui-this">代金券兑换</li>
+			<li id="show" class="">礼品兑换</li>
+		</ul>
+		<div class="layui-tab-content">
+			<div class="layui-tab-item layui-show" id="container">
+				<script type="text/template" charset="utf-8" id="content">
+				{{for(var i=0;i<it.length; i++){}}
+				<div class="coupodsnoused">
+					<div class="integral_l">
+						<div class="integral_l_pic"></div>
+						<div class="integral_l_con">
+							<sub>￥</sub><span>{{=it[i].publishamount}}</span>
+						</div>
+						<div class="integral_l_flag"></div>
+					</div>
+					<div class="integral_r">
+						<div class="integral_r_shop">
+							代金券类型:<span class="integraltype">{{=it[i].keyname}}</span> 
+						</div>
+						<div class="integral_r_id">
+							使用积分:<span>{{=it[i].coupondeductpoint}}</span>
+						</div>
+						<div class="integral_r_date">
+							有效期:<span class="credate">{{=it[i].validdate}}天</span>
+							<span class="integral_r_used" onclick="fnRedeemIntegral({{=it[i].cashcouponsubid}},{{=it[i].coupondeductpoint}},{{=it[i].publishamount}},'{{=it[i].userange}}')">立即兑换</span>
+						</div>
+					</div>
+				</div>
+				{{ } }}
+				</script>
+			</div>
+			<div class="layui-tab-item" style="margin-top:10px">
+				<div class="container-fluid">
+					<div style="color:#FF4500;font-size:12px;width:100%;text-align:center;">暂不支持线上礼品兑换,请以实体店为准</div>
+					<section id="list"></section>
+					<div class="row" id="container1">
+						<script type="text/template" charset="utf-8" id="content1">
+						{{for(var i=0;i<it.length; i++){}}
+						<div class="col-xs-12 integral_goods">
+							{{ if(it[i].picname != ""){ }}
+							<div class="integral_goods_pic" style="background:url(http://{{=it[i].folderpath}}/ecpic/ecgoodspic/{{=it[i].goodsid}}/{{=it[i].picname}});background-size:70px 70px;"></div>
+							{{ }else{ }}
+							<div class="integral_goods_pic"></div>
+							{{ } }}
+							<div>
+							<div class="integral_goods_name">{{=it[i].goodsname}}</div>
+							<div class="integral_goods_spec">{{=it[i].goodsspecs}}/{{=it[i].basepackname}}/{{=it[i].goodsid}}</div>
+							<div class="integral_goods_factoryname">{{=it[i].factoryname}}</div>
+							<div >兑换积分:<span class="integral_goods_point">{{=it[i].goodsdeductpoint}}</span></div>
+							</div>
+						</div>
+						{{ } }}
+						</script>
+					</div>
+					<div class="push-status" id="pushStatus" onclick="fnGetIntegralGoodsInfo(true)">点击显示更多</div>
+					<div class="return-top" onclick="fnReturnTop()"></div>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+<script type="text/javascript" src="../../js/jquery-3.1.1.min.js"></script>
+<script type="text/javascript" src="../../js/config.js"></script>
+<script type="text/javascript" src="../../js/doT.min.js"></script>
+<script type="text/javascript" src="../../js/layer/mobile/layer.js"></script>
+<script type="text/javascript" src="../../layui/layui.js"></script>
+<script type="text/javascript">
+	var memberid,
+		integral,
+		membertypename,
+		curpoint;
+	$(document).ready(function() {
+		memberid = decodeURI(getParameter("memberid"));
+		integral = decodeURI(getParameter("integral"));
+		membertypename = decodeURI(getParameter("membertypename"));
+		$(".integral").html(integral);
+		$(".memtypename").html(membertypename);
+		fnGetIntegralInfo();
+		fnGetIntegralGoodsInfo(false);
+	});
+
+	backrefresh();
+	// 特殊监听返回
+	listenback();
+
+	//tab样式及点击切换
+	layui.use('element', function() {});
+
+	//查询可以兑换的代金券
+	function fnGetIntegralInfo() {
+		$.ajax({
+			url : ip() + 'getintegralinfo.do',
+			type : "post",
+			data : {
+
+			},
+			dataType : "json",
+			success : function(data) {
+				console.log(data);
+				$("#container").html(doT.template($("#content").text())(data));
+			}
+		});
+	}
+
+	//点击立即兑换
+	function fnRedeemIntegral(cashcouponsubid, coupondeductpoint, publishamount, userange) {
+		var integral = $(".integral").html();
+		layer.open({
+			content : '您确定要兑换' + publishamount + '元代金券吗？',
+			btn : [ '确定', '取消' ],
+			shadeClose : false,
+			yes : function(index) {
+				var index1 = layer.open({
+					shadeClose : false,
+					type : 2
+				});
+				layer.close(index);
+				if (parseInt(integral) < parseInt(coupondeductpoint)) {
+					layer.open({
+						content : '可兑换积分小于代金券兑换积分，请重新选择！',
+						skin : 'msg',
+						time : 2
+					});
+					layer.close(index1);
+				} else {
+					integral = parseInt(integral) - parseInt(coupondeductpoint);
+					$.ajax({
+						url : ip() + 'exchangeintegral.do',
+						type : "post",
+						data : {
+							cashcouponsubid : cashcouponsubid,
+							memberid : memberid,
+							userange : userange
+						},
+						dataType : "json",
+						success : function(data) {
+							if (data.resultflag == 1) {
+								layer.open({
+									content : '兑换成功!',
+									skin : 'msg',
+									time : 2
+								});
+								$(".integral").html(integral);
+							} else {
+								layer.open({
+									content : '兑换失败!',
+									skin : 'msg',
+									time : 2
+								});
+								location.reload();
+							}
+							fnGetUserInfo();
+							layer.close(index1);
+						},
+						error : function() {
+							location.reload();
+						}
+					});
+				}
+			},
+			no : function() {
+				return false;
+			}
+		});
+	}
+	// 获取微信用户信息
+	function fnGetUserInfo() {
+		$.ajax({
+			url : ip() + 'getuser.do',
+			type : "post",
+			data : {},
+			dataType : "json",
+			success : function(data) {
+				window.localStorage.setItem("user", JSON.stringify(data));
+				$(".integral").html(data.curpoint);
+			}
+		});
+	}
+
+	//------------回到顶部start-------------
+	window.onscroll = function() {
+		//sTop :滚动条距离顶部的距离数值
+		var sTop = document.body.scrollTop || document.documentElement.scrollTop;
+		if (sTop > 200) {
+			$(".return-top").addClass("active");
+		} else {
+			$(".return-top").removeClass("active");
+		}
+	};
+	// 回到顶部
+	function fnReturnTop() {
+		$("html,body").animate({
+			scrollTop : 0
+		}, 100);
+	}
+	//------------回到顶部end-------------
+
+	//-----------滑动到底部自动加载start-------------
+	//文档高度
+	function getDocumentTop() {
+		var scrollTop = 0,
+			bodyScrollTop = 0,
+			documentScrollTop = 0;
+		if (document.body) {
+			bodyScrollTop = document.body.scrollTop;
+		}
+		if (document.documentElement) {
+			documentScrollTop = document.documentElement.scrollTop;
+		}
+		scrollTop = (bodyScrollTop - documentScrollTop > 0) ? bodyScrollTop : documentScrollTop;
+		return scrollTop;
+	}
+	//可视窗口高度
+	function getWindowHeight() {
+		var windowHeight = 0;
+		if (document.compatMode == "CSS1Compat") {
+			windowHeight = document.documentElement.clientHeight;
+		} else {
+			windowHeight = document.body.clientHeight;
+		}
+		return windowHeight;
+	}
+	//滚动条滚动高度
+	function getScrollHeight() {
+		var scrollHeight = 0,
+			bodyScrollHeight = 0,
+			documentScrollHeight = 0;
+		if (document.body) {
+			bodyScrollHeight = document.body.scrollHeight;
+		}
+		if (document.documentElement) {
+			documentScrollHeight = document.documentElement.scrollHeight;
+		}
+		scrollHeight = (bodyScrollHeight - documentScrollHeight > 0) ? bodyScrollHeight : documentScrollHeight;
+		return scrollHeight;
+	}
+	$(window).scroll(function() {
+		//监听事件内容
+		if (getScrollHeight() == (getWindowHeight() + getDocumentTop())) {
+			//当滚动条到底时,这里是触发内容
+			//异步请求数据,局部刷新dom
+			if ($("#show").attr("class").length != 0) {
+				fnGetIntegralGoodsInfo(true);
+			}
+		}
+	});
+	//-----------滑动到底部自动加载end-------------
+
+	//获取本会员类型可以兑换的礼品
+	var skip = 0,
+		LIMIT = 6;
+	function fnGetIntegralGoodsInfo(loadMore_) {
+		var index = layer.open({
+			shadeClose : false,
+			type : 2
+		});
+		if (loadMore_) {
+			skip += LIMIT;
+		} else {
+			skip = 0;
+		}
+		$.ajax({
+			url : ip() + 'getintegralgoodsinfo.do',
+			type : "post",
+			data : {
+				"skip" : skip,
+				"limit" : LIMIT,
+				"memberid" : memberid
+			},
+			dataType : "json",
+			success : function(data) {
+				var resultHTML = doT.template($("#content1").text())(data);
+				if (data.length < LIMIT) {
+					$("#pushStatus").html("没有啦");
+				}
+				if (loadMore_) {
+					$("#list").append(resultHTML);
+					layer.close(index);
+				} else {
+					$("#list").html(resultHTML.toString());
+					layer.close(index);
+				}
+
+			// 				var goodspic = document.getElementsByClassName("integral_goods_pic");
+			// 				for (var i = 0; i < data.length; i++) {
+			// 					if (data[i].picname == null || data[i].picname == "") {
+			// 					} else {
+			// 						var path = ip() + 'goodspic.do?goodsid=' + data[i].goodsid + '&name=' + data[i].picname;
+			// 						goodspic[i].style.background = "url(" + path + ")";
+			// 					}
+			// 					goodspic[i + skip].style.backgroundRepeat = "no-repeat";
+			// 					goodspic[i + skip].style.backgroundSize = "70px 70px";
+			// 				}
+			}
+		});
+	}
+</script>
+</html>

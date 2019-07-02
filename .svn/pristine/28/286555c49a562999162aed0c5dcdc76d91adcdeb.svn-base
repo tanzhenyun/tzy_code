@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Cache-control" content="no-cache">
+<meta http-equiv="Cache" content="no-cache">
+<meta charset="UTF-8">
+<meta name="viewport"
+	content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0" />
+<meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+<!-- <link rel="stylesheet" type="text/css" href="../css/styles.css" /> -->
+<title>搜索</title>
+<style>
+html, body {
+	background-color: #FFF;
+	margin: 0px;
+	padding: 0px;
+	overflow-x: hidden;
+}
+
+.back {
+	display: inline-block;
+	width: 20px;
+	height: 40px;
+	line-height: 40px;
+	background: url(../image/back.png) no-repeat center;
+	background-size: auto 20px;
+	vertical-align: middle;
+}
+
+#list {
+	margin-top: 48px;
+	overflow: hidden
+}
+
+.push-status {
+	height: 30px;
+	line-height: 30px;
+	text-align: center;
+	font-size: 15px;
+	display: none;
+}
+
+.content {
+	display: flex;
+	width: 100%;
+	-webkit-justify-content: flex-start;
+	-webkit-align-items: center;
+	flex-flow: row nowrap;
+	background: #F2F2F2;
+	border-bottom: 1px solid #2489C5;
+	padding: 12px 0px 5px 15px;
+}
+
+.content .searchpic {
+	width: 70px;
+	height: 70px;
+	background: url(../image/logo.png);
+	background-repeat: no-repeat;
+	background-size: 70px 70px;
+	margin-right: 15px;
+}
+
+.info {
+	width: 66%;
+}
+
+.info div {
+	height: 22px;
+	line-height: 22px;
+	font-size: 14px;
+}
+
+.info .name {
+	font-weight: bolder;
+}
+
+.info .factoryname, .info .name {
+	width: 100%;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+
+.return-top {
+	width: 40px;
+	height: 40px;
+	background-image: url(../image/return_top.png);
+	background-repeat: no-repeat;
+	background-size: 40px 40px;
+	position: fixed;
+	bottom: 20px;
+	right: 20px;
+	text-align: center;
+	cursor: pointer;
+	display: none;
+}
+
+.active {
+	display: block;
+}
+
+.hi {
+	display: none;
+}
+
+.header {
+	width: 100%;
+	padding: 5px 2%;
+	position: fixed;
+	top: 0px;
+	overflow: hidden;
+	background: #fff;
+	z-index: 9;
+}
+
+.header span {
+	float: left;
+}
+
+.s_input {
+	height: 36px;
+	width: 76%;
+}
+
+.s_btn {
+	width: 20%;
+	height: 36px;
+	border: 1px solid #38f;
+	background-color: #38f;
+}
+
+.searchInput {
+	width: 100%;
+	height: 18px;
+	padding: 18px 5px;
+	border: 1px solid #b8b8b8;
+	border-bottom: 1px solid #ccc;
+	border-right: 0;
+	vertical-align: top;
+	outline: none;
+	box-shadow: none;
+}
+
+.serchBtn {
+	color: white;
+	background-color: #38f;
+	width: 100%;
+	height: 36px;
+	font-size: 16px;
+	border: 0;
+}
+
+.ware {
+	position: relative;
+}
+
+.singlesp, .wholesp {
+	text-align: left;
+	color: #ff0000;
+	font-size: 10px;
+	padding: 5px 20px;
+	line-height: 12px;
+}
+
+.spinfo_content {
+	display: none;
+}
+
+.toggle {
+	margin: 0;
+	padding: 0;
+	/* 	background: #F2F2F2; */
+	/* 	border-top:1px dashed red; */
+	/* 	margin-bottom: 2px; */
+}
+
+.toggleinfo {
+	display: inline-block;
+	height: 20px;
+	line-height: 20px;
+	z-index: 999;
+	text-align: center;
+	font-size: 12px;
+	margin-left: 10px;
+	color: #FF69B4;
+}
+</style>
+</head>
+<body>
+	<div class="header">
+		<span class="s_input">
+			<input type="search" class="searchInput" placeholder="请输入商品名称/商品助记码">
+		</span>
+		<span class="s_btn">
+			<input type="submit" value="搜索" class="serchBtn" onclick="fnGetSearch(false);">
+		</span>
+	</div>
+	<section id="list"></section>
+	<div id="container">
+		<script type="text/template" id="template">
+				{{for(var i=0;i< it.length;i++) { }}
+				<div class="ware ware-1 ware_{{=it[i].goodsid}}" onclick="fnGoodsDetail('{{=it[i].shopid}}','{{=it[i].goodsid}}','{{=it[i].goodsname}}')">
+				<div class="content">
+				{{ if(it[i].picname != ""){ }}
+				<div class="searchpic" style="background:url(http://{{=it[i].folderpath}}/ecpic/ecgoodspic/{{=it[i].goodsid}}/{{=it[i].picname}});background-size:70px 70px;"></div>
+				{{ }else{ }}
+				<div class="searchpic"></div>
+				{{ } }}
+				<div class="info">
+				<div class="name"><span class="hi">{{=it[i].goodsid}}</span>{{=it[i].goodsname}}</div>
+				<div class="description">{{=it[i].goodsspecs}}/{{=it[i].basepackname}}/{{=it[i].goodsid}}</div>
+				<div class="description factoryname">{{=it[i].factoryname}}</div>
+				<div class="description">价格：{{=it[i].price}} 元
+				{{if(it[i].singlelist.length > 0 || it[i].wholelist.length > 0){ }}
+				<span class="toggleinfo">促销进行中,点击查看</span>
+				{{ } }}
+				</div>
+				</div>
+				</div>
+				
+
+				</div>
+				{{ } }}
+			</script>
+	</div>
+	<div class="push-status" onclick="fnGetSearch(true)">点击显示更多</div>
+	<div class="return-top" onclick="fnReturnTop()"></div>
+</body>
+<script type="text/javascript" src="../js/jquery-3.1.1.min.js"></script>
+<script type="text/javascript" src="../js/doT.min.js"></script>
+<script type="text/javascript" src="../js/config.js"></script>
+<script type="text/javascript" src="../js/layer/mobile/layer.js"></script>
+<script type="text/javascript">
+	document.onkeydown = function(event) {
+		var e = event || window.event || arguments.callee.caller.arguments[0];
+		if (e && e.keyCode == 13) { // enter 键
+			$("input").blur();
+			fnGetSearch(false, 1);
+		}
+	};
+
+	// 特殊监听返回
+	pushHistory();
+	window.addEventListener("popstate", function(e) {
+		window.location.href = "../index.html?flag=2";
+	}, false);
+	function pushHistory() {
+		var state = {
+			title : "title",
+			url : "#"
+		};
+		window.history.pushState(state, "title", "#");
+	}
+
+
+	//------------回到顶部start-------------
+	window.onscroll = function() {
+		//sTop :滚动条距离顶部的距离数值
+		var sTop = document.body.scrollTop || document.documentElement.scrollTop;
+		if (sTop > 200) {
+			$(".return-top").addClass("active");
+		} else {
+			$(".return-top").removeClass("active");
+		}
+	};
+	// 回到顶部
+	function fnReturnTop() {
+		$("html,body").animate({
+			scrollTop : 0
+		}, 100);
+	}
+	//------------回到顶部end-------------
+
+	//-----------滑动到底部自动加载start-------------
+	//文档高度
+	function getDocumentTop() {
+		var scrollTop = 0,
+			bodyScrollTop = 0,
+			documentScrollTop = 0;
+		if (document.body) {
+			bodyScrollTop = document.body.scrollTop;
+		}
+		if (document.documentElement) {
+			documentScrollTop = document.documentElement.scrollTop;
+		}
+		scrollTop = (bodyScrollTop - documentScrollTop > 0) ? bodyScrollTop : documentScrollTop;
+		return scrollTop;
+	}
+	//可视窗口高度
+	function getWindowHeight() {
+		var windowHeight = 0;
+		if (document.compatMode == "CSS1Compat") {
+			windowHeight = document.documentElement.clientHeight;
+		} else {
+			windowHeight = document.body.clientHeight;
+		}
+		return windowHeight;
+	}
+	//滚动条滚动高度
+	function getScrollHeight() {
+		var scrollHeight = 0,
+			bodyScrollHeight = 0,
+			documentScrollHeight = 0;
+		if (document.body) {
+			bodyScrollHeight = document.body.scrollHeight;
+		}
+		if (document.documentElement) {
+			documentScrollHeight = document.documentElement.scrollHeight;
+		}
+		scrollHeight = (bodyScrollHeight - documentScrollHeight > 0) ? bodyScrollHeight : documentScrollHeight;
+		return scrollHeight;
+	}
+	$(window).scroll(function() {
+		//监听事件内容
+		if (getScrollHeight() == (getWindowHeight() + getDocumentTop())) {
+			//当滚动条到底时,这里是触发内容
+			//异步请求数据,局部刷新dom
+			fnGetSearch(true);
+		}
+	});
+	//-----------滑动到底部自动加载end-------------
+
+	var word1,
+		skip = 0,
+		LIMIT = 10,
+		shopid,
+		shopname;
+	var goodsname,
+		goodsid;
+	$(function() {
+		shopid = getParameter("shopid");
+		shopname = getParameter("shopname");
+		var word = decodeURI(getParameter("word"));
+		if (word) {
+			$('input[type="search"]').val(word);
+			fnGetSearch(false);
+		}
+		$("#pushStatus").click(function() {
+			fnGetSearch(true);
+		});
+		var word1 = $('input[type="search"]').val();
+		if (word1) {
+			fnGetSearch(false);
+		}
+	});
+	// 获取商品列表，通过loadMore_参数区分是首次加载还是加载更多
+	function fnGetSearch(loadMore_, newflag) {
+		var index = layer.open({
+			shadeClose : false,
+			type : 2
+		});
+		var word = $('input[type="search"]').val();
+		if (word == "" || word == null) {
+			layer.close(index);
+			return;
+		} else {
+			// 如果是加载更多，需要实现分页
+			if (loadMore_ == true) {
+				skip += LIMIT;
+			} else {
+				skip = 0;
+				if (newflag == 1) {
+					var newurl = changeURLPar("word", word);
+					var stateObject = {};
+					history.replaceState(stateObject, "", newurl);
+				}
+			}
+			$
+				.ajax({
+					url : ip() + 'getshopsearch.do',
+					type : "post",
+					data : {
+						"skip" : skip,
+						"limit" : LIMIT,
+						"word" : word,
+						"shopid" : shopid
+					},
+					dataType : "json",
+					success : function(data) {
+						var result = doT.template($("#template").text())(data);
+						$(".push-status").css("display", "block");
+						if (data.length < LIMIT) {
+							$(".push-status").html("没有啦");
+						} else {
+							$(".push-status").html("点击显示更多");
+						}
+						if (loadMore_ == true) {
+							$("#list").append(result);
+							layer.close(index);
+						} else {
+							$("#list").html(result);
+							layer.close(index);
+						}
+
+// 						var searchpics = document.getElementsByClassName("searchpic");
+// 						for (var i = 0; i < data.length; i++) {
+// 							if (data[i].picname == null || data[i].picname == "") {
+// 								continue;
+// 							} else {
+// 								if (data[i].picname.indexOf("-") < 0) {
+// 									continue;
+// 								} else if (data[i].picname.split("-")[1].indexOf("s") >= 0
+// 									|| data[i].picname.split("-")[1].indexOf("S") >= 0) {
+// 									continue;
+// 								} else {
+// 									var path = ip() + 'goodspic.do?goodsid=' + data[i].goodsid + '&name='
+// 									+ data[i].picname;
+// 									searchpics[i + skip].style.background = "url(" + path + ")";
+// 								}
+// 							}
+// 							searchpics[i + skip].style.backgroundRepeat = "no-repeat";
+// 							searchpics[i + skip].style.backgroundSize = "70px 70px";
+// 						}
+					},
+					error : function(data) {
+						layer.close(index);
+					}
+				});
+		}
+	}
+
+	// 点击显示促销信息
+	function fnToggle(this_) {
+		$(this_).next().slideToggle("fast", function() {
+			if ($(this_).next().is(':hidden')) {
+				$(this_).find(".toggleimg").css("transform", "rotate(90deg)");
+			} else {
+				$(this_).find(".toggleimg").css("transform", "rotate(-90deg)");
+			}
+		});
+	}
+
+	function fnGoodsDetail(shopid, goodsid, goodsname) {
+		window.top.location = "goodsdetail.html?shopid=" + shopid + "&goodsid=" + goodsid + "&shopname=" + shopname
+		+ "&goodsname=" + goodsname + "&" + timestamp();
+	}
+</script>
+</html>

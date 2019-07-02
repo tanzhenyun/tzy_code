@@ -1,0 +1,1163 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title></title>
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Cache-control" content="no-cache">
+<meta http-equiv="Cache" content="no-cache">
+<meta charset="UTF-8">
+<meta name="viewport"
+	content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0" />
+<link rel="stylesheet" href="css/swiper.min.css">
+<style type="text/css">
+html, body {
+	background-color: #f2f2f2;
+	margin: 0px;
+	padding: 0px;
+	overflow-x: hidden;
+	color: #333;
+	position: relative;
+}
+
+.header {
+	width: 100%;
+	padding: 5px 2%;
+	position: fixed;
+	top: 0px;
+	overflow: hidden;
+	background: #fff;
+	z-index: 9;
+}
+
+.header span {
+	float: left;
+}
+
+.s_input {
+	height: 36px;
+	width: 79%;
+	margin-right: 5px;
+}
+
+.s_btn {
+	width: 16%;
+	height: 36px;
+	border: 1px solid #38f;
+	background-color: #38f;
+	border-radius: 36px;
+}
+
+.serchInput {
+	width: 100%;
+	height: 18px;
+	padding: 18px 5px;
+	border: 1px solid #b8b8b8;
+	vertical-align: top;
+	outline: none;
+	box-shadow: none;
+	border-radius: 10px;
+}
+
+.serchBtn {
+	color: white;
+	background-color: #38f;
+	width: 100%;
+	height: 36px;
+	line-height: 36px;
+	font-size: 16px;
+	border: 0;
+	border-radius: 36px;
+}
+
+#showpanel {
+	margin-top: 48px;
+	overflow: hidden;
+	position: relative;
+}
+
+.swiper-slide img {
+	width: 100%;
+	/* 	height: 100%; */
+}
+/* 返回顶部 */
+.return-top {
+	width: 40px;
+	height: 40px;
+	background-image: url(image/return_top.png);
+	background-repeat: no-repeat;
+	background-size: 40px 40px;
+	position: fixed;
+	bottom: 0px;
+	right: 10px;
+	cursor: pointer;
+	display: none;
+}
+
+.return-top.active {
+	display: block;
+}
+/* 常用功能 */
+.common_fun {
+	width: 100%;
+	min-height: 180px;
+	margin-top: 6px;
+	background: #B4EEB4;
+}
+
+.common_fun .common_f {
+	margin: 0px;
+	padding: 0px;
+	text-align: center;
+}
+
+.common_fun span {
+	font-size: 10px;
+}
+/* 家庭常用药 ,慢病用药区,健康生活区--通用样式*/
+.page_medicine {
+	width: 100%;
+	margin: 0px auto;
+	background: #F0F8FF;
+}
+
+.page_medicine .page_m_title {
+	width: 100%;
+	height: 40px;
+	line-height: 32px;
+	font-size: 16px;
+	color: #666;
+	background: #fff;
+	text-align: center;
+}
+
+.page_m_title .page_m_left, .page_m_title .page_m_right {
+	display: inline-block;
+	width: 20%;
+	border-bottom: 1px solid #ccc;
+	position: relative;
+	top: -5px;
+}
+
+.page_m_title .page_m_con {
+	display: inline-block;
+	width: 40%;
+}
+
+.hi {
+	display: none;
+}
+
+.activitypic {
+	width: 100%;
+	height: 200px;
+}
+
+.container_left {
+	width: 49%;
+	/* 	border: 1px solid #f5f5f5; */
+	position: absolute;
+	left: 0.5%;
+	background: #fff;
+	overflow: hidden;
+}
+
+.container_right {
+	width: 49%;
+	/* 	border: 1px solid #f5f5f5; */
+	position: absolute;
+	right: 0.5%;
+	background: #fff;
+	overflow: hidden;
+}
+
+.container_middle {
+	/* 	float: left; */
+	width: 99%;
+	/* 	border: 1px solid #f5f5f5; */
+	/* 	border-radius: 5px; */
+	position: absolute;
+	left: 0.5%;
+	background: #fff;
+	overflow: hidden;
+}
+
+.title_left, .title_right, .title_middle {
+	text-align: center;
+	color: #666;
+	/* 	height: 2rem; */
+	line-height: 2rem;
+	font-size: 14px;
+	border-bottom: 1px dashed #f5f5f5;
+}
+
+.page_left span, .page_right span, .page_middle span {
+	height: 100%;
+}
+
+.page_left .content, .page_right .content, .page_middle .content {
+	height: 100px;
+	width: 100%;
+	display: flex;
+	justify-content: space-between;
+}
+
+.little1 {
+	display: inline-block;
+	width: 100%;
+	overflow: hidden;
+}
+
+.little2 {
+	display: inline-block;
+	width: 47%;
+}
+
+.little3 {
+	display: inline-block;
+	width: 33%;
+}
+
+.little4 {
+	display: inline-block;
+	width: 25%;
+}
+
+.little5 {
+	display: inline-block;
+	width: 19%;
+}
+
+.little2:not(:first-child), .little3:not(:first-child), .little4:not(:first-child){
+	border-left: 1px solid #f5f5f5;
+}
+
+.swiper-container {
+	width: 100%;
+	height: 100%;
+}
+
+.swiper-slide {
+	text-align: center;
+	font-size: 18px;
+	background: #fff;
+	/* Center slide text vertically */
+	display: -webkit-box;
+	display: -ms-flexbox;
+	display: -webkit-flex;
+	display: flex;
+	-webkit-box-pack: center;
+	-ms-flex-pack: center;
+	-webkit-justify-content: center;
+	justify-content: center;
+	-webkit-box-align: center;
+	-ms-flex-align: center;
+	-webkit-align-items: center;
+	align-items: center;
+}
+
+/* 推荐 */
+.container, .container1 {
+	overflow: hidden;
+	position: relative;
+}
+
+.container .title {
+	display: none;
+}
+
+.container .title, .container1 .title {
+	position: relative;
+	color: #ff5000;
+	text-align: center;
+	background-color: #ffffff;
+	height: 35px;
+	line-height: 35px;
+	font-size: 17px;
+}
+
+.container .title .line, .container1 .title .line {
+	display: inline-block;
+	width: 140px;
+	height: 1px;
+	background: #ff5000;
+	position: absolute;
+	z-index: 1;
+	left: 50%;
+	top: 50%;
+	-webkit-transform: translate(-50%, -50%);
+	-ms-transform: translate(-50%, -50%);
+	transform: translate(-50%, -50%);
+}
+
+.container .title .text-wrapper, .container1 .title .text-wrapper {
+	position: relative;
+	z-index: 2;
+	display: inline-block;
+	padding: 0 8px;
+	background-color: #ffffff
+}
+
+.container .title .text-wrapper:before, .container .title .text-wrapper:after
+	{
+	content: '';
+	position: absolute;
+	background: #ff5000;
+	width: 3px;
+	height: 3px;
+	border-radius: 100%;
+	top: 50%;
+	-webkit-transform: translate(0, -50%);
+	-ms-transform: translate(0, -50%);
+	transform: translate(0, -50%);
+}
+
+.container1 .title .text-wrapper:before, .container1 .title .text-wrapper:after
+	{
+	content: '';
+	position: absolute;
+	background: #ff5000;
+	width: 3px;
+	height: 3px;
+	border-radius: 100%;
+	top: 50%;
+	-webkit-transform: translate(0, -50%);
+	-ms-transform: translate(0, -50%);
+	transform: translate(0, -50%);
+}
+
+.container .title .text-wrapper:before, .container1 .title .text-wrapper:before
+	{
+	left: -3px;
+}
+
+.container .title .text-wrapper:after, .container1 .title .text-wrapper:after
+	{
+	right: -3px;
+}
+
+.container #recommendpanel {
+	position: relative;
+	overflow: hidden;
+}
+
+.container #recommendpanel .goodsinfo {
+	float: left;
+	width: 50%;
+	height: 15rem;
+	box-sizing: border-box;
+	position: relative;
+	border: 1px solid #f5f5f5;
+	padding: .325rem .5rem;
+	background: #fff;
+}
+
+.container #recommendpanel .goodsinfo .goodspic {
+	width: 100%;
+	height: 88%;
+	background: url(image/logo.png);
+	background-size: 100%;
+	background-repeat: no-repeat;
+	overflow: hidden;
+}
+
+.container #recommendpanel .goodsinfo .goodsname {
+	padding: 0 10px;
+	height: 38px;
+	font-size: 13px;
+	overflow: hidden;
+	line-height: 38px;
+}
+
+.container1:after {
+	clear: both;
+}
+
+.container1 #eventpanel .eventinfo {
+	float: left;
+	width: 50%;
+	box-sizing: border-box;
+	position: relative;
+	height: 14rem;
+	border: 1px solid #f5f5f5;
+	padding: .325rem .5rem;
+	background: #fff;
+}
+
+.container1 #eventpanel .eventinfo .eventpic {
+	width: 100%;
+	height: 80%;
+	background: url(image/logo.png);
+	background-repeat: no-repeat;
+	background-size: 100%;
+	overflow: hidden;
+}
+
+.container1 #eventpanel .eventinfo .eventname {
+	padding: 0 10px;
+	height: 38px;
+	font-size: 15px;
+	overflow: hidden;
+	line-height: 38px;
+	text-align: center;
+}
+/*广告*/
+.mall_fixedad {
+	display: none;
+	position: fixed;
+	bottom: 0;
+	right: 0;
+	z-index: 305;
+	width: 100%;
+	height: 100%;
+	background: rgba(0, 0, 0, 0.5);
+}
+
+.mall_fixedad .bigad {
+	width: 100%;
+	height: 60%;
+	position: absolute;
+	top: 20%;
+	left: 0;
+	text-align: center;
+}
+
+.mall_fixedad .bigad .close {
+	position: absolute;
+	top: -35px;
+	right: 55px;
+	width: 26px;
+	height: 26px;
+	line-height: 26px;
+	text-align: center;
+	background: #b2b2b2;
+	border-radius: 50%;
+}
+
+.smallad {
+	display: none;
+	width: 50px;
+	height: 50px;
+	line-height: 50px;
+	text-align: center;
+	position: fixed;
+	bottom: 50px;
+	right: 0;
+	z-index: 306;
+	background: #ff3f50;
+	border-radius: 50%;
+	color: #ffffef;
+	font-size: 25px;
+	background: url(image/JB.gif);
+	background-size: 50px;
+}
+
+.more-content {
+	height: 30px;
+	line-height: 30px;
+	text-align: center;
+	font-size: 15px;
+	display: none;
+}
+
+.extension {
+	height: 40px;
+	background: url(image/banner.gif);
+	background-size: 100%;
+}
+</style>
+</head>
+<body>
+<!-- 	<img alt="" src="image/banner.gif" width="100%" onclick="fnLifeService()" -->
+<!-- 		style="position:fixed;top:0;z-index:10;" class="banner"> -->
+	<div class="header">
+		<span class="s_input">
+			<input type="search" class="serchInput" placeholder="请输入您想要的商品或门店">
+		</span>
+		<span class="s_btn">
+			<input type="submit" value="搜索" class="serchBtn" onclick="fnOpenSearch();">
+		</span>
+	</div>
+	<div id="showpanel">
+		<script type="text/template" charset="utf-8" id="ex">
+			{{for(var i=0;i<it.length;i++) { }}
+				{{if(it[i].position == 2){ }}
+					<div class="actcontainer container_left container_{{=it[i].homeareadocid}}">
+						{{if(it[i].titleflag == 1){}}
+						<div class="title_left">{{=it[i].homeareaname}}</div>
+						{{ } }}
+						<div class="page_left">
+							<div class="content">
+								{{if(it[i].dtllist.length < 5){ }}
+								{{for(var k=0;k<it[i].dtllist.length;k++) { }}
+									<span class="little{{=it[i].dtllist.length}} dtlactivity_{{=it[i].dtllist[k].homeareadtlid}}">
+										<div class="swiper-container swiper-container{{=it[i].dtllist[k].homeareadtlid}}">
+											<div class="swiper-wrapper">
+												{{if(it[i].dtllist[k].piclist.length > 0){ }}
+													{{for(var j=0;j<it[i].dtllist[k].piclist.length;j++) { }}
+													<div class="swiper-slide" onclick="fnActivity('{{=it[i].dtllist[k].linktype}}','{{=it[i].dtllist[k].deflink}}','{{=it[i].dtllist[k].goodsid}}','{{=it[i].dtllist[k].eventid}}','{{=it[i].dtllist[k].goodsname}}','{{=it[i].dtllist[k].spruleid}}','{{=it[i].dtllist[k].couponamount}}','{{=it[i].dtllist[k].validdate}}')">
+														<img src="http://{{=it[i].dtllist[k].folderpath}}/ecpic/echomepic/{{=it[i].dtllist[k].homeareadtlid}}/{{=it[i].dtllist[k].piclist[j]}}">
+													</div>
+													{{ } }}
+												{{ }else{ }}
+													<div class="swiper-slide" onclick="fnActivity('{{=it[i].dtllist[k].linktype}}','{{=it[i].dtllist[k].deflink}}','{{=it[i].dtllist[k].goodsid}}','{{=it[i].dtllist[k].eventid}}','{{=it[i].dtllist[k].goodsname}}','{{=it[i].dtllist[k].spruleid}}','{{=it[i].dtllist[k].couponamount}}','{{=it[i].dtllist[k].validdate}}')">
+														<img src="image/logo.png">
+													</div>
+												{{ } }}
+											</div>
+										</div>
+									</span>
+								{{ } }}
+								{{ } }}
+							</div>
+						</div>
+					</div>
+				{{ }else if(it[i].position == 3){ }}
+					<div class="actcontainer container_right container_{{=it[i].homeareadocid}}">
+						{{if(it[i].titleflag == 1){}}
+						<div class="title_right">{{=it[i].homeareaname}}</div>
+						{{ } }}
+						<div class="page_right">
+							<div class="content">
+								{{if(it[i].dtllist.length < 5){ }}
+								{{for(var k=0;k<it[i].dtllist.length;k++) { }}
+									<span class="little{{=it[i].dtllist.length}} dtlactivity_{{=it[i].dtllist[k].homeareadtlid}}">
+										<div class="swiper-container swiper-container{{=it[i].dtllist[k].homeareadtlid}}">
+											<div class="swiper-wrapper">
+												{{if(it[i].dtllist[k].piclist.length > 0){ }}
+													{{for(var j=0;j<it[i].dtllist[k].piclist.length;j++) { }}
+													<div class="swiper-slide" onclick="fnActivity('{{=it[i].dtllist[k].linktype}}','{{=it[i].dtllist[k].deflink}}','{{=it[i].dtllist[k].goodsid}}','{{=it[i].dtllist[k].eventid}}','{{=it[i].dtllist[k].goodsname}}','{{=it[i].dtllist[k].spruleid}}','{{=it[i].dtllist[k].couponamount}}','{{=it[i].dtllist[k].validdate}}')">
+														<img src="http://{{=it[i].dtllist[k].folderpath}}/ecpic/echomepic/{{=it[i].dtllist[k].homeareadtlid}}/{{=it[i].dtllist[k].piclist[j]}}">
+													</div>
+													{{ } }}
+												{{ }else{ }}
+													<div class="swiper-slide" onclick="fnActivity('{{=it[i].dtllist[k].linktype}}','{{=it[i].dtllist[k].deflink}}','{{=it[i].dtllist[k].goodsid}}','{{=it[i].dtllist[k].eventid}}','{{=it[i].dtllist[k].goodsname}}','{{=it[i].dtllist[k].spruleid}}','{{=it[i].dtllist[k].couponamount}}','{{=it[i].dtllist[k].validdate}}')">
+														<img src="image/logo.png">
+													</div>
+												{{ } }}
+											</div>
+										</div>
+									</span>
+								{{ } }}
+								{{ } }}
+							</div>
+						</div>
+					</div>
+				{{ }else{ }}
+					<div class="actcontainer container_middle container_{{=it[i].homeareadocid}}">
+						{{if(it[i].titleflag == 1){}}
+						<div class="title_middle">{{=it[i].homeareaname}}</div>
+						{{ } }}
+						<div class="page_middle">
+							<div class="content">
+								{{if(it[i].dtllist.length < 5){ }}
+								{{for(var k=0;k<it[i].dtllist.length;k++) { }}
+									<span class="little{{=it[i].dtllist.length}} dtlactivity_{{=it[i].dtllist[k].homeareadtlid}}">
+										<div class="swiper-container swiper-container{{=it[i].dtllist[k].homeareadtlid}}">
+											<div class="swiper-wrapper">
+												{{if(it[i].dtllist[k].piclist.length > 0){ }}
+													{{for(var j=0;j<it[i].dtllist[k].piclist.length;j++) { }}
+													<div class="swiper-slide" onclick="fnActivity('{{=it[i].dtllist[k].linktype}}','{{=it[i].dtllist[k].deflink}}','{{=it[i].dtllist[k].goodsid}}','{{=it[i].dtllist[k].eventid}}','{{=it[i].dtllist[k].goodsname}}','{{=it[i].dtllist[k].spruleid}}','{{=it[i].dtllist[k].couponamount}}','{{=it[i].dtllist[k].validdate}}')">
+														<img src="http://{{=it[i].dtllist[k].folderpath}}/ecpic/echomepic/{{=it[i].dtllist[k].homeareadtlid}}/{{=it[i].dtllist[k].piclist[j]}}">
+													</div>
+													{{ } }}
+												{{ }else{ }}
+													<div class="swiper-slide" onclick="fnActivity('{{=it[i].dtllist[k].linktype}}','{{=it[i].dtllist[k].deflink}}','{{=it[i].dtllist[k].goodsid}}','{{=it[i].dtllist[k].eventid}}','{{=it[i].dtllist[k].goodsname}}','{{=it[i].dtllist[k].spruleid}}','{{=it[i].dtllist[k].couponamount}}','{{=it[i].dtllist[k].validdate}}')">
+														<img src="image/logo.png">
+													</div>
+												{{ } }}
+											</div>
+										</div>
+									</span>
+								{{ } }}
+								{{ } }}
+							</div>
+						</div>
+					</div>
+				{{ } }}
+			{{ } }}
+		</script>
+	</div>
+	<div class="container1">
+		<div id="eventpanel"></div>
+		<div>
+			<script type="text/template" charset="utf-8" id="panel1">
+			{{if(it.length>0){}}
+			<div class="title">
+				<span class="line"></span>
+				<div class="text-wrapper">
+					<span>推荐活动</span>
+				</div>
+			</div>
+			{{}}}
+			{{for(var i=0;i<it.length;i++) { }}
+			<div class="eventinfo" onclick="fnActivity('{{=it[i].linktype}}','{{=it[i].deflink}}','{{=it[i].goodsid}}','{{=it[i].eventid}}','{{=it[i].goodsname}}','{{=it[i].spruleid}}','{{=it[i].couponamount}}','{{=it[i].validdate}}')">
+				<div class="eventname">{{=it[i].eventname}}</div>
+				{{ if(it[i].picname != ""){ }}
+				<div class="eventpic" style="background:url(http://{{=it[i].folderpath}}/ecpic/eventpic/{{=it[i].eventid}}/{{=it[i].picname}});background-size:cover;"></div>
+				{{ }else{ }}
+				<div class="eventpic"></div>
+				{{ } }}
+			</div>
+			{{ } }}
+			</script>
+		</div>
+	</div>
+	<div class="container">
+		<div class="title">
+			<span class="line"></span>
+			<div class="text-wrapper">
+				<span>猜你喜欢</span>
+			</div>
+		</div>
+		<div id="recommendpanel"></div>
+		<div>
+			<script type="text/template" charset="utf-8" id="panel">
+			{{for(var i=0;i<it.length;i++) { }}
+			<div class="goodsinfo" onclick="fnGetGoods({{=it[i].goodsid}},'{{=it[i].goodsname}}')">
+				{{ if(it[i].picname != ""){ }}
+				<div class="goodspic" style="background:url(http://{{=it[i].folderpath}}/ecpic/ecgoodspic/{{=it[i].goodsid}}/{{=it[i].picname}});background-size:cover;"></div>
+				{{ }else{ }}
+				<div class="goodspic"></div>
+				{{ } }}
+				<div class="goodsname">{{=it[i].goodsname}}</div>
+			</div>
+			{{ } }}
+			</script>
+		</div>
+	</div>
+
+	<div class="mall_fixedad">
+		<div class="bigad">
+			<script type="text/template" charset="utf-8" id="panel2">
+			{{if(it.length>0){}}
+			<img src="http://{{=it[0].folderpath}}/ecpic/echomepic/{{=it[0].homeareadtlid}}/{{=it[0].picname}}" width="75%" onclick="fnActivity('{{=it[0].linktype}}','{{=it[0].deflink}}','{{=it[0].goodsid}}','{{=it[0].eventid}}','{{=it[0].goodsname}}','{{=it[0].spruleid}}','{{=it[0].couponamount}}','{{=it[0].validdate}}','{{=it[0].userange}}')">
+			<div class="close" onclick="fnClose()">×</div>
+			{{ } }}
+			</script>
+		</div>
+	</div>
+	<div class="smallad" onclick="fnShowAd()"></div>
+
+	<div class="return-top" onclick="fnReturnTop()"></div>
+	<div class="more-content"></div>
+</body>
+<script type="text/javascript" src="js/jquery-3.1.1.min.js"></script>
+<script type="text/javascript" src="js/config.js"></script>
+<script type="text/javascript" src="js/doT.min.js"></script>
+<script type="text/javascript" src="js/layer/mobile/layer.js"></script>
+<script type="text/javascript" src="js/swiper.min.js"></script>
+<script type="text/javascript">
+	// 	var paths = [];
+	$(document).ready(function() {
+		$('title').html(titleName());
+		var a = window.parent.document.getElementsByTagName("a");
+		for (var i = 0; i < a.length; i++) {
+			a[i].style.color = "#333";
+		}
+		a[0].style.color = "#ff0000";
+
+		// 用户信息
+		fnGetUserInfo();
+		// 活动信息
+		fnGetAllActivities();
+		// 推荐商品
+		fnRecommend(false);
+		// ios广告图片被挡住
+// 		u = navigator.userAgent;
+// 		isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1; //android终端
+// 		isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); //ios终端
+// 		if (isiOS) {
+// 			$("#showpanel").css("margin-top","108px")
+// 			$(".header").css("top","59px")
+// 		}
+	});
+
+	// 设置返回到上一次浏览的位置
+// 	$(window).scroll(function() {
+// 		//htmlHeight 是网页的总高度
+// 		var htmlHeight = document.body.scrollHeight || document.documentElement.scrollHeight;
+// 		//clientHeight是网页在浏览器中的可视高度，
+// 		var clientHeight = document.body.clientHeight || document.documentElement.clientHeight;
+// 		//scrollTop是浏览器滚动条的top位置，
+// 		var scrollTop = document.body.scrollTop || document.documentElement.scrollTop;
+// 		if (scrollTop > 100) {
+// 			$(".banner").css("display", "none");
+// 			$(".header").css("top", "0");
+// 		} else {
+// 			$(".banner").css("display", "block");
+// 			$(".header").css("top", "51px");
+// 		}
+// 	});
+
+	// 获取微信用户信息
+	function fnGetUserInfo() {
+		var index = layer.open({
+			shadeClose : false,
+			type : 2
+		});
+		$.ajax({
+			url : ip() + 'getuser.do',
+			type : "post",
+			data : {},
+			dataType : "json",
+			success : function(data) {
+				window.localStorage.setItem("user", JSON.stringify(data));
+			// 				layer.close(index);
+			}
+		});
+	}
+
+	// 获取活动(位置1中2左3右)
+	function fnGetAllActivities() {
+		// 		var index = layer.open({
+		// 			shadeClose : false,
+		// 			type : 2
+		// 		});
+		$.ajax({
+			url : ip() + 'allactivities.do',
+			type : "post",
+			data : {},
+			dataType : "json",
+			success : function(data) {
+				$("#showpanel").html(doT.template($("#ex").text())(data));
+				var leftheight = 0,
+					rightheight = 0;
+				var actcontainers = $(".actcontainer");
+				for (var i = 0; i < data.length; i++) {
+					var str = "";
+					if (data[i].dtllist.length < 5) {
+						//细单数
+						for (var j = 0; j < data[i].dtllist.length; j++) {
+// 							var str = '<div class="swiper-container swiper-container' + data[i].dtllist[j].homeareadtlid + '">';
+// 							str += '<div class="swiper-wrapper">';
+// 							// 图片数
+// 							if (data[i].dtllist[j].piclist.length <= 0) {
+// 								str += '<div class="swiper-slide">';
+// 								str += '<img src="image/logo.png">';
+// 								str += '</div>';
+// 							} else {
+// 								for (var k = 0; k < data[i].dtllist[j].piclist.length; k++) {
+// 									str += '<div class="swiper-slide" onclick="fnActivity(\''
+// 										+ data[i].dtllist[j].linktype + '\',\''
+// 										+ data[i].dtllist[j].deflink + '\',\''
+// 										+ data[i].dtllist[j].goodsid + '\',\''
+// 										+ data[i].dtllist[j].eventid + '\',\''
+// 										+ data[i].dtllist[j].goodsname + '\',\''
+// 										+ data[i].dtllist[j].spruleid + '\',\''
+// 										+ data[i].dtllist[j].couponamount + '\',\''
+// 										+ data[i].dtllist[j].validdate + '\''
+// 										+ ')">';
+// 									var path = ip() + 'activitypic.do?homeareadtlid='
+// 									+ data[i].dtllist[j].homeareadtlid + '&name='
+// 									+ data[i].dtllist[j].piclist[k];
+
+// 									str += '<img src="' + path + '" >';
+// 									str += '</div>';
+// 								}
+// 							}
+// 							str += '</div></div>';
+// 							$(".dtlactivity_" + data[i].dtllist[j].homeareadtlid).html(str);
+
+
+							if (data[i].dtllist[j].piclist.length > 1) {
+								var mySwiper = new Swiper('.swiper-container' + data[i].dtllist[j].homeareadtlid, {
+									autoplay : {
+										delay : 1000,
+										stopOnLastSlide : false,
+										disableOnInteraction : true,
+										setWrapperSize : true,
+									},
+									loop : true, // 循环模式选项
+								})
+							}
+							actcontainers[i].getElementsByClassName("content")[0].style.height = parseFloat(parseFloat(data[i].height) * 20) + "px";
+						}
+						// 					} else {
+						// 						str += '<div class="swiper-slide">';
+						// 						str += '<img src="image/logo.png">';
+						// 						str += '</div>';
+						// 						$(".dtlactivity_" + data[i].dtllist[j].homeareadtlid).html(str);
+						// 					}
+						var addheight = 4
+						if (data[i].titleflag == 1) {
+							addheight = 37;
+						}
+						if (data[i].position == 1 || data[i].position == "") {
+							// 中间
+							// 判断左右距离哪个更大,设置为位置中的最大值
+							$(".container_" + data[i].homeareadocid).css("top", leftheight >= rightheight ? leftheight : rightheight + "px");
+							if (data[i].height == "") {
+								data[i].height = 5;
+							}
+							// 如果一边设置的特别大而中间出现位置为中的,那么让左右距离top相等,下一个就会在这个中下面显示
+							if (i != 0) {
+								if (leftheight >= rightheight) {
+									rightheight = leftheight;
+								} else {
+									leftheight = rightheight;
+								}
+							}
+
+							leftheight += parseFloat(data[i].height) * 20 + addheight;
+							rightheight += parseFloat(data[i].height) * 20 + addheight;
+						} else if (data[i].position == 2) {
+							// 左边
+							$(".container_" + data[i].homeareadocid).css("top", leftheight + "px");
+							if (data[i].height == "") {
+								data[i].height = 5;
+							}
+							leftheight += parseFloat(data[i].height) * 20 + addheight;
+						} else if (data[i].position == 3) {
+							// 右边
+							$(".container_" + data[i].homeareadocid).css("top", rightheight + "px");
+							if (data[i].height == "") {
+								data[i].height = 5;
+							}
+							rightheight += parseFloat(data[i].height) * 20 + addheight;
+						}
+					}
+				}
+				// 设置父级高度
+				$("#showpanel").css("height", leftheight >= rightheight ? leftheight : rightheight);
+			// 				layer.close(index);
+			}
+		});
+	}
+
+	// 回车搜索
+	document.onkeydown = function(event) {
+		var e = event || window.event || arguments.callee.caller.arguments[0];
+		if (e && e.keyCode == 13) { // enter 键
+			$("input").blur();
+			fnOpenSearch();
+		}
+	};
+
+	//-----------滑动到底部自动加载start-------------
+	//文档高度
+	function getDocumentTop() {
+		var scrollTop = 0,
+			bodyScrollTop = 0,
+			documentScrollTop = 0;
+		if (document.body) {
+			bodyScrollTop = document.body.scrollTop;
+		}
+		if (document.documentElement) {
+			documentScrollTop = document.documentElement.scrollTop;
+		}
+		scrollTop = (bodyScrollTop - documentScrollTop > 0) ? bodyScrollTop : documentScrollTop;
+		return scrollTop;
+	}
+	//可视窗口高度
+	function getWindowHeight() {
+		var windowHeight = 0;
+		if (document.compatMode == "CSS1Compat") {
+			windowHeight = document.documentElement.clientHeight;
+		} else {
+			windowHeight = document.body.clientHeight;
+		}
+		return windowHeight;
+	}
+	//滚动条滚动高度
+	function getScrollHeight() {
+		var scrollHeight = 0,
+			bodyScrollHeight = 0,
+			documentScrollHeight = 0;
+		if (document.body) {
+			bodyScrollHeight = document.body.scrollHeight;
+		}
+		if (document.documentElement) {
+			documentScrollHeight = document.documentElement.scrollHeight;
+		}
+		scrollHeight = (bodyScrollHeight - documentScrollHeight > 0) ? bodyScrollHeight : documentScrollHeight;
+		return scrollHeight;
+	}
+	// 	$(window).scroll(function() {
+	//监听事件内容
+	// 		if (getScrollHeight() == (getWindowHeight() + getDocumentTop())) {
+	//当滚动条到底时,这里是触发内容
+	//异步请求数据,局部刷新dom
+	// 			if (more_) {
+	// 				fnRecommend(true)
+	// 			}
+	// 		}
+	// 	});
+	//-----------滑动到底部自动加载end-------------
+
+	// 回到顶部
+	function fnReturnTop() {
+		var termId = setInterval(function() {
+			sTop -= 9999999;
+			if (sTop <= 0) {
+				clearInterval(termId);
+			}
+			window.scrollTo(0, sTop);
+		}, 1);
+	}
+
+	//  打开搜索
+	function fnOpenSearch() {
+		var word = $("input").val();
+		if (word == "" || word == null) {
+			// 			layer.open({
+			// 				content : '搜索内容不能为空',
+			// 				skin : 'msg',
+			// 				time : 2
+			// 			2秒后自动关闭
+			// 			});
+			return false;
+		} else {
+			var url = encodeURI("html/search.html?word=" + word + "&" + timestamp());
+			window.top.location = url;
+		}
+	}
+
+	// 进入活动页面
+	function fnActivity(linktype, deflink, goodsid, eventid, goodsname, spruleid, couponamount, validdate, userange) {
+		var url = "";
+		sessionStorage.setItem("frame0", $(window).scrollTop());
+		switch (linktype) {
+		// 商品
+		case "1":
+			url = encodeURI("html/goodslist.html?goodsid=" + goodsid + "&goodsname=" + goodsname + "&htmlflag=0");
+			window.top.location = url;
+			break;
+		// 活动页
+		case "2":
+			url = encodeURI("html/activepage.html?eventid=" + eventid);
+			window.top.location = url;
+			break;
+		// 自定义
+		case "3":
+			if (deflink != "") {
+				url = deflink;
+				window.top.location = url;
+			}
+			break;
+		// 促销
+		case "4":
+			fnUserGetCoupon(linktype, couponamount, validdate, spruleid, userange);
+			break;
+		default:
+		}
+	}
+
+	// 查询推荐
+	var skip = 0,
+		limit = 20;
+	var more_ = false;
+	function fnRecommend(loadMore_) {
+		// 如果是加载更多，需要实现分页
+		// 		if (loadMore_) {
+		// 			skip += limit;
+		// 		} else {
+		// 			skip = 0;
+		// 		}
+		$.ajax({
+			url : ip() + 'getrecommend.do',
+			type : "post",
+			data : {
+				"skip" : skip,
+				"limit" : limit,
+			},
+			dataType : "json",
+			success : function(data) {
+				$("#eventpanel").html(doT.template($("#panel1").text())(data.eventlist));
+
+				var result = doT.template($("#panel").text())(data.goodslist);
+				// 				if (data.goodslist.length < limit) {
+				// 					$(".more-content").html("没有啦");
+				// 				} else {
+				// 					$(".more-content").html("点击显示更多");
+				// 				}
+				// 				$(".more-content").css("display", "block");
+				// 				if (loadMore_ == true) {
+				// 					if (data.goodslist.length > 0) {
+				// 						$(".container .title").css("display", "block");
+				// 						$("#recommendpanel").append(result);
+				// 						more_ = true;
+				// 					}
+				// 				} else {
+				// 					if (data.goodslist.length > 0) {
+				// 						more_ = true;
+				// 						$(".container .title").css("display", "block");
+				// 					} else {
+				// 						$(".more-content").css("display", "none");
+				// 					}
+				$("#recommendpanel").html(result);
+				// 设置返回的时候到上一次浏览的位置
+				var offset = sessionStorage.getItem("frame0");
+				if (offset) {
+					$("html,body").animate({
+						scrollTop : offset
+					}, 0);
+				}
+				// 				}
+				layer.closeAll();
+				// 活动
+// 				var eventinfos = $("#eventpanel .eventinfo");
+// 				for (var i = 0, l = data.eventlist.length; i < l; i++) {
+// 					if (data.eventlist[i].picname != "") {
+// 						var path = ip() + 'eventpic.do?eventid=' + data.eventlist[i].eventid + '&name=' + data.eventlist[i].picname;
+// 						eventinfos[i].getElementsByClassName("eventpic")[0].style.background = "url(" + path + ")";
+// 						eventinfos[i].getElementsByClassName("eventpic")[0].style.backgroundRepeat = "no-repeat";
+// 						eventinfos[i].getElementsByClassName("eventpic")[0].style.backgroundSize = "100% auto";
+// 					}
+// 				}
+				// 推荐商品
+// 				var goodsinfos = $("#recommendpanel .goodsinfo");
+				if (data.goodslist.length > 0) {
+					$(".container .title").css("display", "block");
+				}
+// 				for (var i = 0, l = data.goodslist.length; i < l; i++) {
+// 					$(".container .title").css("display", "block");
+// 					if (data.goodslist[i].picname != "") {
+// 						var path = ip() + 'goodspic.do?goodsid=' + data.goodslist[i].goodsid + '&name=' + data.goodslist[i].picname;
+// 						goodsinfos[i].getElementsByClassName("goodspic")[0].style.background = "url(" + path + ")";
+// 						goodsinfos[i].getElementsByClassName("goodspic")[0].style.backgroundRepeat = "no-repeat";
+// 						goodsinfos[i].getElementsByClassName("goodspic")[0].style.backgroundSize = "100% auto";
+// 					}
+// 				}
+				// 广告
+				if (data.adlist.length > 0) {
+					if (sessionStorage.getItem("ad") == null || sessionStorage.getItem("ad") == "") {
+						fnShowAd();
+						sessionStorage.setItem("ad", "0");
+					} else {
+						fnClose();
+					}
+					$(".bigad").html(doT.template($("#panel2").text())(data.adlist));
+// 					if (data.adlist[0].picname != "") {
+// 							$(".bigad img") .attr("src", ip() + 'activitypic.do?homeareadtlid='
+// 								+ data.adlist[0].homeareadtlid + '&name=' + data.adlist[0].picname);
+// 					}
+				}
+			},
+			error : function(data) {
+				console.log(data);
+				layer.closeAll();
+			}
+		});
+	}
+
+	// 点击推荐商品
+	function fnGetGoods(goodsid, goodsname) {
+		sessionStorage.setItem("frame0", $(window).scrollTop());
+		url = encodeURI("html/goodslist.html?goodsid=" + goodsid + "&goodsname=" + goodsname + "&htmlflag=0");
+		window.top.location = url;
+	}
+
+	// 关闭广告
+	function fnClose() {
+		$(".mall_fixedad").css("display", "none");
+		$(".smallad").css("display", "block");
+		u = navigator.userAgent;
+		isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1; //android终端
+		isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); //ios终端
+		if (isiOS) {
+			$('.smallad').css({
+				"position" : "fixed",
+				"top" : "100px",
+				"right" : "0px"
+			});
+		}
+		event.stopPropagation();
+	}
+
+	// 显示广告
+	function fnShowAd() {
+		$(".mall_fixedad").css("display", "inline-block");
+		$(".smallad").css("display", "none");
+		$(".mall_fixedad").bind("touchmove", function(e) {
+			e.preventDefault();
+		});
+		// 鼠标滚轮
+		$(".mall_fixedad").bind("mousewheel", function(e) {
+			e.preventDefault();
+		});
+		fnIosorAndroid();
+	}
+
+	// 领取代金券
+	function fnUserGetCoupon(linktype, couponamount, validdate, spruleid, userange) {
+		var index = layer.open({
+			shadeClose : false,
+			type : 2
+		});
+		var user = $.parseJSON(window.localStorage.getItem("user"));
+		if (jQuery.isEmptyObject(user) || user.userid == "-1"
+			|| user.userid == 'undefined' || user.userid == undefined) {
+			layer.open({
+				content : "你还没有注册，确定注册吗？",
+				shadeClose : false,
+				btn : [ '确定', '不要' ],
+				yes : function(index) {
+					window.top.location = "html/register.html?" + timestamp();
+					layer.close(index);
+				},
+				no : function() {
+					layer.closeAll();
+				}
+			});
+			return;
+		}
+		if (linktype == 4) {
+			if (spruleid == "undefined" || couponamount == 'undefined' || validdate == "undefined") {
+				layer.close(index);
+				return;
+			}
+			$.ajax({
+				url : ip() + 'usergetcoupon.do',
+				type : "post",
+				data : {
+					"couponamount" : couponamount,
+					"validdate" : validdate,
+					"spruleid" : spruleid,
+					"memberid" : user.memberid,
+					"userange" : userange
+				},
+				dataType : "json",
+				success : function(data) {
+					if (data.dataflag == 2) {
+						alert("领取成功");
+					} else if (data.dataflag == -1) {
+						alert("您已经领取过了哦");
+					} else {
+						alert("领取失败");
+					}
+					layer.close(index);
+				},
+				error : function(data) {
+					layer.close(index);
+					alert("领取失败");
+					console.log(data);
+				}
+			});
+		}
+	}
+
+	// 推广生活服务
+	function fnLifeService() {
+		window.top.location = "html/lifeservice/lifeservice.html?" + timestamp();
+	}
+
+	//判断是安卓和iOS系统
+	function fnIosorAndroid() {
+		u = navigator.userAgent;
+		isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1; //android终端
+		isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); //ios终端
+		if (isiOS) {
+			$('.bigad').css({
+				"position" : "fixed",
+				"top" : "120px",
+				"left" : "0"
+			});
+			$('.bigad .close').attr({
+				"position" : "fixed",
+				"top" : "90px",
+				"right" : "55px"
+			});
+		}
+	}
+</script>
+</html>

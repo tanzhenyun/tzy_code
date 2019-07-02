@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>绑定手机号码</title>
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Cache-control" content="no-cache">
+<meta http-equiv="Cache" content="no-cache">
+<meta charset="UTF-8">
+<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0" />
+<meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+<meta name="keywords" content="keyword1,keyword2,keyword3">
+<meta name="content-type" content="text/html; charset=UTF-8">
+<link rel="stylesheet" type="text/css" href="../css/styles.css">
+<style type="text/css">
+html, body {
+	background: #fff;
+	position: relative;
+}
+
+.row {
+	box-sizing: border-box;
+	text-align: center;
+}
+
+.highlight {
+	opacity: 0.7;
+}
+
+.regtip {
+	font-size: 11px;
+	margin-top: 12px;
+	vertical-align: middle;
+	display: none;
+	color: #ff0000;
+}
+
+.hi {
+	display: none;
+}
+
+input {
+	width: 80%;
+	height: 42px;
+	line-height: 42px;
+	margin-top: 25px;
+	padding: 0 15px;
+	background: #2d2d2d;
+	background: rgba(45, 45, 45, .15);
+	-moz-border-radius: 6px;
+	-webkit-border-radius: 6px;
+	border-radius: 6px;
+	border: 1px solid #3d3d3d;
+	border: 1px solid rgba(255, 255, 255, .15);
+	-moz-box-shadow: 0 2px 3px 0 rgba(0, 0, 0, .1) inset;
+	-webkit-box-shadow: 0 2px 3px 0 rgba(0, 0, 0, .1) inset;
+	box-shadow: 0 2px 3px 0 rgba(0, 0, 0, .1) inset;
+	font-family: microsoft yahei, Helvetica, Arial, sans-serif;
+	font-size: 14px;
+	color: #333;
+	text-shadow: 0 1px 2px rgba(0, 0, 0, .1);
+	-o-transition: all .2s;
+	-moz-transition: all .2s;
+	-webkit-transition: all .2s;
+	-ms-transition: all .2s;
+	height: 42px;
+}
+
+input:focus {
+	outline: 0;
+	-moz-box-shadow: 0 2px 3px 0 rgba(0, 0, 0, .1) inset, 0 2px 7px 0
+		rgba(0, 0, 0, .2);
+	-webkit-box-shadow: 0 2px 3px 0 rgba(0, 0, 0, .1) inset, 0 2px 7px 0
+		rgba(0, 0, 0, .2);
+	box-shadow: 0 2px 3px 0 rgba(0, 0, 0, .1) inset, 0 2px 7px 0
+		rgba(0, 0, 0, .2)
+}
+
+button {
+	cursor: pointer;
+	width: 80%;
+	height: 44px;
+	margin-top: 25px;
+	padding: 0;
+	outline: 0;
+	background: rgba(6, 127, 228, .71);
+	-moz-border-radius: 6px;
+	-webkit-border-radius: 6px;
+	border-radius: 6px;
+	border: 0;
+	-moz-box-shadow: 0 15px 30px 0 rgba(255, 255, 255, .25) inset, 0 2px 7px
+		0 rgba(0, 0, 0, .2);
+	font-family: microsoft yahei, Helvetica, Arial, sans-serif;
+	font-size: 14px;
+	font-weight: 700;
+	color: #fff;
+	text-shadow: 0 1px 2px rgba(0, 0, 0, .1);
+	-o-transition: all .2s;
+	-moz-transition: all .2s;
+	-webkit-transition: all .2s;
+	-ms-transition: all .2s
+}
+
+button:active {
+	-moz-box-shadow: 0 15px 30px 0 rgba(255, 255, 255, .15) inset, 0 2px 7px
+		0 rgba(0, 0, 0, .2);
+	-webkit-box-shadow: 0 15px 30px 0 rgba(255, 255, 255, .15) inset, 0 2px
+		7px 0 rgba(0, 0, 0, .2);
+	box-shadow: 0 5px 8px 0 rgba(0, 0, 0, .1) inset, 0 1px 4px 0
+		rgba(0, 0, 0, .1);
+	border: 0
+}
+
+.statement {
+	display: inline-block;
+	color: #777;
+	width: 80%;
+	font-size: 10px;
+	text-align: left;
+	margin-left: 30px;
+}
+
+.loginmode {
+	text-align: center;
+	padding: 20px;
+}
+
+.loginmode div {
+	width: 100px;
+	padding: 10px;
+	margin: 20px auto;
+	border: 1px solid #009688;
+	border-radius: 10px;
+}
+</style>
+</head>
+<body>
+	<div class="container">
+		<div class="row">
+			<input id="phonenumber" type="number" placeholder="请输入绑定手机号" autofocus="autofocus">
+		</div>
+		<div class="row">
+			<span class="statement">手机号用于实体会员绑定</span>
+			<p class="regtip">* 该手机号已绑定，请更换</p>
+		</div>
+		<div class="row">
+			<input id="code" class="input" type="number" placeholder="验证码">
+			<button class="send" id="send">免费发送验证码</button>
+			<input type="hidden" id="hid" value="" />
+		</div>
+		<div class="row">
+			<button class="btn" onclick="fnRegister();">确认绑定</button>
+		</div>
+	</div>
+</body>
+<script type="text/javascript" src="../js/jquery-3.1.1.min.js"></script>
+<script type="text/javascript" src="../js/config.js"></script>
+<script type="text/javascript" src="../js/layer/mobile/layer.js"></script>
+<script type="text/javascript" src="../js/doT.min.js"></script>
+<script type="text/javascript">
+	var phone,
+		phonenumber,
+		password,
+		ckpassword,
+		code,
+		sendcode = null;
+	// 验证码开始时间,结束时间
+	var beginDate,
+		endDate;
+
+
+	// 手机号输入框内容改变事件
+	$("#phonenumber").on('input propertychange', function() {
+		$('.regtip').css('display', 'none');
+		$('.btn').attr('disabled', false);
+		$('.send').attr('disabled', false);
+		$("#hid").val("0");
+	});
+
+	// 手机号焦点事件
+	$("#phonenumber").on("blur", function() {
+		phone = $("#phonenumber").val();
+		var reg = /^1[3|4|5|6|7|8|9][0-9]{9}$/;
+		if (phone == "" || !reg.test(phone)) {
+			return;
+		}
+		$.ajax({
+			url : ip() + 'checkphonenumber.do',
+			type : "post",
+			data : {
+				phone : phone
+			},
+			dataType : "json",
+			success : function(data) {
+				if (data.dataflag > 0) {
+					$('.regtip').css('display', 'block');
+					$('.btn').attr('disabled', true);
+					$('.send').attr('disabled', true);
+					$("#hid").val("1");
+					return false;
+				} else {
+					$('.regtip').css('display', 'none');
+					$('.btn').attr('disabled', false);
+					$('.send').attr('disabled', false);
+					$("#hid").val("0");
+				}
+			}
+		});
+	});
+	var btn = document.getElementById("send");
+	btn.addEventListener("click", function() {
+		setTimeout(function() {
+			if ($("#hid").val() == 0) {
+				fnSendCode();
+			} else {
+				return;
+			}
+		}, 300);
+	});
+
+	//点击发送验证码
+	function fnSendCode() {
+		$('#code').val('');
+		phone = $("#phonenumber").val();
+		if (phone != "" && phone != null) {
+			password = $("#password").val();
+			ckpassword = $("#ckpassword").val();
+			//判断用户名和密码及验证码输入情况
+			var reg = /^1[3|4|5|6|7|8|9][0-9]{9}$/;
+			if (!reg.test(phone)) {
+				layer.open({
+					content : "请输入正确格式的手机号",
+					skin : 'msg',
+					time : 2
+				});
+				return false;
+			} else {
+				var index = layer.open({
+					shadeClose : false,
+					type : 2
+				});
+				var intDiff = parseInt(59);
+				timer(intDiff);
+				$.ajax({
+					url : ip() + 'sendSMS.do',
+					type : "post",
+					data : {
+						phone : phone
+					},
+					dataType : "json",
+					success : function(data) {
+						// 收到的验证码
+						sendcode = data.dataflag;
+						endDate = new Date().getTime() + 900000;
+						layer.close(index);
+					},
+					error : function(data) {
+						endDate = new Date().getTime() + 900000;
+						layer.close(index);
+					}
+				});
+			}
+		} else {
+			layer.open({
+				content : "电话号不能为空",
+				skin : 'msg',
+				time : 2
+			});
+			return;
+		}
+	}
+
+	//绑定手机号
+	function fnRegister() {
+		code = $("#code").val();
+		phonenumber = $("#phonenumber").val();
+		if (phonenumber != "" && phonenumber != null) {
+			beginDate = new Date().getTime();
+			if (beginDate >= endDate) {
+				// 验证码时间校验
+				layer.open({
+					content : "验证码已失效,请重新获取",
+					skin : 'msg',
+					time : 2
+				});
+				return false;
+			} else if (code == sendcode) {
+				var index = layer.open({
+					shadeClose : false,
+					type : 2,
+				});
+				//验证码输入是否一致
+				phone = $("#phonenumber").val();
+				$.ajax({
+					url : ip() + 'checkphonenumber.do',
+					type : "post",
+					data : {
+						phone : phone
+					},
+					dataType : "json",
+					success : function(data) {
+						if (data.dataflag == 1) {
+							layer.open({
+								content : "该手机号已绑定,请更换手机号",
+								skin : 'msg',
+								time : 2
+							});
+							layer.close(index);
+							return false;
+						} else {
+							$.ajax({
+								url : ip() + 'register.do',
+								type : "post",
+								data : {
+									phonenumber : phonenumber,
+									password : password
+								},
+								dataType : "json",
+								success : function(data) {
+									var str = "<h3 style='height:50px;width:100%;padding:0px;margin:0px;'>请选择会员卡</h3>";
+									for (var i = 0; i < data.length; i++) {
+										str += "<div style='width:100%;padding:5px 10px;margin:10px 0;border-top:1px dashed #87CEEB;border-bottom:1px dashed #87CEEB;' onclick='fnChooseMember("
+											+ data[i].memberid
+											+ ",\""
+											+ data[i].memberno
+											+ "\");'>";
+										str += "<div style='width:100%;position:relative;'>";
+										str += "<span style='width:50%;display:inline-block;'>姓名: "
+											+ data[i].menbername + "</span>";
+										str += "<span style='width:50%;display:inline-block;'>卡号: "
+											+ data[i].memberno + "</span>";
+										str += "</div>";
+
+										str += "<div style='width:100%;'>";
+										str += "<span style='width:50%;display:inline-block;'>积分: "
+											+ data[i].curpoint + "</span>";
+										str += "<span style='width:50%;display:inline-block;'>金额: "
+											+ data[i].amount + "</span>";
+										str += "</div>";
+										str += "</div>";
+									}
+									str += "<div style='width;100%;line-height:50px;text-align:center;border-top:1px solid #87CEEB;' onclick='fnChooseMember();'>新建卡</div>";
+									layer.close(index);
+									layer.open({
+										type : 1,
+										content : str,
+										anim : 'up',
+										style : 'position:fixed;bottom:0;left:0;width:100%;'
+									});
+								},
+							});
+						}
+					}
+				});
+			} else {
+				layer.open({
+					content : "验证码错误",
+					skin : 'msg',
+					time : 2
+				});
+				return;
+			}
+		} else {
+			layer.open({
+				content : "电话号不能为空",
+				skin : 'msg',
+				time : 2
+			});
+			return;
+		}
+	}
+	// 选择会员卡
+	function fnChooseMember(memberid_, memberno) {
+		layer.open({
+			shadeClose : false,
+			type : 2,
+		});
+		phone = $("#phonenumber").val();
+		password = $("#password").val();
+		$.ajax({
+			url : ip() + 'bindmember.do',
+			type : "post",
+			data : {
+				memberid : memberid_,
+				phonenumber : phone,
+				password : password
+			},
+			dataType : "json",
+			success : function(data) {
+				console.log(JSON.stringify(data));
+				layer.open({
+					content : "绑定成功",
+					skin : 'msg',
+					time : 2
+				});
+				window.localStorage.setItem("user", JSON.stringify(data));
+				var memberflag = getParameter("memberflag");
+				// 判断是在首页注册进入还是在会员中心进入
+				if (parseInt(memberflag) == 1) {
+					window.location.href = "membercenter1.html?" + timestamp();
+				} else {
+					window.location.href = "../index.html?" + timestamp();
+				}
+			},
+		});
+	}
+	//倒计时60秒
+	function timer(intDiff) {
+		var time = window.setInterval(function() {
+			var day = 0,
+				hour = 0,
+				minute = 0,
+				second = 0;
+			//时间默认值
+			if (intDiff > 0) {
+				day = Math.floor(intDiff / (60 * 60 * 24));
+				hour = Math.floor(intDiff / (60 * 60)) - (day * 24);
+				minute = Math.floor(intDiff / 60) - (day * 24 * 60) - (hour * 60);
+				second = Math.floor(intDiff) - (day * 24 * 60 * 60) - (hour * 60 * 60) - (minute * 60);
+			}
+			if (second <= 9)
+				second = '0' + second;
+			$('.send').html('正在发送' + second + '秒');
+			$('.send').attr('disabled', true);
+			intDiff--;
+			if (second == 00) {
+				$('.send').html('重新发送');
+				clearInterval(time);
+				$('.send').attr('disabled', false);
+			}
+		}, 1000);
+	}
+
+	// 选择登录方式
+	function fnChooseMode(index) {
+		if (index == 0) {
+			window.location.href = "../index.html?" + timestamp();
+		} else {
+			$(".loginmode").css("display", "none");
+			$(".container").css("display", "block");
+		}
+	}
+</script>
+</html>

@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title></title>
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Cache-control" content="no-cache">
+<meta http-equiv="Cache" content="no-cache">
+<meta charset="UTF-8">
+<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0" />
+<meta name="apple-mobile-web-app-capable" content="yes">
+<style>
+* {
+	margin: 0;
+	padding: 0;
+}
+
+a {
+	text-decoration: none;
+}
+
+body {
+	font-family: -apple-system, Helvetica, sans-serif;
+}
+
+li {
+	list-style: none;
+}
+
+.classi-menu {
+	position: absolute;
+	left: 0;
+	right: 0;
+	top: 0;
+	bottom: 0;
+	display: -webkit-flex;
+	display: flex;
+}
+
+.classi-menu .menu-left {
+	-webkit-flex: 0 0 2rem;
+	flex: 0 0 2rem;
+	width: 2rem;
+	height: 100%;
+	overflow: hidden;
+	overflow-y: auto;
+	-webkit-overflow-scrolling: touch;
+	background: #f5f4f9;
+}
+
+.classi-menu  .menu-left-li {
+	width: 100%;
+	font-size: 0;
+	border-bottom: 1px solid #dcdbe0;
+}
+
+.classi-menu  .menu-left-li .text {
+	display: inline-block;
+	vertical-align: middle;
+	margin: 0.26rem 0 0.27rem;
+	width: 90%;
+	line-height: 0.4rem;
+	text-align: center;
+	font-size: 0.24rem;
+	color: #333;
+}
+
+.classi-menu  .menu-left-li.on {
+	padding-left: 0.05rem;
+	background: #fff;
+}
+
+.classi-menu  .menu-left-li.on .text {
+	border-left: 2px solid #f46b10;
+	color: #ef5454;
+}
+
+.classi-menu .menu-right {
+	-webkit-flex: 1;
+	flex: 1;
+	height: 100%;
+	overflow: hidden;
+	overflow-y: auto;
+	-webkit-overflow-scrolling: touch;
+	background: #fff;
+}
+
+.classi-menu .menu-right-content {
+	display: -webkit-flex;
+	display: flex;
+	-webkit-flex-wrap: wrap;
+	flex-wrap: wrap;
+}
+
+.classi-menu .content-item {
+	display: block;
+	padding-top: 0.3rem;
+	width: 33.3%;
+}
+
+.classi-menu .content-item .icon {
+	display: block;
+	margin: 0 auto 0.2rem;
+	width: 1.2rem;
+	height: 1.2rem;
+}
+
+.classi-menu .content-item .text {
+	padding: 0 0.15rem;
+	height: 0.53rem;
+	line-height: 0.26rem;
+	text-align: center;
+	font-size: 0.24rem;
+	color: #333;
+}
+</style>
+</head>
+<body>
+	<div class="classi-menu">
+		<div class="menu-left" id="menuLeft">
+			<div class="menu-left-ul" id="contents">
+				<script type="text/template" charset="utf-8" id="ex">
+					{{for(var i=0;i<it.length;i++) { }}
+					<div class="menu-left-li midclass_{{=it[i].midclassid}}" onclick = "fnClickSwitch({{=it[i].midclassid}})">
+						<span class="text">{{=it[i].midclassname}}</span>
+					</div>
+					{{ } }}
+				</script>
+			</div>
+		</div>
+		<div class="menu-right">
+			<div class="menu-right-content" id="menuRightContent">
+				<!-- 				<a href="javascript;;" class="content-item"> -->
+				<!-- 					<img src="image/logo.png" alt="" class="icon"> -->
+				<!-- 					<div class="text">分类名称</div> -->
+				<!-- 				</a> -->
+			</div>
+		</div>
+		<div>
+			<script type="text/template" charset="utf-8" id="minex">
+				{{for(var i=0;i<it.length;i++) { }}
+					<a href="javascript:;" class="content-item" onclick="fnOpenMin('{{=it[i].minclassname}}','{{=it[i].minclassid}}','{{=it[i].drugflag}}')">
+						{{ if(it[i].picname != ""){ }}
+						<img src="http://{{=it[i].folderpath}}/ecpic/ecgoodspic/{{=it[i].goodsid}}/{{=it[i].picname}}" alt="" class="icon">
+						{{ }else{ }}
+						<img src="image/logo.png" alt="" class="icon">
+						{{ } }}
+						<div class="text">{{=it[i].minclassname}}</div>
+					</a>
+				{{ } }}
+			</script>
+		</div>
+	</div>
+	<script type="text/javascript" src="js/jquery-3.1.1.min.js"></script>
+	<script type="text/javascript" src="layui/layui.js"></script>
+	<script type="text/javascript" src="js/config.js"></script>
+	<script type="text/javascript" src="js/doT.min.js"></script>
+	<script type="text/javascript" src="js/layer/mobile/layer.js"></script>
+	<script>
+		(function() {
+			function change() {
+				var font = document.documentElement.clientWidth / 375 * 50;
+				document.documentElement.style.fontSize = font + 'px';
+			}
+			;
+			window.addEventListener('resize', change, false);
+			change();
+		})();
+		// rem 单位换算 *不可删除
+	</script>
+	<script type="text/javascript">
+		var classifyid, readyid;
+		$(document).ready(function() {
+			$('title').html(titleName());
+			var a = window.parent.document.getElementsByTagName("a");
+			if (a.length > 0) {
+				for (var i = 0; i < a.length; i++) {
+					a[i].style.color = "#333";
+				}
+				a[1].style.color = "#ff0000";
+			}
+			fnGetClassify();
+
+		});
+
+		// 	获取分类信息
+		function fnGetClassify() {
+			var index = layer.open({
+				shadeClose : false,
+				type : 2
+			});
+			$.ajax({
+				url : ip() + 'midclass.do',
+				type : "post",
+				data : {},
+				dataType : "json",
+				success : function(data) {
+					if (data == "" || data == null) {
+						layer.close(index);
+						return;
+					}
+					$("#contents").html(doT.template($("#ex").text())(data));
+					var midindex = window.sessionStorage.getItem("midindex");
+					if (midindex == undefined || midindex == "") {
+						fnClickSwitch(data[0].midclassid);
+					} else {
+						var ii = data[0].midclassid;
+						// 加判断,如果当前小类不存在回到第一个
+						for (var i = 0, len = data.length; i < len; i++) {
+							if (data[i].midclassid == midindex) {
+								ii = midindex;
+								break;
+							}
+						}
+						fnClickSwitch(ii);
+					}
+					layer.close(index);
+				}
+			});
+
+		}
+		//点击左侧按钮切换样式并且获取详细数据
+		function fnClickSwitch(index_) {
+			var index = layer.open({
+				shadeClose : false,
+				type : 2
+			});
+			// 用来记住点击返回时回到当前中类
+			window.sessionStorage.setItem("midindex", index_);
+			$('#menuLeft .menu-left-li').removeClass('on');
+			$(".midclass_" + index_).addClass("on");
+			var t = $('#menuLeft').scrollTop();
+			$('#menuLeft').stop().animate(
+					{
+						scrollTop : t + $(".midclass_" + index_).offset().top - $('#menuLeft').height() / 2
+								+ $('#menuLeft .menu-left-li').height() * 0.5
+					}, 200);
+			$.ajax({
+				url : ip() + 'minclass.do',
+				type : "post",
+				data : {
+					midclassid : index_
+				},
+				dataType : "json",
+				success : function(data) {
+					var result = doT.template($("#minex").text())(data);
+					$("#menuRightContent").html(result.toString());
+// 					var icon = document.getElementsByClassName("icon");
+// 					for (var j = 0; j < data.length; j++) {
+// 						if (data[j].picname == null || data[j].picname == "") {
+// 						} else {
+// 							var path = ip() + 'goodspic.do?goodsid=' + data[j].goodsid + '&name=' + data[j].picname;
+// 							icon[j].src = path;
+// 						}
+// 					}
+					layer.close(index);
+				}
+			});
+		}
+
+		// 点击小类查看信息
+		function fnOpenMin(minclassname, minclassid, drugflag) {
+			var url = "";
+			if (drugflag == 1) {
+				url = encodeURI("html/minclassinfo.html?minclassid=" + minclassid + "&minclassname=" + minclassname
+						+ "&" + timestamp());
+				// 用来查询药品的小类信息
+				window.sessionStorage.setItem("minclassid", minclassid);
+			} else {
+				url = encodeURI("html/minclassgoodslist.html?minclassid=" + minclassid + "&minclassname="
+						+ minclassname + "&" + timestamp());
+			}
+			window.top.location = url;
+		}
+	</script>
+</body>
+</html>

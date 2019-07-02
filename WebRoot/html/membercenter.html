@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>会员中心</title>
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Cache-control" content="no-cache">
+<meta http-equiv="Cache" content="no-cache">
+<meta charset="UTF-8">
+<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0" />
+<meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+<link rel="stylesheet" type="text/css" href="../css/styles.css">
+<link rel="stylesheet" type="text/css" href="../css/area.css">
+<style type="text/css">
+html {
+	height: 100%;
+}
+
+body {
+	width: 100%;
+	background-color: #fff;
+	overflow-x: hidden;
+}
+/* 会员卡样式 */
+.membercard {
+	width: 85%;
+	height: 190px;
+	margin: 15px auto;
+	border: 1px solid #ccc;
+	border-radius: 20px;
+	background: url("../membercard/membercard.jpg");
+	background-size: 100% 190px;
+	background-repeat: no-repeat;
+	position: relative;
+}
+
+.memberno {
+	position: absolute;
+	bottom: 3px;
+	right: 20px;
+	color: #000;
+	font-size: 13px;
+}
+
+.interests {
+	width: 100%;
+	height: 65px;
+	line-height: 28px;
+	color: #666;
+	font-size: 15px;
+	border-bottom: 1px solid #ccc;
+	padding: 0px 15px 7px 25px;
+	margin-bottom: 5px;
+	display: flex;
+	justify-content: space-around;
+	flex-flow: row nowrap;
+}
+
+.interests div {
+	display: flex;
+	justify-content: cenetr;
+	align-items: center;
+	flex-flow: column nowrap;
+}
+
+.intermem {
+	font-size: 16px;
+	color: #EEAD0E;
+}
+
+.mempublic {
+	width: 90%;
+	height: auto;
+	line-height: 28px;
+	color: #666;
+	font-size: 12px;
+	border-bottom: 1px solid #ccc;
+	padding: 10px;
+	margin: 0px auto;
+	margin-bottom: 5px;
+	display: flex;
+	justify-content: space-between;
+	flex-flow: row nowrap;
+}
+
+.memexplain {
+	font-size: 13px;
+}
+
+.memmore {
+	width: 26px;
+	height: 26px;
+	background: url("../image/more.png");
+	background-size: 24px 24px;
+	background-repeat: no-repeat;
+}
+/* 二维码下面显示的文字样式 */
+.tips_ {
+	margin: 8px auto;
+	text-align: center;
+}
+
+.tips_click {
+	margin: 0px auto;
+	text-align: center;
+	color: blue;
+	text-decoration: underline;
+}
+</style>
+</head>
+<body>
+	<div class="membercard" onclick="fnGenerateCode()">
+		<div class="memberno"></div>
+	</div>
+	<div class="interests">
+		<div>
+			<span>积分</span>
+			<span class="memcurpoint intermem"></span>
+		</div>
+		<div>
+			<span>等级</span>
+			<span class="memgrade intermem"></span>
+		</div>
+		<div>
+			<span>余额</span>
+			<span class="memamount intermem"></span>
+		</div>
+	</div>
+	<div class="information mempublic" onclick="openPageAll(1)">
+		<p class="memexplain">我的信息</p>
+		<p class="memmore"></p>
+	</div>
+	<div class="coupons mempublic" onclick="openPageAll(2)">
+		<p class="memexplain">我的票券</p>
+		<p class="memmore"></p>
+	</div>
+	<div class="privilege mempublic" onclick="openPageAll(3)">
+		<p class="memexplain">会员特权</p>
+		<p class="memmore"></p>
+	</div>
+	<div class="myselfprivilege mempublic" onclick="openPageAll(4)">
+		<p class="memexplain">我的特权</p>
+		<p class="memmore"></p>
+	</div>
+	<div class="integral mempublic" onclick="openPageAll(5)">
+		<p class="memexplain">积分兑换</p>
+		<p class="memmore"></p>
+	</div>
+</body>
+<script type="text/javascript" src="../js/jquery-3.1.1.min.js"></script>
+<script type="text/javascript" src="../js/jquery.qrcode.min.js"></script>
+<script type="text/javascript" src="../js/config.js"></script>
+<script type="text/javascript" src="../js/layer/mobile/layer.js"></script>
+<script type="text/javascript">
+	var memberno, memcurpoint, memamount, memberid, integral, membertypeid, membertypename;
+	var user = $.parseJSON(window.localStorage.getItem("user"));
+	$(".memberno").html("NO." + user.memberno);
+	$(".memcurpoint").html(user.curpoint);
+	$(".memamount").html(user.amount);
+	$(".memgrade").html(user.membertypename);
+	memberid = user.memberid;
+	integral = user.curpoint;
+	membertypeid = user.membertypeid;
+	membertypename = user.membertypename;
+
+	// 特殊监听返回
+	pushHistory();
+	window.addEventListener("popstate", function(e) {
+		window.location.href = "../index.html?flag=4";
+	}, false);
+	function pushHistory() {
+		var state = {
+			title : "title",
+			url : "#"
+		};
+		window.history.pushState(state, "title", "#");
+	}
+
+	//生成二维码
+	function fnGenerateCode() {
+		layer
+				.open({
+					type : 1,
+					content : '<div id="code"></div><div class="tips_">柜台结账前出示会员卡</div><div class="tips_click">点击阴影处退出二维码</div>',
+					anim : 'up',
+					style : 'padding:10px; border:none;'
+				});
+		$("#code").qrcode({
+			render : "table",
+			width : 200,
+			height : 200,
+			text : user.memberno
+		});
+	}
+
+	function openPageAll(data) {
+		var url5 = encodeURI("member/memintegral.html?memberid=" + memberid + "&integral=" + integral
+				+ "&membertypename=" + membertypename);
+		var url4 = encodeURI("member/myselfprivilege.html?membertypeid=" + membertypeid + "&membertypename="
+				+ membertypename + "&" + timestamp());
+		switch (data) {
+		case 1:
+			window.top.location = "member/meminformation.html?memberid=" + memberid + "&" + timestamp();
+			break;
+		case 2:
+			window.top.location = "member/memcoupods.html?memberid=" + memberid + "&" + timestamp();
+			break;
+		case 3:
+			window.top.location = "member/memprivilege.html?" + timestamp();
+			break;
+		case 4:
+			window.top.location = url4;
+			break;
+		case 5:
+			window.top.location = url5;
+			break;
+		}
+	}
+</script>
+</html>

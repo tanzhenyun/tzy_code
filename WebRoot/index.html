@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title></title>
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Cache-control" content="no-cache">
+<meta http-equiv="Cache" content="no-cache">
+<meta charset="UTF-8">
+<meta name="viewport"
+	content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0" />
+<meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+<link rel="stylesheet" type="text/css" href="css/styles.css">
+<style>
+html, body, iframe, p, div, a, span, input {
+	margin: 0px;
+	padding: 0px;
+	width: 100%;
+}
+
+a, a:hover {
+	color: #333;
+	font-size: 10px;
+	-webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+	-webkit-tap-highlight-color: transparent;
+	outline: none;
+	text-decoration: none;
+}
+
+a:active {
+	color: #fff;
+	outline: none;
+	background: none;
+	text-decoration: none;
+	outline: none;
+}
+
+input {
+	outline: none;
+	border: 0;
+}
+
+input:focus {
+	outline: none;
+}
+
+input, select, option, textarea {
+	outline: none;
+}
+
+#tabs {
+	width: 100%;
+	height: 50px;
+	display: flex;
+	flex-flow: row nowrap;
+	justify-content: space-around;
+	background: #B0E2FF;
+	position: fixed;
+	bottom: 0px;
+}
+
+p a {
+	display: flex;
+	flex-flow: column nowrap;
+	justify-content: center;
+	align-items: center;
+}
+
+span {
+	display: inline-block;
+	width: 40px;
+	/* 	height: 30px; */
+	/* 	line-height: 30px; */
+	text-align: center;
+}
+
+.span1, .span2, .span3, .span4, .span5 {
+	display: inline-block;
+	width: 20px;
+	height: 26px;
+	line-height: 30px;
+}
+
+.span1 {
+	background: url(image/homepage.png) no-repeat center;
+	background-size: 20px 20px;
+}
+
+.span2 {
+	background: url(image/fenlei.png) no-repeat center;
+	background-size: 20px 20px;
+}
+
+.span3 {
+	background: url(image/shop.png) no-repeat center;
+	background-size: 20px 20px;
+}
+
+.span4 {
+	background: url(image/cart.png) no-repeat center;
+	background-size: 20px 20px;
+}
+
+.span5 {
+	background: url(image/mine.png) no-repeat center;
+	background-size: 20px 20px;
+}
+
+#iframepage {
+	margin: 0px;
+	padding: 0px;
+	border: none;
+	outline: none;
+	width: 1px;
+	min-width: 100%;
+	*width: 100%;
+	overflow: scroll;
+	-webkit-overflow-scrolling: touch;
+}
+
+.confirm_ul {
+	list-style: none;
+	margin: 0px;
+	padding: 0px;
+	width: 80%;
+	margin: auto;
+	margin-top: 60%;
+}
+
+.confirm_title {
+	background: #F2F2F2;
+	text-align: left;
+	padding-left: 20px;
+	line-height: 60px;
+	border: 1px solid #999;
+}
+
+.confirm_content {
+	background: #fff;
+	text-align: center;
+	height: 90px;
+	line-height: 90px;
+	border-radius: 2px 2px 0 0;
+}
+
+.confirm_btn-wrap {
+	background: #fff;
+	height: 35px;
+	line-height: 20px;
+	text-align: right;
+	border-radius: 0 0 2px 2px;
+}
+
+.confirm_btn {
+	cursor: pointer;
+	color: #2bd00f;
+	margin-right: 35px;
+	font-size: 16px;
+}
+
+.confirm_btn-wrap>a:nth-child(1) {
+	color: #9c9898;
+}
+
+.layui-m-layercont {
+	padding-left: 0px !important;
+}
+</style>
+<script type="text/javascript">
+	var wxuserinfo = sessionStorage.getItem("wxuserinfo");
+	if (wxuserinfo != 1) {
+		sessionStorage.setItem("wxuserinfo", "1");
+		window.location.href = "demo.html";
+	}
+</script>
+</head>
+<body>
+	<div class="list">
+		<iframe src="frame0.html" name="iframe_a" frameborder="0" id="iframepage"></iframe>
+	</div>
+	<p id="tabs">
+		<a href="javascript:;" target="iframe_a" onclick="fnLoad('frame0')"> <span class="span1"></span>
+			<span class="title">首页</span>
+		</a> <a href="javascript:;" target="iframe_a" onclick="fnLoad('frame1')"> <span class="span2"></span>
+			<span class="title">分类</span>
+		</a> <a href="javascript:;" target="iframe_a" onclick="fnLoad('frame2')"> <span class="span3"></span>
+			<span class="title">门店</span>
+		</a> <a href="javascript:;" target="iframe_a" onclick="fnLoad('frame3')"> <span class="span4"></span>
+			<span class="title">购物车</span>
+		</a> <a href="javascript:;" target="iframe_a" onclick="fnLoad('frame4')"> <span class="span5"></span>
+			<span class="title">我的</span>
+		</a>
+	</p>
+</body>
+<script type="text/javascript" src="js/jquery-3.1.1.min.js"></script>
+<script type="text/javascript" src="js/config.js"></script>
+<script type="text/javascript" src="js/layer/mobile/layer.js"></script>
+<script type="text/javascript">
+	pushHistory();
+	//让窗口监听popstate事件
+	window.addEventListener("popstate", function(e) {
+		layer.open({
+			content : '你确认要退出吗?',
+			btn : [ '确定', '取消' ],
+			yes : function(index) {
+				WeixinJSBridge.call("closeWindow");
+				layer.close(index);
+			}
+		});
+
+	});
+	function pushHistory() {
+		var state = {
+			title : "title",
+			url : "#"
+		};
+		window.history.pushState(state, "title", "#");
+	}
+
+	var index = 0,
+		flag,
+		u,
+		isAndroid,
+		isiOS;
+	$(document).ready(function() {
+		$('title').html(titleName());
+		flag = getParameter("flag");
+		if (flag == undefined || flag == 'undefined') {
+			fnLoad("frame0");
+		// 			fnIosorAndroid();
+		} else {
+			fnLoad("frame" + flag);
+		}
+		var ifm = document.getElementById("iframepage");
+		ifm.height = document.documentElement.clientHeight - 50;
+	});
+
+	function fnLoad(type) {
+		$(".list").html(
+			'<iframe src="' + type + '.html?"' + timestamp()
+			+ ' name="iframe_a" frameborder="0"  id="iframepage"></iframe>');
+		var ifm = document.getElementById("iframepage");
+		ifm.height = document.documentElement.clientHeight - 50;
+		// 修改地址栏地址
+		history.pushState("", "", "index.html?flag=" + type.substring(5, 6));
+		if (parseInt(type.substring(5, 6)) != 0) {
+			sessionStorage.removeItem("frame0");
+		} else {
+			// 			fnIosorAndroid();
+		}
+	}
+
+	//判断是安卓和iOS系统
+	function fnIosorAndroid() {
+		u = navigator.userAgent;
+		isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1; //android终端
+		isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); //ios终端
+		if (isiOS) {
+			$('#iframepage').css({
+				"height" : "100%",
+			});
+			$('#iframepage').attr({
+				"scrolling" : "no",
+			});
+		}
+	}
+</script>
+</html>

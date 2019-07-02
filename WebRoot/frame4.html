@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title></title>
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Cache-control" content="no-cache">
+<meta http-equiv="Cache" content="no-cache">
+<meta charset="UTF-8">
+<meta name="viewport"
+	content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0" />
+<meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+<link rel="stylesheet" type="text/css" href="css/styles.css">
+<!-- <link rel="stylesheet" type="text/css" href="js/layer/mobile/need/layer.css"> -->
+<style type="text/css">
+html, body {
+	background: #f0f0f0;;
+	margin: 0px;
+	padding: 0px;
+}
+
+#userinfo {
+	width: 100%;
+	height: 130px;
+	border-bottom: 1px solid #ccc;
+	display: flex;
+	-webkit-justify-content: center;
+	-webkit-align-items: center;
+	-webkit-flex-flow: row nowrap;
+	background: -webkit-linear-gradient(left top, #C1FFC1, #7AC5CD);
+	font-size: 12px;
+}
+
+.info div {
+	padding-top: 6px;
+}
+
+.userPic {
+	width: 75px;
+	height: 75px;
+	border-radius: 50%;
+	background: url(image/mine.png) no-repeat center center;
+	background-size: 50px 50px;
+	margin-right: 60px;
+	border: 1px solid #ccc;
+}
+
+.wxnickname {
+	font-size: 16px;
+}
+
+.content {
+	width: 100%;
+	display: flex;
+	margin: 0px auto;
+	-webkit-justify-content: flex-start;
+	-webkit-align-items: center;
+	-webkit-flex-flow: row wrap;
+	text-align: left;
+	margin-top: 15px;
+}
+
+.contsrow {
+	width: 100%;
+	height: 45px;
+	line-height: 45px;
+	background: #fff;
+	display: flex;
+	-webkit-justify-content: flex-start;
+	-webkit-align-items: center;
+	-webkit-flex-flow: row wrap;
+	overflow: hidden;
+	color: #666;
+	font-size: 16px;
+	border-bottom: 1px solid #ccc;
+}
+
+.contsrow img {
+	width: 24px;
+	height: 24px;
+	margin: 0px 10px;
+}
+
+.contsrow .member {
+	font-size: 15px;
+	color: #666;
+	padding-top: 3px;
+}
+
+.animation {
+	position: relative;
+	animation: myfirst 5s;
+	/*animation-direction:alternate;*/
+	animation-fill-mode: forwards;
+}
+
+@keyframes myfirst {
+	from {left: 0px;
+}
+
+to {
+	left: 63%;
+}
+}
+</style>
+</head>
+<body>
+	<div class="myself">
+		<div id="userinfo">
+			<script type="text/template" id="template">
+				<div style="background: url({{=it.wxheadimgurl}}) no-repeat center center;background-size: 75px 75px;" class="userPic"></div>
+				<div class="info">
+					<div class="wxnickname">{{=it.wxnickname}}</div>
+					<div class="member">卡号: {{=it.memberno}}</div>
+					<div class="curpoint">积分: {{=it.curpoint}}&nbsp;&nbsp;金额: {{=it.amount}}</div>
+				</div>
+			</script>
+		</div>
+		<div class="content" id="content">
+			<div class="contsrow" onclick="openPage(5)">
+				<img src="image/similar-product.png" alt="" />
+				<span>我的订单</span>
+			</div>
+			<div class="contsrow" onclick="openPage(0)">
+				<img src="image/similar-product.png" alt="" />
+				<span>待支付</span>
+			</div>
+			<div class="contsrow" onclick="openPage(1)">
+				<img src="image/similar-product.png" alt="" />
+				<span>待收货</span>
+				<img class="animation" src="image/truck.png" alt="">
+			</div>
+			<div class="contsrow" onclick="openPage(2)">
+				<img src="image/order.png" alt="" />
+				<span>已收货</span>
+			</div>
+			<div class="contsrow" onclick="openPage(3)">
+				<img src="image/store.png" alt="" />
+				<span>收货地址</span>
+			</div>
+			<div class="contsrow" onclick="openPage(4)" style="margin-top:15px;">
+				<img alt="" src="image/member.png">
+				<span class="member">会员中心</span>
+			</div>
+			<div class="contsrow" onclick="openPage(7)">
+				<img src="image/store.png" alt="" />
+				<span>生活服务</span>
+			</div>
+			<div class="contsrow" onclick="openPage(6);" style="margin-top:15px;">
+				<img alt="" src="image/set.png">
+				<span class="member">设置</span>
+			</div>
+		</div>
+	</div>
+</body>
+<script type="text/javascript" src="js/jquery-3.1.1.min.js"></script>
+<script type="text/javascript" src="js/config.js"></script>
+<script type="text/javascript" src="js/doT.min.js"></script>
+<script type="text/javascript" src="js/layer/mobile/layer.js"></script>
+<script type="text/javascript">
+	var user;
+	$(document).ready(function() {
+		$('title').html(titleName());
+		var a = window.parent.document.getElementsByTagName("a");
+		for (var i = 0; i < a.length; i++) {
+			a[i].style.color = "#333";
+		}
+		a[4].style.color = "#ff0000";
+		user = $.parseJSON(window.localStorage.getItem("user"));
+		if (jQuery.isEmptyObject(user) || user.userid == "-1"
+			|| user.userid == 'undefined' || user.userid == undefined) {
+			layer.open({
+				content : "你还没有注册，确定注册吗？",
+				shadeClose : false,
+				btn : [ '确定', '不要' ],
+				yes : function(index) {
+					window.top.location = "html/register.html?" + timestamp();
+					layer.close(index);
+				},
+				no : function() {
+					window.top.location.href = "index.html";
+					layer.closeAll();
+				}
+			});
+			return;
+		}
+		fnGetUser();
+	});
+
+	function fnGetUser() {
+		var index = layer.open({
+			shadeClose : false,
+			type : 2,
+		});
+		$("#userinfo").html(doT.template($("#template").text())(user));
+		layer.close(index);
+	}
+
+	//点击设置账户
+	function fnSwitchaccount() {
+		event.stopPropagation();
+		if (jQuery.isEmptyObject(user) || user.userid == "-1"
+			|| user.userid == 'undefined' || user.userid == undefined) {
+			layer.open({
+				content : "你还没有注册，确定注册吗？",
+				shadeClose : false,
+				btn : [ '确定', '不要' ],
+				yes : function(index) {
+					window.top.location = "html/register.html?" + timestamp();
+					layer.close(index);
+				},
+				no : function() {
+					layer.closeAll();
+				}
+			});
+			return;
+		} else {
+			window.top.location = "html/informationsetting.html?" + timestamp();
+		}
+	}
+
+	function openPage(data) {
+		switch (data) {
+		case 0:
+			window.top.location = "html/pendingpayorder.html?" + timestamp();
+			break;
+		case 1:
+			window.top.location = "html/waitorder.html?" + timestamp();
+			break;
+		case 2:
+			window.top.location = "html/completeorder.html?" + timestamp();
+			break;
+		case 3:
+			window.top.location = "html/address.html?" + timestamp();
+			break;
+		case 4:
+			window.top.location = "html/membercenter.html?" + timestamp();
+			break;
+		case 5:
+			window.top.location = "html/myorder.html?" + timestamp();
+			break;
+		case 6:
+			window.top.location = "html/informationsetting.html?" + timestamp();
+			break;
+		case 7:
+			window.top.location = "html/lifeservice/lifeservice.html?" + timestamp();
+			break;
+		}
+	}
+</script>
+</html>

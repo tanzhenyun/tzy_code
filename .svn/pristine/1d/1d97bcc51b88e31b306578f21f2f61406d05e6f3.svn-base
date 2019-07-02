@@ -1,0 +1,29 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title></title>
+<meta http-equiv="pragma" content="no-cache">
+<meta http-equiv="cache-control" content="no-cache">
+<meta http-equiv="expires" content="0">
+</head>
+<body>
+	<script type="text/javascript" src="js/config.js"></script>
+	<script type="text/javascript">
+		var memberflag = getParameter("memberflag");
+		var appid = "wx4080291b86385d80";
+
+		if (parseInt(memberflag) == 1) {
+			//页面自动跳转地址（非静默授权链接） 参数appid为公众号的id redirect_uri为微信回调接口 state为可携带的参数(可选，这里写的是回调接口处理完跳转到指定页面) 其余参数不变
+			window.location.href = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=" + appid
+					+ "&redirect_uri=" + ip() + "wx.do?memberflag=1&response_type=code"
+					+ "&scope=snsapi_userinfo&state=index.html#wechat_redirect";
+		} else {
+			//页面自动跳转地址（非静默授权链接） 参数appid为公众号的id redirect_uri为微信回调接口 state为可携带的参数(可选，这里写的是回调接口处理完跳转到指定页面) 其余参数不变
+			window.location.href = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=" + appid
+					+ "&redirect_uri=" + ip() + "wx.do&response_type=code"
+					+ "&scope=snsapi_userinfo&state=index.html#wechat_redirect";
+		}
+	</script>
+</body>
+</html>

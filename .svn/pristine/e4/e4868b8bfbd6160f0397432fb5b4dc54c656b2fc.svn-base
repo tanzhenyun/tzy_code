@@ -1,0 +1,2349 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title></title>
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Cache-control" content="no-cache">
+<meta http-equiv="Cache" content="no-cache">
+<meta charset="UTF-8">
+<meta name="viewport"
+	content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0" />
+<!-- <link rel="stylesheet" type="text/css" href="css/styles.css"> -->
+<style type="text/css">
+html, body {
+	background-color: #f2f2f2;
+	margin: 0px;
+	padding: 0px;
+	overflow-y: scroll;
+	overflow-x: hidden;
+}
+
+header {
+	height: 40px;
+	position: fixed;
+	top: 0px;
+	width: 100%;
+	z-index: 999;
+	background: #f2f2f2;
+}
+
+#container {
+	margin-bottom: 45px;
+	margin-top: 50px;
+	width: 100%;
+}
+
+.controls {
+	width: 100px;
+	height: 45px;
+	display: none;
+	margin-left: 10px;
+}
+
+.controls #select {
+	width: 20px;
+	height: 40px;
+	display: inline-block;
+	float: left;
+	background-repeat: no-repeat;
+	background-size: 18px 18px;
+	background-position: 0px 13px;
+}
+
+.controls .info {
+	display: inline-block;
+	width: 50px;
+	height: 40px;
+	line-height: 45px;
+	padding-left: 4px;
+	float: left;
+}
+
+footer {
+	width: 100%;
+	height: 45px;
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: flex;
+	-webkit-box-orient: horizontal;
+	-webkit-flex-flow: row;
+	flex-flow: row;
+	position: fixed;
+	bottom: 0px;
+	left: 0;
+	z-index: 3;
+	background: #fff;
+}
+
+.panel {
+	-webkit-box-flex: 1;
+	-webkit-flex: 1;
+	flex: 1;
+	height: 45px;
+}
+
+.panel .info {
+	box-sizing: border-box;
+	width: 100%;
+	height: 45px;
+	padding-top: 8px;
+	padding-right: 8px;
+}
+
+.panel .info .top {
+	position: relative;
+	width: 100%;
+	height: 20px;
+	text-align: left;
+	margin-left: 30px;
+	font-size: 16px;
+	color: #444;
+	line-height: 20px;
+}
+
+.panel .info .top .amount {
+	font-weight: bold;
+	color: #ff0000;
+}
+
+.panel .info .top .mark {
+	color: #ff0000;
+	font-size: 12px;
+}
+
+.panel .info .bottom {
+	position: relative;
+	height: 14px;
+	font-size: 10px;
+	color: #888;
+	text-align: left;
+	margin-left: 30px;
+	line-height: 14px;
+}
+
+.panel .info .bottom .original, .panel .info .bottom .decrease {
+	margin-right: 10px;
+}
+
+.buy {
+	width: 112px;
+	height: 45px;
+	color: #fff;
+	background: #ff0000;
+	line-height: 45px;
+	text-align: center;
+}
+
+.shop {
+	font-size: 14px;
+	background: #fff;
+	margin-top: 10px;
+	border-top: 1px solid #ddd;
+	border-bottom: 1px solid #ddd;
+}
+
+.shop, .wareinfo {
+	position: relative;
+	margin-top: 8px;
+}
+
+.shop .shopinfo {
+	padding: 0 5px;
+	line-height: 23px;
+	position: relative;
+}
+
+.shop .shopinfo .shopname {
+	font-size: 12px;
+}
+
+.shop .shopinfo .shopmore {
+	display: inline-block;
+	background: url(image/more.png) no-repeat center;
+	background-size: 15px 14px;
+	margin-left: 4px;
+}
+
+.shop .ware {
+	position: relative;
+	top: 0px;
+	left: 135px;
+	box-sizing: border-box;
+	height: 100%;
+	font-size: 13px;
+}
+
+.shop .ware div {
+	line-height: 20px;
+}
+
+.shop .control {
+	position: absolute;
+	top: 55px;
+	right: 150px;
+	width: 75px;
+	height: 25px;
+	line-height: 23px;
+	border: 1px solid #ccc;
+	text-align: center;
+	border-radius: 3px;
+}
+
+.shop .control .minus {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 25px;
+	height: 25px;
+	line-height: 21px;
+	z-index: 2;
+	font-size: 16px;
+	border-right: 1px solid #ccc;
+}
+
+.shop .control .add {
+	position: absolute;
+	top: 0;
+	right: 0;
+	width: 25px;
+	height: 25px;
+	line-height: 21px;
+	z-index: 2;
+	font-size: 16px;
+	border-left: 1px solid #ccc;
+}
+
+.shop .control .count {
+	position: relative;
+	top: 0;
+	width: 25px;
+	height: 22px;
+	text-align: center;
+	line-height: 19px;
+	color: #333;
+	font-size: 12px;
+	border: 0;
+}
+
+.delbtn {
+	width: 90px;
+	height: 40px;
+	text-align: center;
+	line-height: 40px;
+	font-size: 14px;
+	color: #FF0000;
+	position: absolute;
+	top: 0px;
+	right: 0px;
+	z-index: 999;
+	display: none;
+}
+
+.chooseall {
+	width: 25%;
+	height: 40px;
+	text-align: center;
+	line-height: 40px;
+	font-size: 14px;
+	display: flex;
+	-webkit-justify-content: space-around;
+	-webkit-align-items: center;
+	flex-flow: row nowrap;
+	position: absolute;
+	right: 0px;
+	top: 0px;
+	z-index: 999;
+}
+
+.goods {
+	width: 140px;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+
+.shoplabel i {
+	font-size: 12px;
+	font-style: normal;
+	display: inline-block;
+	width: 18px;
+	height: 18px;
+	text-align: center;
+	line-height: 18px;
+	color: #fff;
+	vertical-align: middle;
+	margin: -2px 2px 1px 0px;
+	border: #2489c5 1px solid;
+	border-radius: 50%;
+	position: relative;
+	top: 0px;
+	left: 5px;
+}
+
+.warelabel {
+	position: absolute;
+}
+
+.warelabel i {
+	font-size: 12px;
+	font-style: normal;
+	display: inline-block;
+	width: 18px;
+	height: 18px;
+	text-align: center;
+	line-height: 18px;
+	color: #fff;
+	vertical-align: middle;
+	margin: -2px 2px 1px 0px;
+	border: #2489c5 1px solid;
+	border-radius: 50%;
+	position: relative;
+	top: 30px;
+	left: 15px;
+}
+
+input[type="checkbox"] {
+	display: none;
+}
+
+input[type="checkbox"]:checked+i {
+	background: #2489c5;
+}
+
+.hi {
+	display: none;
+}
+
+.notlogin {
+	width: 100%;
+	height: 100%;
+	line-height: 100%;
+	text-align: center;
+	margin-top: 35%;
+}
+
+.notlogin .loginpic {
+	width: 36px;
+	height: 36px;
+	background-image: url(image/login.png);
+	background-repeat: no-repeat;
+	background-size: 100% 100%;
+	background-position: center center;
+	margin: 13px auto;
+}
+
+.notlogin .cartinfo {
+	font-size: 18px;
+	color: #666;
+	margin-left: 28px;
+}
+
+.notloginpic {
+	width: 105px;
+	height: 60px;
+	background-image: url(image/cartinfo.png);
+	background-repeat: no-repeat;
+	background-size: 100% 100%;
+	background-position: center center;
+	margin: 13px auto;
+	animation: myfirst 2.5s infinite;
+}
+
+.notcartinfo {
+	width: 100%;
+	font-size: 14px;
+	color: #8B2323;
+	border-bottom: 1px solid #8B2323;
+}
+
+.cartgoodspic {
+	width: 68px;
+	height: 68px;
+	position: absolute;
+	top: 0px;
+	left: -80px;
+	background: url(image/logo.png);
+	background-size: 70px 70px;
+	margin-tight: 20px;
+}
+
+.deletegoods {
+	width: 100%;
+	height: 45px;
+	color: #fff;
+	background: #ff0000;
+	line-height: 45px;
+	text-align: center;
+	font-size: 18px;
+}
+
+.whole, .single {
+	/* 	height: 26px; */
+	line-height: 26px;
+	color: red;
+	padding: 0 20px;
+	font-size: 12px;
+	position: relative;
+	border-bottom: 1px solid #f2f2f2;
+}
+
+.whole .wholesp, .single .singlesp {
+	margin-left: 30px;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	padding-right: 5px;
+}
+
+.single {
+	font-size: 10px;
+}
+
+.modifyBtn {
+	float: right;
+}
+
+.toggleinfo {
+	width: 30px;
+	height: 16px;
+	line-height: 18px;
+	text-align: center;
+	border-radius: 22px;
+	background: #ff0000;
+	color: #fff;
+	font-size: 10px;
+	position: absolute;
+	top: 5px;
+	left: 16px;
+}
+
+.box {
+	display: none;
+	background-color: rgba(0, 0, 0, .7);
+	width: 100%;
+	height: 100%;
+	position: relative;
+}
+
+.box .spcontainer {
+	position: absolute;
+	bottom: 0px;
+	left: 0px;
+	padding: 0 10px;
+	overflow-y: auto;
+	background: #fff;
+	box-sizing: border-box;
+	width: 100%;
+	height: 70%;
+}
+
+.box .spcontainer .title {
+	position: fixed;
+	top: 30%;
+	left: 0px;
+	font-size: 14px;
+	width: 100%;
+	background: #fff;
+	padding: 5px;
+	box-sizing: border-box;
+	line-height: 40px;
+	text-align: center;
+	color: #666;
+	font-family: "宋体";
+}
+
+.box .spcontent {
+	margin-top: 50px;
+	width: 100%;
+}
+
+.box .close {
+	width: 16px;
+	height: 16px;
+	background: url(image/close-area.png);
+	background-size: 13px;
+	background-repeat: no-repeat;
+	position: fixed;
+	right: 15px;
+	top: 32%;
+	opacity: 0.6;
+}
+
+.reducespinfo {
+	line-height: 26px;
+	color: red;
+	padding: 0 20px;
+	font-size: 12px;
+}
+
+.sign {
+	float: left;
+	width: 40px;
+	height: 20px;
+	line-height: 20px;
+	text-align: center;
+	border: 1px solid red;
+	border-radius: 20px;
+	margin-right: 5px;
+}
+
+.markup, .wholemarkup, .couponmarkup {
+	display: -webkit-flex;
+	line-height: 24px;
+	padding: 0 20px;
+	font-size: 10px;
+	-webkit-justify-content: space-between;
+}
+</style>
+</head>
+<body>
+	<header>
+		<div class="controls" onclick="fnCheckAll()">
+			<div id="select"></div>
+			<div class="info">全选</div>
+		</div>
+		<div class="delbtn">编辑</div>
+		<div class="chooseall" style="display:none;">取消</div>
+	</header>
+	<div id="container">
+		<script type="text/template" charset="utf-8" id="content">
+			{{if(it.length > 0){ }}
+			{{for(var i=0;i< it.length;i++) { }}
+			<div class="shop shopid_{{=it[i].shopid}}">
+			<div class="shopinfo">
+			<label class="shoplabel shopcheck" onclick="fnCheckShop('{{=it[i].shopid}}')">
+			<input type="checkbox" ><i>✓</i>
+			</label>
+			<span class="hi shopid">{{=it[i].shopid}}</span>
+			<span class="shopname" style="margin-left: 5%;" onclick="fnShopDetail('{{=it[i].shopid}}','{{=it[i].shopname}}');">{{=it[i].shopname}}</span>
+			<span class="shopmore">&nbsp;&nbsp;</span>
+			</div>
+			
+			<div class="whole">
+			{{if(it[i].wholelist.length > 0){ }}
+			<span class="toggleinfo">促销</span>
+			<span class="modifyBtn" onclick="fnChooseSP(0,{{=it[i].shopid}},'',{{=it[i].wholelist[0].spruleid}})">更多优惠</span>
+			{{if(it[i].wholelist[0].sptype == 1){ }}
+			<span class="wholesptype hi">{{=it[i].wholelist[0].sptype}}</span>
+			<span class="wholespruleid hi">{{=it[i].wholelist[0].spruleid}}</span>
+			<div class="wholesp">店铺订单满{{=it[i].wholelist[0].amount}}元,立减{{=it[i].wholelist[0].subtractamount}}元</div>
+			{{ } }}
+			{{if(it[i].wholelist[0].sptype == 3){ }}
+			<span class="wholesptype hi">{{=it[i].wholelist[0].sptype}}</span>
+			<span class="wholespruleid hi">{{=it[i].wholelist[0].spruleid}}</span>
+			<div class="wholesp">店铺订单满{{=it[i].wholelist[0].startvalue}}-{{=it[i].wholelist[0].endvalue}}元,打{{=it[i].wholelist[0].discount}}折</div>
+			{{ } }}
+			{{if(it[i].wholelist[0].sptype == 4){ }}
+			<span class="wholesptype hi">{{=it[i].wholelist[0].sptype}}</span>
+			<span class="wholespruleid hi">{{=it[i].wholelist[0].spruleid}}</span>
+			<div class="wholesp">店铺订单满{{=it[i].wholelist[0].startvalue}}-{{=it[i].wholelist[0].endvalue}}元,立减{{=it[i].wholelist[0].subtractamount}}元</div>
+			{{ } }}
+			{{if(it[i].wholelist[0].sptype == 2){ }}
+			<span class="wholesptype hi">{{=it[i].wholelist[0].sptype}}</span>
+			<span class="wholespruleid hi">{{=it[i].wholelist[0].spruleid}}</span>
+			<div class="wholesp">店铺订单满{{=it[i].wholelist[0].amount}}元,赠{{=it[i].wholelist[0].presentname}},{{=it[i].wholelist[0].presentqty}}件</div>
+			{{ } }}
+			{{if(it[i].wholelist[0].sptype == 5){ }}
+			<span class="wholesptype hi">{{=it[i].wholelist[0].sptype}}</span>
+			<span class="wholespruleid hi">{{=it[i].wholelist[0].spruleid}}</span>
+			<div class="wholesp">店铺订单满{{=it[i].wholelist[0].startvalue}}-{{=it[i].wholelist[0].endvalue}}元,赠{{=it[i].wholelist[0].presentname}},{{=it[i].wholelist[0].presentqty}}件</div>
+			{{ } }}
+			{{if(it[i].wholelist[0].sptype == 6){ }}
+			<span class="wholesptype hi">{{=it[i].wholelist[0].sptype}}</span>
+			<span class="wholespruleid hi">{{=it[i].wholelist[0].spruleid}}</span>
+			<div class="wholesp">店铺订单满{{=it[i].wholelist[0].amount}}元,赠{{=it[i].wholelist[0].couponamount}}元代金券,{{=it[i].wholelist[0].validdate}}天</div>
+			{{ } }}
+			{{if(it[i].wholelist[0].sptype == 7){ }}
+			<span class="wholesptype hi">{{=it[i].wholelist[0].sptype}}</span>
+			<span class="wholespruleid hi">{{=it[i].wholelist[0].spruleid}}</span>
+			<div class="wholesp">店铺订单满{{=it[i].wholelist[0].startvalue}}-{{=it[i].wholelist[0].endvalue}}元,赠{{=it[i].wholelist[0].couponamount}}元代金券,{{=it[i].wholelist[0].validdate}}天</div>
+			{{ } }}
+			{{if(it[i].wholelist[0].sptype == 8){ }}
+			<span class="wholesptype hi">{{=it[i].wholelist[0].sptype}}</span>
+			<span class="wholespruleid hi">{{=it[i].wholelist[0].spruleid}}</span>
+			<div class="wholesp">店铺订单满{{=it[i].wholelist[0].startvalue}}-{{=it[i].wholelist[0].endvalue}}元,赠整单价格{{=it[i].wholelist[0].coupondiscount}}%代金券,{{=it[i].wholelist[0].validdate}}天</div>
+			{{ } }}
+			{{if(it[i].wholelist[0].sptype == 9){ }}
+			<span class="wholesptype hi">{{=it[i].wholelist[0].sptype}}</span>
+			<span class="wholespruleid hi">{{=it[i].wholelist[0].spruleid}}</span>
+			<div class="wholesp">店铺订单满{{=it[i].wholelist[0].amount}}元,加{{=it[i].wholelist[0].addprice}}元,换购{{=it[i].wholelist[0].presentname}},{{=it[i].wholelist[0].presentqty}}件</div>
+			{{ } }}
+			{{if(it[i].wholelist[0].sptype == 10){ }}
+			<span class="wholesptype hi">{{=it[i].wholelist[0].sptype}}</span>
+			<span class="wholespruleid hi">{{=it[i].wholelist[0].spruleid}}</span>
+			<div class="wholesp">店铺订单满{{=it[i].wholelist[0].startvalue}}-{{=it[i].wholelist[0].endvalue}}元,加{{=it[i].wholelist[0].addprice}}元,换购{{=it[i].wholelist[0].presentname}},{{=it[i].wholelist[0].presentqty}}件</div>
+			{{ } }}
+			
+			{{ } }}
+			</div>
+
+			{{ for(var j=0; j<it[i].goodsinfolist.length; j++) { }}
+				
+			<div class="wareinfo wareinfo_{{=it[i].goodsinfolist[j].goodsid}} boxshadow" >
+			<div class="reducespinfo"></div>
+			<label class="warelabel warecheck" onclick="fnCheckWare('{{=it[i].shopid}}','{{=it[i].goodsinfolist[j].goodsid}}')" >
+			<input type="checkbox"><i>✓</i>
+			</label>
+			<div onclick="fnGoodsDetail('{{=it[i].shopid}}','{{=it[i].goodsinfolist[j].goodsid}}','{{=it[i].shopname}}','{{=it[i].goodsinfolist[j].goodsname}}')" class="ware ware_{{=it[i].goodsinfolist[j].goodsid}}" >
+			{{ if(it[i].goodsinfolist[j].picname != ""){ }}
+			<div class="cartgoodspic" style="background:url(http://{{=it[i].goodsinfolist[j].folderpath}}/ecpic/ecgoodspic/{{=it[i].goodsinfolist[j].goodsid}}/{{=it[i].goodsinfolist[j].picname}});background-size:cover;"></div>
+			{{ }else{ }}
+			<div class="cartgoodspic"></div>
+			{{ } }}
+
+			<div class="goods"><span class="hi goodsid">{{=it[i].goodsinfolist[j].goodsid}}</span><span class="goodsname">{{=it[i].goodsinfolist[j].goodsname}}</span></div>
+			<div class="goodsspecsT">规格：<span class="goodsspecs">{{=it[i].goodsinfolist[j].goodsspecs}}/{{=it[i].goodsinfolist[j].basepackname}}/{{=it[i].goodsinfolist[j].goodsid}}</span></div>
+			<div class="priceT">￥<span class="price">{{=it[i].goodsinfolist[j].price}}</span><span class="price1 hi">{{=it[i].goodsinfolist[j].price}}</span></div>
+			<div class="inventoryqty" style="color:#ff0000;font-size:10px;margin-top:3px;">库存：<span>{{=it[i].goodsinfolist[j].inventoryqty}}</span></div>
+			<div class="control control_flex control_{{=it[i].goodsinfolist[j].goodsid}}">
+			<span class="minus" onclick="fnMinus('{{=it[i].shopid}}','{{=it[i].goodsinfolist[j].goodsid}}');">-</span>
+			<input readonly="readonly" class="count count_{{=it[i].goodsinfolist[j].goodsid}}" value="{{=it[i].goodsinfolist[j].goodsqty}}">
+			<span class="add" onclick="fnAdd('{{=it[i].shopid}}','{{=it[i].goodsinfolist[j].goodsid}}');">+</span>
+			</div>
+			</div>
+			<div class="markup"></div>
+			</div>
+
+				
+			<div class="single">
+			{{if(it[i].goodsinfolist[j].singlelist.length > 0){ }}
+			<span class="toggleinfo">促销</span>
+			<span class="modifyBtn" onclick="fnChooseSP(1,{{=it[i].shopid}},{{=it[i].goodsinfolist[j].goodsid}},{{=it[i].goodsinfolist[j].singlelist[0].spruleid}})">更多优惠</span>
+			{{if(it[i].goodsinfolist[j].singlelist[0].sptype == 1){ }}
+			<span class="singlesptype hi">{{=it[i].goodsinfolist[j].singlelist[0].sptype}}</span>
+			<span class="spruleid hi">{{=it[i].goodsinfolist[j].singlelist[0].spruleid}}</span>
+			<div class="singlesp">本品单价只需{{=it[i].goodsinfolist[j].singlelist[0].price}}元</div>
+			{{ } }}
+			{{if(it[i].goodsinfolist[j].singlelist[0].sptype == 2){ }}
+			<span class="singlesptype hi">{{=it[i].goodsinfolist[j].singlelist[0].sptype}}</span>
+			<span class="spruleid hi">{{=it[i].goodsinfolist[j].singlelist[0].spruleid}}</span>
+			<div class="singlesp">本品{{=it[i].goodsinfolist[j].singlelist[0].discount}}折销售</div>
+			{{ } }}
+			{{if(it[i].goodsinfolist[j].singlelist[0].sptype == 3){ }}
+			<span class="singlesptype hi">{{=it[i].goodsinfolist[j].singlelist[0].sptype}}</span>
+			<span class="spruleid hi">{{=it[i].goodsinfolist[j].singlelist[0].spruleid}}</span>
+			<div class="singlesp">购满{{=it[i].goodsinfolist[j].singlelist[0].goodsqty}}件,总价优惠{{=it[i].goodsinfolist[j].singlelist[0].subtractamount}}元</div>
+			{{ } }}
+			{{if(it[i].goodsinfolist[j].singlelist[0].sptype == 5){ }}
+			<span class="singlesptype hi">{{=it[i].goodsinfolist[j].singlelist[0].sptype}}</span>
+			<span class="spruleid hi">{{=it[i].goodsinfolist[j].singlelist[0].spruleid}}</span>
+			<div class="singlesp">购满{{=it[i].goodsinfolist[j].singlelist[0].startvalue}}-{{=it[i].goodsinfolist[j].singlelist[0].endvalue}}件,单价{{=it[i].goodsinfolist[j].singlelist[0].price}}元</div>
+			{{ } }}
+			{{if(it[i].goodsinfolist[j].singlelist[0].sptype == 6){ }}
+			<span class="singlesptype hi">{{=it[i].goodsinfolist[j].singlelist[0].sptype}}</span>
+			<span class="spruleid hi">{{=it[i].goodsinfolist[j].singlelist[0].spruleid}}</span>
+			<div class="spruleid">购满{{=it[i].goodsinfolist[j].singlelist[0].startvalue}}-{{=it[i].goodsinfolist[j].singlelist[0].endvalue}}件,总价打{{=it[i].goodsinfolist[j].singlelist[0].discount}}折</div>
+			{{ } }}
+			{{if(it[i].goodsinfolist[j].singlelist[0].sptype == 7){ }}
+			<span class="singlesptype hi">{{=it[i].goodsinfolist[j].singlelist[0].sptype}}</span>
+			<span class="spruleid hi">{{=it[i].goodsinfolist[j].singlelist[0].spruleid}}</span>
+			<div class="singlesp">购满{{=it[i].goodsinfolist[j].singlelist[0].startvalue}}-{{=it[i].goodsinfolist[j].singlelist[0].endvalue}}件,总价优惠{{=it[i].goodsinfolist[j].singlelist[0].subtractamount}}元</div>
+			{{ } }}
+			{{if(it[i].goodsinfolist[j].singlelist[0].sptype == 4){ }}
+			<span class="singlesptype hi">{{=it[i].goodsinfolist[j].singlelist[0].sptype}}</span>
+			<span class="spruleid hi">{{=it[i].goodsinfolist[j].singlelist[0].spruleid}}</span>
+			<div class="singlesp">购满{{=it[i].goodsinfolist[j].singlelist[0].goodsqty}}件,赠{{=it[i].goodsinfolist[j].singlelist[0].presentname}},{{=it[i].goodsinfolist[j].singlelist[0].presentqty}}件</div>
+			{{ } }}
+			{{if(it[i].goodsinfolist[j].singlelist[0].sptype == 8){ }}
+			<span class="singlesptype hi">{{=it[i].goodsinfolist[j].singlelist[0].sptype}}</span>
+			<span class="spruleid hi">{{=it[i].goodsinfolist[j].singlelist[0].spruleid}}</span>
+			<div class="singlesp">购满{{=it[i].goodsinfolist[j].singlelist[0].startvalue}}-{{=it[i].goodsinfolist[j].singlelist[0].endvalue}}件,赠{{=it[i].goodsinfolist[j].singlelist[0].presentname}},{{=it[i].goodsinfolist[j].singlelist[0].presentqty}}件</div>
+			{{ } }}
+			{{if(it[i].goodsinfolist[j].singlelist[0].sptype == 10){ }}
+			<span class="singlesptype hi">{{=it[i].goodsinfolist[j].singlelist[0].sptype}}</span>
+			<span class="spruleid hi">{{=it[i].goodsinfolist[j].singlelist[0].spruleid}}</span>
+			<div class="singlesp">购满{{=it[i].goodsinfolist[j].singlelist[0].goodsqty}}件,加{{=it[i].goodsinfolist[j].singlelist[0].addprice}}元,换购{{=it[i].goodsinfolist[j].singlelist[0].presentname}},{{=it[i].goodsinfolist[j].singlelist[0].presentqty}}件</div>
+			{{ } }}
+			{{if(it[i].goodsinfolist[j].singlelist[0].sptype == 11){ }}
+			<span class="singlesptype hi">{{=it[i].goodsinfolist[j].singlelist[0].sptype}}</span>
+			<span class="spruleid hi">{{=it[i].goodsinfolist[j].singlelist[0].spruleid}}</span>
+			<div class="singlesp">购满{{=it[i].goodsinfolist[j].singlelist[0].startvalue}}-{{=it[i].goodsinfolist[j].singlelist[0].endvalue}}件,加{{=it[i].goodsinfolist[j].singlelist[0].addprice}}元,换购{{=it[i].goodsinfolist[j].singlelist[0].presentname}},{{=it[i].goodsinfolist[j].singlelist[0].presentqty}}件</div>
+			{{ } }}
+			
+				
+			{{ } }}
+			</div>
+
+			{{ } }}
+			<div class="wholemarkup"></div>
+			<div class="couponmarkup"></div>
+			</div>
+			{{ } }}
+
+
+			<footer id="footer">
+			<div class="panel">
+			<div class="info">
+			<div class="top">
+			合计:<span class="mark">￥</span><span id="amount" class="amount">￥0.00</span>
+			</div>
+			<div class="bottom">
+				<span class="original"></span>
+				<span class="decrease"></span>
+				<span class="totalmarkup"></span>
+			</div>
+			</div>
+			</div>
+			<div class="buy"  onclick="fnOpenOrderWin();">
+			<span>结算</span>(<span id="count" class="">0</span>)
+			</div>
+			<span class="deletegoods" onclick="fnDeleteBill();" style="display:none">删除</span>
+			</footer>
+			{{ }else{ }}
+			<div class='notlogin' onclick='fnIndex()'>
+			<div class='notloginpic'>
+			</div>
+			<span class='notcartinfo'>去添加一些宝贝吧</span>
+			</div>
+			{{ } }}
+		</script>
+	</div>
+	<div class="box">
+		<div class="spcontainer">
+			<div class="title">更多优惠</div>
+			<div class="close" onclick="fnClose()"></div>
+			<div class="spcontent"></div>
+		</div>
+	</div>
+</body>
+<script type="text/javascript" src="js/jquery-3.1.1.min.js"></script>
+<script type="text/javascript" src="js/config.js"></script>
+<script type="text/javascript" src="js/doT.min.js"></script>
+<script type="text/javascript" src="js/layer/mobile/layer.js"></script>
+<script type="text/javascript">
+	var check = false,
+		user,
+		alldata;
+	$(document).ready(function() {
+		$('title').html(titleName());
+		user = $.parseJSON(window.localStorage.getItem("user"));
+		var a = window.parent.document.getElementsByTagName("a");
+		for (var i = 0; i < a.length; i++) {
+			a[i].style.color = "#333";
+		}
+		a[3].style.color = "#ff0000";
+		if (jQuery.isEmptyObject(user) || user.userid == "-1"
+			|| user.userid == 'undefined' || user.userid == undefined) {
+			var str = '<div class="notlogin" onclick="fnRegister()">';
+			str += '<div class="notloginpic"></div>';
+			str += '<span class="notcartinfo">您还不是会员,请注册</span>';
+			str += '</div>';
+			$("#container").html(str);
+			return;
+		}
+		fnGetWareList();
+	});
+
+	//判断是安卓和iOS系统
+	function fnIosorAndroid() {
+		u = navigator.userAgent;
+		isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1; //android终端
+		isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); //ios终端
+		if (isiOS) {
+			$('#footer').css({
+				"position" : "relative",
+			});
+		}
+	}
+
+	// 购物车商品
+	var singlearr;
+	var wholearr;
+	function fnGetWareList() {
+		var index = layer.open({
+			shadeClose : false,
+			type : 2
+		});
+		$.ajax({
+			url : ip() + 'getwarelist.do',
+			type : "post",
+			data : {
+				"userid" : user.userid,
+			},
+			dataType : "json",
+			success : function(data) {
+				alldata = data;
+				if (data.length == 0) {
+					$('.delbtn').css('display', 'none');
+					$('.controls').css('display', 'none');
+				} else {
+					$('.delbtn').css('display', 'block');
+					$('.controls').css('display', 'block');
+				}
+				$("#container").html(doT.template($("#content").text())(data));
+
+				singlearr = [];
+				wholearr = [];
+
+				for (var i = 0; i < data.length; i++) {
+					var warr = [];
+					warr[0] = data[i].shopid;
+					warr[1] = "";
+					wholearr.push(warr);
+					var searchpics = document.getElementsByClassName("shopid_" + data[i].shopid)[0]
+						.getElementsByClassName("cartgoodspic");
+
+					for (var j = 0; j < searchpics.length; j++) {
+						var arr = [];
+						arr[0] = data[i].shopid;
+						arr[1] = data[i].goodsinfolist[j].goodsid;
+						arr[2] = "";
+						singlearr.push(arr);
+
+					// 						if (data[i].goodsinfolist[j].picname == null || data[i].goodsinfolist[j].picname == "") {
+					// 						} else {
+					// 							if (data[i].goodsinfolist[j].picname.indexOf("-") < 0) {
+					// 								continue;
+					// 							} else if (data[i].goodsinfolist[j].picname.split("-")[1].indexOf("s") >= 0
+					// 								|| data[i].goodsinfolist[j].picname.split("-")[1].indexOf("S") >= 0) {
+					// 								continue;
+					// 							} else {
+					// 								var path = ip() + 'goodspic.do?goodsid=' + data[i].goodsinfolist[j].goodsid + '&name='
+					// 								+ data[i].goodsinfolist[j].picname;
+					// 								searchpics[j].style.background = "url(" + path + ")";
+					// 							}
+					// 						}
+					// 						searchpics[j].style.backgroundRepeat = "no-repeat";
+					// 						searchpics[j].style.backgroundSize = "70px 70px";
+					}
+				}
+				if (data == "" || data == null) {
+				} else {
+					// 					$("#container").css("border-top", "1px solid #15B5E9");
+					$("header").css("border-bottom", "2px solid #15B5E9");
+				}
+				var s = $('.shoplabel input');
+				var a = $('.warelabel input');
+				for (var i = 0; i < s.length; i++) {
+					s[i].checked = true;
+				}
+				for (var i = 0; i < a.length; i++) {
+					a[i].checked = true;
+				}
+				fnIosorAndroid();
+				layer.close(index);
+				$("#select").css("background-image", "url(image/sel_on.png)");
+				// 				$("#select").css("background-repeat", "no-repeat");
+				// 				$("#select").css("background-size", "16px 16px");
+				// 				$("#select").css("background-position", "0px 14px");
+				fnGetShoppingCartAmount();
+
+			},
+			error : function() {
+				layer.close(index);
+			}
+		});
+	}
+
+	//点击登录
+	function fnCartlogin() {
+		window.top.location = "html/login.html?" + timestamp();
+	}
+
+	//点击进入index首页
+	function fnIndex() {
+		window.top.location.href = "index.html?" + timestamp();
+	}
+
+	//点击注册
+	function fnRegister() {
+		window.top.location.href = "html/register.html?" + timestamp();
+	}
+
+	//点击编辑
+	$('.delbtn').on('click', function() {
+		if (jQuery.isEmptyObject(user) || user.userid == "-1"
+			|| user.userid == 'undefined' || user.userid == undefined) {
+			layer.open({
+				content : "你还没有注册，确定注册吗？",
+				shadeClose : false,
+				btn : [ '确定', '不要' ],
+				yes : function(index) {
+					window.location.href = "html/register.html?" + timestamp();
+					layer.close(index);
+				},
+				no : function() {
+					layer.closeAll();
+				}
+			});
+			return;
+		}
+		var s = $('.shoplabel input');
+		var a = $('.warelabel input');
+		for (var i = 0; i < s.length; i++) {
+			s[i].checked = false;
+		}
+		for (var i = 0; i < a.length; i++) {
+			a[i].checked = false;
+		}
+		$("#select").css("background-image", "url(image/sel_off.png)");
+		// 				$("#select").css("background-repeat", "no-repeat");
+		// 				$("#select").css("background-size", "16px 16px");
+		// 				$("#select").css("background-position", "0px 14px");
+		fnGetShoppingCartAmount();
+		check = true;
+		$(this).css('display', 'none');
+		$('.chooseall').css('display', 'flex');
+		$('.panel').css('display', 'none');
+		$('.buy').css('display', 'none');
+		$('.deletegoods').css('display', 'block');
+	});
+
+	// 编辑取消按钮点击
+	$('.chooseall').on('click', function() {
+		var s = $('.shoplabel input');
+		var a = $('.warelabel input');
+		for (var i = 0; i < s.length; i++) {
+			s[i].checked = true;
+		}
+		for (var i = 0; i < a.length; i++) {
+			a[i].checked = true;
+		}
+		$("#select").css("background-image", "url(image/sel_on.png)");
+		// 		$("#select").css("background-repeat", "no-repeat");
+		// 		$("#select").css("background-size", "16px 16px");
+		// 		$("#select").css("background-position", "0px 14px");
+		fnGetShoppingCartAmount();
+		check = false;
+		$('.chooseall').css('display', 'none');
+		$('.delbtn').css('display', 'block');
+		$('.panel').css('display', 'block');
+		$('.buy').css('display', 'block');
+		$('.deletegoods').css('display', 'none');
+	});
+
+	// 购物车加号按钮的监听函数
+	function fnAdd(shopid_, wareId_) {
+		var index = layer.open({
+			shadeClose : false,
+			type : 2
+		});
+		// 阻止事件继续向上冒泡
+		event.stopPropagation();
+		var goodsqtynow = $(".shopid_" + shopid_ + " .wareinfo_" + wareId_ + " .count").val();
+		var inventoryqty = $(".shopid_" + shopid_ + " .wareinfo_" + wareId_ + " .inventoryqty span").html();
+		if (parseInt(goodsqtynow) >= parseInt(inventoryqty)) {
+			layer.open({
+				content : "不能再增加该商品了哦",
+				skin : 'msg',
+				time : 2
+			});
+			layer.close(index);
+			return;
+		}
+		// 检查商品个数
+		var count = $('.shopid_' + shopid_ + ' .count_' + wareId_);
+		// 更新商品数量及显示状态
+		var countNumber = parseInt(count.val());
+		countNumber += 1;
+		count.val(countNumber);
+		// 更新当前页面的购物车信息
+		fnGetShoppingCartAmount();
+		$.ajax({
+			url : ip() + 'updateshoppingcart.do',
+			type : "post",
+			data : {
+				"shopid" : shopid_,
+				"goodsid" : wareId_,
+				"wareCount" : 1,
+				"userid" : user.userid
+			},
+			dataType : "json",
+			success : function(data) {
+				layer.close(index);
+			},
+			error : function(data) {
+				layer.close(index);
+			}
+		});
+	}
+	// 购物车减号按钮的监听函数
+	function fnMinus(shopid_, wareId_) {
+		var index = layer.open({
+			shadeClose : false,
+			type : 2
+		});
+		// 阻止事件继续向上冒泡
+		event.stopPropagation();
+		var count = $('.shopid_' + shopid_ + ' .count_' + wareId_);
+		var countNumber = parseInt(count.val());
+		if (countNumber != 1) {
+			countNumber -= 1;
+			count.val(countNumber);
+			$.ajax({
+				url : ip() + 'updateshoppingcart.do',
+				type : "post",
+				data : {
+					"shopid" : shopid_,
+					"goodsid" : wareId_,
+					"wareCount" : -1,
+					"userid" : user.userid
+				},
+				dataType : "json",
+				success : function(data) {
+					layer.close(index);
+				},
+				error : function(data) {
+					layer.close(index);
+				}
+			});
+		} else {
+			layer.close(index);
+		}
+		fnGetShoppingCartAmount();
+	}
+	// 选中门店
+	function fnCheckShop(shopid_) {
+		var isChecked = $('.shopid_' + shopid_ + ' .shoplabel input').is(':checked');
+		var warechecks = $('.shopid_' + shopid_ + ' .warelabel input');
+		if (isChecked) {
+			for (var i = 0; i < warechecks.length; i++) {
+				warechecks[i].checked = true;
+			}
+		} else {
+			for (var i = 0; i < warechecks.length; i++) {
+				warechecks[i].checked = false;
+			}
+		}
+		var shopcheck = $('.shoplabel input');
+		var s = false;
+		for (var i = 0; i < shopcheck.length; i++) {
+			if (shopcheck[i].checked) {
+				s = true;
+			} else {
+				s = false;
+				break;
+			}
+		}
+		if (s) {
+			check = false;
+			$("#select").css("background-image", "url(image/sel_on.png)");
+		// 			$("#select").css("background-repeat", "no-repeat");
+		// 			$("#select").css("background-size", "16px 16px");
+		// 			$("#select").css("background-position", "0px 14px");
+		} else {
+			check = true;
+			$("#select").css("background-image", "url(image/sel_off.png)");
+		// 			$("#select").css("background-repeat", "no-repeat");
+		// 			$("#select").css("background-size", "16px 16px");
+		// 			$("#select").css("background-position", "0px 14px");
+		}
+		fnGetShoppingCartAmount();
+	}
+	// 选中商品
+	function fnCheckWare(shopid_, goodsid_) {
+		if (!$('.shopid_' + shopid_ + ' .wareinfo_' + goodsid_ + ' .warelabel input').is(':checked')) {
+			var shopcheck = document.getElementsByClassName('shopid_' + shopid_)[0]
+				.getElementsByClassName('shopinfo')[0]
+				.getElementsByClassName('shopcheck')[0].getElementsByTagName("input")[0];
+			shopcheck.checked = false;
+			check = true;
+			$("#select").css("background-image", "url(image/sel_off.png)");
+		// 			$("#select").css("background-repeat", "no-repeat");
+		// 			$("#select").css("background-size", "16px 16px");
+		// 			$("#select").css("background-position", "0px 14px");
+		}
+		var as = $('.shopid_' + shopid_ + ' .warelabel input').length;
+		var ss = $('.shopid_' + shopid_ + ' .warelabel input:checked').length;
+		if (as == ss) {
+			var s = document.getElementsByClassName('shopid_' + shopid_)[0].getElementsByClassName('shopcheck')[0]
+				.getElementsByTagName("input")[0];
+			s.checked = true;
+		}
+		var sh = $(".shopcheck").length;
+		var shc = $(".shopcheck input:checked").length;
+		if (sh == shc) {
+			check = false;
+			$("#select").css("background-image", "url(image/sel_on.png)");
+		// 			$("#select").css("background-repeat", "no-repeat");
+		// 			$("#select").css("background-size", "16px 16px");
+		// 			$("#select").css("background-position", "0px 14px");
+		}
+		fnGetShoppingCartAmount();
+	}
+	// 全选
+	function fnCheckAll() {
+		var s = $('.shoplabel input');
+		var a = $('.warelabel input');
+		if (check || (check == undefined)) {
+			for (var i = 0; i < s.length; i++) {
+				s[i].checked = true;
+			}
+			for (var i = 0; i < a.length; i++) {
+				a[i].checked = true;
+			}
+			check = false;
+			$("#select").css("background-image", "url(image/sel_on.png)");
+		// 			$("#select").css("background-repeat", "no-repeat");
+		// 			$("#select").css("background-size", "16px 16px");
+		// 			$("#select").css("background-position", "0px 14px");
+		} else {
+			for (var i = 0; i < s.length; i++) {
+				s[i].checked = false;
+			}
+			for (var i = 0; i < a.length; i++) {
+				a[i].checked = false;
+			}
+			check = true;
+			$("#select").css("background-image", "url(image/sel_off.png)");
+		// 			$("#select").css("background-repeat", "no-repeat");
+		// 			$("#select").css("background-size", "16px 16px");
+		// 			$("#select").css("background-position", "0px 14px");
+		}
+		fnGetShoppingCartAmount();
+	}
+	// 计算购物车中的商品总数及总金额
+	function fnGetShoppingCartAmount() {
+		fnComputeSP();
+		var amountValue = 0;
+		var countValue = 0;
+		var warecheckss = $('.warelabel input');
+		for (var j = 0; j < warecheckss.length; j++) {
+			var ware = warecheckss[j].parentNode.parentNode.children[2];
+			if (warecheckss[j].checked == true) {
+				amountValue += parseFloat(ware.getElementsByClassName('price')[0].innerHTML)
+				* parseInt(ware.getElementsByClassName('count')[0].value);
+				countValue += parseInt(ware.getElementsByClassName('count')[0].value);
+			}
+		}
+		$("#count").html(countValue);
+
+		var totalreduce = 0;
+		var totaljia = 0;
+		var s1 = "";
+		for (var i = 0; i < sparr.length; i++) {
+			if (s1 != sparr[i][0]) {
+				totalreduce += parseFloat(sparr[i][1]);
+				totaljia += parseFloat(sparr[i][3]);
+			}
+			totalreduce += parseFloat(sparr[i][2]);
+			totaljia += parseFloat(sparr[i][4]);
+			s1 = sparr[i][0];
+		}
+
+		$(".panel .bottom .decrease").html("立减:" + parseFloat(totalreduce).toFixed(2));
+		if (parseFloat(totaljia) > 0) {
+			$(".panel .bottom .totalmarkup").html("加价:" + parseFloat(totaljia).toFixed(2));
+		} else {
+			$(".panel .bottom .totalmarkup").html("");
+		}
+		var lastamount = (amountValue - totalreduce + totaljia).toFixed(2);
+		$("#amount").html(lastamount);
+		$(".panel .bottom .original").html("金额:" + amountValue.toFixed(2));
+		console.log("最后减  " + totalreduce + "  加 " + totaljia + "---原价---" + amountValue.toFixed(2));
+	}
+
+	// 选择促销(spflag_ 区分总单 0,单品1)
+	function fnChooseSP(spflag_, shopid_, goodsid_, spruleid_) {
+		$(".box").css({
+			"display" : "block",
+			"position" : "fixed",
+			"top" : "0px",
+			"left" : "0px",
+			"overflow" : "auto",
+			"z-index" : "999"
+		});
+		document.body.parentNode.style.overflow = "hidden"; //隐藏且禁用横向纵向两个滚动条
+		var str = "";
+		str += "<div>";
+		if (spflag_ == 0) {
+			for (var i = 0; i < alldata.length; i++) {
+				if (alldata[i].shopid == shopid_) {
+					for (var k = 0, len = alldata[i].wholelist.length; k < len; k++) {
+						switch (parseInt(alldata[i].wholelist[k].sptype)) {
+						case 1:
+							str += '<div class="promotionInfo"><label onclick="fnConfirmSP(this,0,' + shopid_
+								+ ',\'\',' + alldata[i].wholelist[k].spruleid + ','
+								+ alldata[i].wholelist[k].sptype + ')">';
+							if (alldata[i].wholelist[k].spruleid == spruleid_) {
+								str += '<input type="radio" name="sp" checked="checked">';
+							} else {
+								str += '<input type="radio" name="sp">';
+							}
+							str += '<span class="wholesp">店铺订单满' + alldata[i].wholelist[k].amount + '元,立减'
+								+ alldata[i].wholelist[k].subtractamount + '元</span>';
+							str += '</label></div>';
+							break;
+						case 3:
+							str += '<div class="promotionInfo"><label onclick="fnConfirmSP(this,0,' + shopid_
+								+ ',\'\',' + alldata[i].wholelist[k].spruleid + ','
+								+ alldata[i].wholelist[k].sptype + ')">';
+							if (alldata[i].wholelist[k].spruleid == spruleid_) {
+								str += '<input type="radio" name="sp" checked="checked">';
+							} else {
+								str += '<input type="radio" name="sp">';
+							}
+							str += '<span class="wholesp">店铺订单满' + alldata[i].wholelist[k].startvalue + '-'
+								+ alldata[i].wholelist[k].endvalue + '元,打' + alldata[i].wholelist[k].discount
+								+ '折</span>';
+							str += '</label></div>';
+							break;
+						case 4:
+							str += '<div class="promotionInfo"><label onclick="fnConfirmSP(this,0,' + shopid_
+								+ ',\'\',' + alldata[i].wholelist[k].spruleid + ','
+								+ alldata[i].wholelist[k].sptype + ')">';
+							if (alldata[i].wholelist[k].spruleid == spruleid_) {
+								str += '<input type="radio" name="sp" checked="checked">';
+							} else {
+								str += '<input type="radio" name="sp">';
+							}
+							str += '<span class="wholesp">店铺订单满' + alldata[i].wholelist[k].startvalue + '-'
+								+ alldata[i].wholelist[k].endvalue + '元,立减'
+								+ alldata[i].wholelist[k].subtractamount + '元</span>';
+							str += '</label></div>';
+							break;
+						case 2:
+							str += '<div class="promotionInfo"><label onclick="fnConfirmSP(this,0,' + shopid_
+								+ ',\'\',' + alldata[i].wholelist[k].spruleid + ','
+								+ alldata[i].wholelist[k].sptype + ')">';
+
+							if (alldata[i].wholelist[k].spruleid == spruleid_) {
+								str += '<input type="radio" name="sp" checked="checked">';
+							} else {
+								str += '<input type="radio" name="sp">';
+							}
+							str += '<span class="wholesp">店铺订单满' + alldata[i].wholelist[k].amount + '元,赠'
+								+ alldata[i].wholelist[k].presentname
+								+ ',' + alldata[i].wholelist[k].presentqty + '件</span>';
+							str += '</label></div>';
+							break;
+						case 5:
+							str += '<div class="promotionInfo"><label onclick="fnConfirmSP(this,0,' + shopid_
+								+ ',\'\',' + alldata[i].wholelist[k].spruleid + ','
+								+ alldata[i].wholelist[k].sptype + ')">';
+
+							if (alldata[i].wholelist[k].spruleid == spruleid_) {
+								str += '<input type="radio" name="sp" checked="checked">';
+							} else {
+								str += '<input type="radio" name="sp">';
+							}
+							str += '<span class="wholesp">店铺订单满' + alldata[i].wholelist[k].startvalue + '-'
+								+ alldata[i].wholelist[k].endvalue + '元,赠'
+								+ alldata[i].wholelist[k].presentname + ','
+								+ alldata[i].wholelist[k].presentqty + '件</span>';
+							str += '</label></div>';
+							break;
+						// 赠券
+						case 6:
+							str += '<div class="promotionInfo"><label onclick="fnConfirmSP(this,0,' + shopid_
+								+ ',\'\',' + alldata[i].wholelist[k].spruleid + ','
+								+ alldata[i].wholelist[k].sptype + ')">';
+							if (alldata[i].wholelist[k].spruleid == spruleid_) {
+								str += '<input type="radio" name="sp" checked="checked">';
+							} else {
+								str += '<input type="radio" name="sp">';
+							}
+							str += '<span class="wholesp">店铺订单满' + alldata[i].wholelist[k].amount + '元,赠'
+								+ alldata[i].wholelist[k].couponamount + '元代金券</span>';
+							str += '</label></div>';
+							break;
+						case 7:
+							str += '<div class="promotionInfo"><label onclick="fnConfirmSP(this,0,' + shopid_
+								+ ',\'\',' + alldata[i].wholelist[k].spruleid + ','
+								+ alldata[i].wholelist[k].sptype + ')">';
+							if (alldata[i].wholelist[k].spruleid == spruleid_) {
+								str += '<input type="radio" name="sp" checked="checked">';
+							} else {
+								str += '<input type="radio" name="sp">';
+							}
+							str += '<span class="wholesp">店铺订单满' + alldata[i].wholelist[k].startvalue + '-'
+								+ alldata[i].wholelist[k].endvalue + '元,赠'
+								+ alldata[i].wholelist[k].couponamount + '元,代金券</span>';
+							str += '</label></div>';
+							break;
+						case 8:
+							str += '<div class="promotionInfo"><label onclick="fnConfirmSP(this,0,' + shopid_
+								+ ',\'\',' + alldata[i].wholelist[k].spruleid + ','
+								+ alldata[i].wholelist[k].sptype + ')">';
+							if (alldata[i].wholelist[k].spruleid == spruleid_) {
+								str += '<input type="radio" name="sp" checked="checked">';
+							} else {
+								str += '<input type="radio" name="sp">';
+							}
+							str += '<span class="wholesp">店铺订单满' + alldata[i].wholelist[k].startvalue + '-'
+								+ alldata[i].wholelist[k].endvalue + '元,赠总单价格'
+								+ alldata[i].wholelist[k].coupondiscount + '%代金券</span>';
+							str += '</label></div>';
+							break;
+						// 加价购
+						case 9:
+							str += '<div class="promotionInfo"><label onclick="fnConfirmSP(this,0,' + shopid_
+								+ ',\'\',' + alldata[i].wholelist[k].spruleid + ','
+								+ alldata[i].wholelist[k].sptype + ')">';
+
+							var wholecheckendsp = false;
+							for (var l = 0; l < wholearr.length; l++) {
+								if (wholearr[l][0] == shopid_ && wholearr[l][1] == "1") {
+									wholecheckendsp = true;
+								}
+							}
+
+							if (alldata[i].wholelist[k].spruleid == spruleid_ && wholecheckendsp == true) {
+								str += '<input type="radio" name="sp" checked="checked">';
+							} else {
+								str += '<input type="radio" name="sp">';
+							}
+							str += '<span class="wholesp">店铺订单满' + alldata[i].wholelist[k].amount + '元,加'
+								+ alldata[i].wholelist[k].addprice + '元,换购' + alldata[i].wholelist[k].presentname
+								+ ',' + alldata[i].wholelist[k].presentqty + '件</span>';
+							str += '</label></div>';
+							break;
+						case 10:
+							str += '<div class="promotionInfo"><label onclick="fnConfirmSP(this,0,' + shopid_
+								+ ',\'\',' + alldata[i].wholelist[k].spruleid + ','
+								+ alldata[i].wholelist[k].sptype + ')">';
+
+							var wholecheckendsp = false;
+							for (var l = 0; l < wholearr.length; l++) {
+								if (wholearr[l][0] == shopid_ && wholearr[l][1] == "1") {
+									wholecheckendsp = true;
+								}
+							}
+							if (alldata[i].wholelist[k].spruleid == spruleid_ && wholecheckendsp == true) {
+								str += '<input type="radio" name="sp" checked="checked">';
+							} else {
+								str += '<input type="radio" name="sp">';
+							}
+							str += '<span class="wholesp">店铺订单满' + alldata[i].wholelist[k].startvalue + '-'
+								+ alldata[i].wholelist[k].endvalue + '元,加' + alldata[i].wholelist[k].addprice
+								+ '元,换购' + alldata[i].wholelist[k].presentname + ','
+								+ alldata[i].wholelist[k].presentqty + '件</span>';
+							str += '</label></div>';
+							break;
+						}
+					}
+				}
+
+			}
+		} else {
+			for (var i = 0; i < alldata.length; i++) {
+				if (alldata[i].shopid == shopid_) {
+					for (var k = 0, len = alldata[i].goodsinfolist.length; k < len; k++) {
+						if (alldata[i].goodsinfolist[k].goodsid == goodsid_) {
+							for (var j = 0, snglen = alldata[i].goodsinfolist[k].singlelist.length; j < snglen; j++) {
+								switch (parseInt(alldata[i].goodsinfolist[k].singlelist[j].sptype)) {
+								case 1:
+									str += '<div class="promotionInfo" onclick="fnConfirmSP(this,1,' + shopid_ + ','
+										+ goodsid_ + ',' + alldata[i].goodsinfolist[k].singlelist[j].spruleid + ','
+										+ alldata[i].goodsinfolist[k].singlelist[j].sptype + ')"><label>';
+									if (alldata[i].goodsinfolist[k].singlelist[j].spruleid == spruleid_) {
+										str += '<input type="radio" name="sp" checked="checked">';
+									} else {
+										str += '<input type="radio" name="sp">';
+									}
+									str += '<span class="singlesp">本品单价只需'
+										+ alldata[i].goodsinfolist[k].singlelist[j].price + '元</span>';
+									str += '</label></div>';
+									break;
+								case 2:
+									str += '<div class="promotionInfo" onclick="fnConfirmSP(this,1,' + shopid_ + ','
+										+ goodsid_ + ',' + alldata[i].goodsinfolist[k].singlelist[j].spruleid + ','
+										+ alldata[i].goodsinfolist[k].singlelist[j].sptype + ')"><label>';
+									if (alldata[i].goodsinfolist[k].singlelist[j].spruleid == spruleid_) {
+										str += '<input type="radio" name="sp" checked="checked">';
+									} else {
+										str += '<input type="radio" name="sp">';
+									}
+									str += '<span class="singlesp">本品'
+										+ alldata[i].goodsinfolist[k].singlelist[j].discount + '折销售</span>';
+									str += '</label></div>';
+									break;
+								case 3:
+									str += '<div class="promotionInfo" onclick="fnConfirmSP(this,1,' + shopid_ + ','
+										+ goodsid_ + ',' + alldata[i].goodsinfolist[k].singlelist[j].spruleid + ','
+										+ alldata[i].goodsinfolist[k].singlelist[j].sptype + ')"><label>';
+									if (alldata[i].goodsinfolist[k].singlelist[j].spruleid == spruleid_) {
+										str += '<input type="radio" name="sp" checked="checked">';
+									} else {
+										str += '<input type="radio" name="sp">';
+									}
+									str += '<span class="singlesp">购满'
+										+ alldata[i].goodsinfolist[k].singlelist[j].goodsqty + '件,总价优惠'
+										+ alldata[i].goodsinfolist[k].singlelist[j].subtractamount + '元</span>';
+									str += '</label></div>';
+									break;
+								case 5:
+									str += '<div class="promotionInfo" onclick="fnConfirmSP(this,1,' + shopid_ + ','
+										+ goodsid_ + ',' + alldata[i].goodsinfolist[k].singlelist[j].spruleid + ','
+										+ alldata[i].goodsinfolist[k].singlelist[j].sptype + ')"><label>';
+									if (alldata[i].goodsinfolist[k].singlelist[j].spruleid == spruleid_) {
+										str += '<input type="radio" name="sp" checked="checked">';
+									} else {
+										str += '<input type="radio" name="sp">';
+									}
+									str += '<span class="singlesp">购满'
+										+ alldata[i].goodsinfolist[k].singlelist[j].startvalue + '-'
+										+ alldata[i].goodsinfolist[k].singlelist[j].endvalue + '件,单价'
+										+ alldata[i].goodsinfolist[k].singlelist[j].price + '元</span>';
+									str += '</label></div>';
+									break;
+								case 6:
+									str += '<div class="promotionInfo" onclick="fnConfirmSP(this,1,' + shopid_ + ','
+										+ goodsid_ + ',' + alldata[i].goodsinfolist[k].singlelist[j].spruleid + ','
+										+ alldata[i].goodsinfolist[k].singlelist[j].sptype + ')"><label>';
+									if (alldata[i].goodsinfolist[k].singlelist[j].spruleid == spruleid_) {
+										str += '<input type="radio" name="sp" checked="checked">';
+									} else {
+										str += '<input type="radio" name="sp">';
+									}
+									str += '<span class="singlesp">购满'
+										+ alldata[i].goodsinfolist[k].singlelist[j].startvalue + '-'
+										+ alldata[i].goodsinfolist[k].singlelist[j].endvalue + '件,总价打'
+										+ alldata[i].goodsinfolist[k].singlelist[j].discount + '折</span>';
+									str += '</label></div>';
+									break;
+								case 7:
+									str += '<div class="promotionInfo" onclick="fnConfirmSP(this,1,' + shopid_ + ','
+										+ goodsid_ + ',' + alldata[i].goodsinfolist[k].singlelist[j].spruleid + ','
+										+ alldata[i].goodsinfolist[k].singlelist[j].sptype + ')"><label>';
+									if (alldata[i].goodsinfolist[k].singlelist[j].spruleid == spruleid_) {
+										str += '<input type="radio" name="sp" checked="checked">';
+									} else {
+										str += '<input type="radio" name="sp">';
+									}
+									str += '<span class="singlesp">购满'
+										+ alldata[i].goodsinfolist[k].singlelist[j].startvalue + '-'
+										+ alldata[i].goodsinfolist[k].singlelist[j].endvalue + '件,总价优惠'
+										+ alldata[i].goodsinfolist[k].singlelist[j].subtractamount + '元</span>';
+									str += '</label></div>';
+									break;
+								// 赠品
+								case 4:
+									str += '<div class="promotionInfo" onclick="fnConfirmSP(this,1,' + shopid_ + ','
+										+ goodsid_ + ',' + alldata[i].goodsinfolist[k].singlelist[j].spruleid + ','
+										+ alldata[i].goodsinfolist[k].singlelist[j].sptype + ')"><label>';
+									if (alldata[i].goodsinfolist[k].singlelist[j].spruleid == spruleid_) {
+										str += '<input type="radio" name="sp" checked="checked">';
+									} else {
+										str += '<input type="radio" name="sp">';
+									}
+									str += '<span class="singlesp">购满'
+										+ alldata[i].goodsinfolist[k].singlelist[j].goodsqty + '件,赠'
+										+ alldata[i].goodsinfolist[k].singlelist[j].presentname + ','
+										+ alldata[i].goodsinfolist[k].singlelist[j].presentqty + '件</span>';
+									str += '</label></div>';
+									break;
+								case 8:
+									str += '<div class="promotionInfo" onclick="fnConfirmSP(this,1,' + shopid_ + ','
+										+ goodsid_ + ',' + alldata[i].goodsinfolist[k].singlelist[j].spruleid + ','
+										+ alldata[i].goodsinfolist[k].singlelist[j].sptype + ')"><label>';
+									if (alldata[i].goodsinfolist[k].singlelist[j].spruleid == spruleid_) {
+										str += '<input type="radio" name="sp" checked="checked">';
+									} else {
+										str += '<input type="radio" name="sp">';
+									}
+									str += '<span class="singlesp">购满'
+										+ alldata[i].goodsinfolist[k].singlelist[j].startvalue + '-'
+										+ alldata[i].goodsinfolist[k].singlelist[j].endvalue + '件,赠'
+										+ alldata[i].goodsinfolist[k].singlelist[j].presentname + ','
+										+ alldata[i].goodsinfolist[k].singlelist[j].presentqty + '件</span>';
+									str += '</label></div>';
+									break;
+								// 加价购
+								case 10:
+									str += '<div class="promotionInfo" onclick="fnConfirmSP(this,1,' + shopid_ + ','
+										+ goodsid_ + ',' + alldata[i].goodsinfolist[k].singlelist[j].spruleid + ','
+										+ alldata[i].goodsinfolist[k].singlelist[j].sptype + ')"><label>';
+
+									var singlecheckendsp = false;
+									for (var l = 0; l < singlearr.length; l++) {
+										if (singlearr[l][0] == shopid_ && singlearr[l][1] == goodsid_
+											&& singlearr[l][2] == "1") {
+											singlecheckendsp = true;
+										}
+									}
+									if (alldata[i].goodsinfolist[k].singlelist[j].spruleid == spruleid_
+										&& singlecheckendsp == true) {
+										str += '<input type="radio" name="sp" checked="checked">';
+									} else {
+										str += '<input type="radio" name="sp">';
+									}
+									str += '<span class="singlesp">购满'
+										+ alldata[i].goodsinfolist[k].singlelist[j].goodsqty + '件,加'
+										+ alldata[i].goodsinfolist[k].singlelist[j].addprice + '元,换购'
+										+ alldata[i].goodsinfolist[k].singlelist[j].presentname + ','
+										+ alldata[i].goodsinfolist[k].singlelist[j].presentqty + '件</span>';
+									str += '</label></div>';
+									break;
+								case 11:
+									str += '<div class="promotionInfo" onclick="fnConfirmSP(this,1,' + shopid_ + ','
+										+ goodsid_ + ',' + alldata[i].goodsinfolist[k].singlelist[j].spruleid + ','
+										+ alldata[i].goodsinfolist[k].singlelist[j].sptype + ')"><label>';
+
+									var singlecheckendsp = false;
+									for (var l = 0; l < singlearr.length; l++) {
+										if (singlearr[l][0] == shopid_ && singlearr[l][1] == goodsid_
+											&& singlearr[l][2] == "1") {
+											singlecheckendsp = true;
+										}
+									}
+									if (alldata[i].goodsinfolist[k].singlelist[j].spruleid == spruleid_
+										&& singlecheckendsp == true) {
+										str += '<input type="radio" name="sp" checked="checked">';
+									} else {
+										str += '<input type="radio" name="sp">';
+									}
+									str += '<span class="singlesp">购满'
+										+ alldata[i].goodsinfolist[k].singlelist[j].startvalue + '-'
+										+ alldata[i].goodsinfolist[k].singlelist[j].endvalue + '件,加'
+										+ alldata[i].goodsinfolist[k].singlelist[j].addprice + '元,换购'
+										+ alldata[i].goodsinfolist[k].singlelist[j].presentname + ','
+										+ alldata[i].goodsinfolist[k].singlelist[j].presentqty + '件</span>';
+									str += '</label></div>';
+									break;
+								}
+							}
+						}
+
+					}
+				}
+			}
+
+		}
+		str += "</div>";
+		$(".box .spcontent").html(str);
+		$(".promotionInfo").css({
+			"font-size" : "14px",
+			"line-height" : "36px",
+			"border-bottom" : "1px solid #f2f2f2",
+			"text-indent" : "-2em",
+			"margin-left" : "2em",
+		});
+		$(".promotionInfo").find("input").css({
+			"vertical-align" : "middle",
+			"margin-top" : "-2px",
+			"margin-right" : "10px"
+		});
+
+	}
+
+	// 选中促销(spflag_ 区分总单 0,细单1)
+	function fnConfirmSP(this_, spflag_, shopid_, goodsid_, spruleid_, sptype_) {
+		if (spflag_ == 0) {
+			if (sptype_ == 9 || sptype_ == 10) {
+				for (var l = 0; l < wholearr.length; l++) {
+					if (wholearr[l][0] == shopid_) {
+						wholearr[l][1] = "1";
+					}
+				}
+			}
+			var str = '<span class="toggleinfo">促销</span><span class="modifyBtn" onclick="fnChooseSP(0,' + shopid_
+				+ ',\'\',' + spruleid_ + ')">更多优惠</span><span class="wholesptype hi">' + sptype_
+				+ '</span><span class="wholespruleid hi">' + spruleid_
+				+ '</span><div class="wholesp">' + $(this_).find(".wholesp").html() + '</div>';
+			$(".shopid_" + shopid_).find(".whole").html(str);
+		} else {
+			if (sptype_ == 10 || sptype_ == 11) {
+				for (var i = 0; i < singlearr.length; i++) {
+					if (singlearr[i][0] == shopid_ && singlearr[i][1] == goodsid_) {
+						singlearr[i][2] = "1";
+					}
+				}
+			}
+			var str = '<span class="toggleinfo">促销</span><span class="modifyBtn" onclick="fnChooseSP(1,' + shopid_
+				+ ',' + goodsid_ + ',' + spruleid_ + ')">更多优惠</span><span class="singlesptype hi">' + sptype_
+				+ '</span><span class="spruleid hi">' + spruleid_
+				+ '</span><div class="singlesp">' + $(this_).find(".singlesp").html() + '</div>';
+			$(".shopid_" + shopid_ + " .wareinfo_" + goodsid_).next(".single").html(str);
+		}
+
+		fnGetShoppingCartAmount();
+		fnClose();
+	}
+
+	/**
+	 *	计算促销
+	 */
+	var sparr; // [门店id,总单减,单品减,总单加,单品加,商品id]
+	function fnComputeSP() {
+		var whole = $(".whole");
+		var shop = $(".shop");
+
+		// 计算价格数组
+		sparr = [];
+		for (var i = 0; i < whole.length; i++) {
+			var ware = shop[i].getElementsByClassName("wareinfo");
+			// 			var reducesp = shop[i].getElementsByClassName("reducesp");
+			var reducespinfo = shop[i].getElementsByClassName("reducespinfo");
+			var ssid = shop[i].getElementsByClassName("shopid")[0].innerHTML;
+			// 计算单品
+			for (var j = 0; j < ware.length; j++) {
+				var sparr1 = []; //[门店ID,整单优惠和,细单优惠和,整单加价和,细单加价和,商品id]
+				// 单品加价购总和
+				var singlejia = 0;
+				// 单品优惠金额总和
+				var singletotalreduce = 0;
+				var goodsid = ware[j].getElementsByClassName("goodsid")[0].innerHTML;
+				if (ware[j].nextSibling.innerHTML != "") {
+
+					var singlesptype = ware[j].nextSibling.getElementsByClassName("singlesptype")[0].innerHTML;
+					var spruleid_ = ware[j].nextSibling.getElementsByClassName("spruleid")[0].innerHTML;
+					var count = ware[j].getElementsByClassName("count")[0].value;
+					var price = parseFloat(ware[j].getElementsByClassName("price1")[0].innerHTML);
+					var sche = ware[j].getElementsByTagName("input")[0].checked;
+					switch (parseInt(singlesptype)) {
+					case 1:
+						for (var k = 0; k < alldata[i].goodsinfolist[j].singlelist.length; k++) {
+							if (alldata[i].goodsinfolist[j].singlelist[k].sptype == 1
+								&& spruleid_ == alldata[i].goodsinfolist[j].singlelist[k].spruleid) {
+								// ware[j].getElementsByClassName("price")[0].innerHTML = alldata[i].goodsinfolist[j].singlelist[k].price;
+								if (sche == true) {
+									singletotalreduce += parseFloat((price - alldata[i].goodsinfolist[j].singlelist[k].price)
+										* count);
+								}
+								// reducespinfo[j].innerHTML = "";
+								ware[j].getElementsByClassName("markup")[0].innerHTML = "";
+								break;
+							}
+						}
+						break;
+					case 2:
+						for (var k = 0; k < alldata[i].goodsinfolist[j].singlelist.length; k++) {
+							if (alldata[i].goodsinfolist[j].singlelist[k].sptype == 2
+								&& spruleid_ == alldata[i].goodsinfolist[j].singlelist[k].spruleid) {
+								// ware[j].getElementsByClassName("price")[0].innerHTML = (parseFloat(alldata[i].goodsinfolist[j].singlelist[k].discount)
+								//* price / 10).toFixed(2);
+								if (sche == true) {
+									singletotalreduce += parseFloat((price - (parseFloat(alldata[i].goodsinfolist[j].singlelist[k].discount)
+										* price / 10).toFixed(2))
+										* count);
+								}
+								reducespinfo[j].innerHTML = "";
+								ware[j].getElementsByClassName("markup")[0].innerHTML = "";
+								break;
+							}
+						}
+						break;
+					case 3:
+						for (var k = 0; k < alldata[i].goodsinfolist[j].singlelist.length; k++) {
+							if (alldata[i].goodsinfolist[j].singlelist[k].sptype == 3
+								&& spruleid_ == alldata[i].goodsinfolist[j].singlelist[k].spruleid) {
+								if (count >= alldata[i].goodsinfolist[j].singlelist[k].goodsqty) {
+									reducespinfo[j].innerHTML = "<span class='sign'>满减</span>已购满"
+										+ alldata[i].goodsinfolist[j].singlelist[k].goodsqty + "件,已减"
+										+ alldata[i].goodsinfolist[j].singlelist[k].subtractamount + "元";
+									ware[j].getElementsByClassName("price")[0].innerHTML = price;
+									if (sche == true) {
+										singletotalreduce += parseFloat(alldata[i].goodsinfolist[j].singlelist[k].subtractamount);
+									}
+								} else {
+									ware[j].getElementsByClassName("markup")[0].innerHTML = "";
+									reducespinfo[j].innerHTML = "";
+								}
+								reducespinfo[j].style.color = "#ff0000";
+								break;
+							}
+						}
+						break;
+					case 5:
+						for (var k = 0; k < alldata[i].goodsinfolist[j].singlelist.length; k++) {
+							if (alldata[i].goodsinfolist[j].singlelist[k].sptype == 5
+								&& spruleid_ == alldata[i].goodsinfolist[j].singlelist[k].spruleid) {
+								if (alldata[i].goodsinfolist[j].singlelist[k].startvalue < count
+									&& count <= alldata[i].goodsinfolist[j].singlelist[k].endvalue) {
+									// ware[j].getElementsByClassName("price")[0].innerHTML = alldata[i].goodsinfolist[j].singlelist[k].price;
+									if (sche == true) {
+										singletotalreduce += ((parseFloat(ware[j].getElementsByClassName("price")[0].innerHTML) - parseFloat(alldata[i].goodsinfolist[j].singlelist[k].price)) * count);
+									}
+									reducespinfo[j].innerHTML = "";
+								}
+								break;
+							} else {
+								ware[j].getElementsByClassName("price")[0].innerHTML = price;
+								ware[j].getElementsByClassName("markup")[0].innerHTML = "";
+							}
+						}
+						break;
+					case 6:
+						for (var k = 0; k < alldata[i].goodsinfolist[j].singlelist.length; k++) {
+							if (alldata[i].goodsinfolist[j].singlelist[k].sptype == 6
+								&& spruleid_ == alldata[i].goodsinfolist[j].singlelist[k].spruleid) {
+								if (alldata[i].goodsinfolist[j].singlelist[k].startvalue < count
+									&& count <= alldata[i].goodsinfolist[j].singlelist[k].endvalue) {
+									reducespinfo[j].innerHTML = "<span class='sign'>满减</span>已购满"
+										+ alldata[i].goodsinfolist[j].singlelist[k].startvalue
+										+ "-"
+										+ alldata[i].goodsinfolist[j].singlelist[k].endvalue
+										+ "件,已减"
+										+ ((count * price) - (alldata[i].goodsinfolist[j].singlelist[k].discount
+										* count * price / 10)).toFixed(2) + "元";
+									if (sche == true) {
+										singletotalreduce += parseFloat((count * price)
+											- (alldata[i].goodsinfolist[j].singlelist[k].discount * count * price / 10));
+									}
+									reducespinfo[j].style.cssText = "color:#ff0000;font-size:12px;";
+								} else {
+									reducespinfo[j].innerHTML = "";
+									ware[j].getElementsByClassName("markup")[0].innerHTML = "";
+								}
+								ware[j].getElementsByClassName("price")[0].innerHTML = price;
+								break;
+							}
+						}
+						break;
+					case 7:
+						for (var k = 0; k < alldata[i].goodsinfolist[j].singlelist.length; k++) {
+							if (alldata[i].goodsinfolist[j].singlelist[k].sptype == 7
+								&& spruleid_ == alldata[i].goodsinfolist[j].singlelist[k].spruleid) {
+								if (alldata[i].goodsinfolist[j].singlelist[k].startvalue < count
+									&& count <= alldata[i].goodsinfolist[j].singlelist[k].endvalue) {
+									reducespinfo[j].innerHTML = "<span class='sign'>满减</span>已购满"
+										+ alldata[i].goodsinfolist[j].singlelist[k].startvalue + "-"
+										+ alldata[i].goodsinfolist[j].singlelist[k].endvalue + "件,已减"
+										+ alldata[i].goodsinfolist[j].singlelist[k].subtractamount + "元";
+									reducespinfo[j].style.color = "#ff0000";
+									if (sche == true) {
+										singletotalreduce += parseFloat(alldata[i].goodsinfolist[j].singlelist[k].subtractamount);
+									}
+								} else {
+									reducespinfo[j].innerHTML = "";
+									ware[j].getElementsByClassName("markup")[0].innerHTML = "";
+								}
+								ware[j].getElementsByClassName("price")[0].innerHTML = price;
+								break;
+							}
+						}
+						break;
+					// 赠品
+					case 4:
+						for (var k = 0; k < alldata[i].goodsinfolist[j].singlelist.length; k++) {
+							if (alldata[i].goodsinfolist[j].singlelist[k].sptype == 4
+								&& spruleid_ == alldata[i].goodsinfolist[j].singlelist[k].spruleid) {
+								if (count >= alldata[i].goodsinfolist[j].singlelist[k].goodsqty) {
+									var aa = "<span class='title'>赠品</span><span class='presentid'>"
+										+ alldata[i].goodsinfolist[j].singlelist[k].presentid
+										+ "</span><span class='presentname'>"
+										+ alldata[i].goodsinfolist[j].singlelist[k].presentname
+										+ "</span><span>￥<span class='addprice'>0"
+										+ "</span></span><span>x<span class='presentqty'>"
+										+ alldata[i].goodsinfolist[j].singlelist[k].presentqty
+										+ "</span></span><span class='btn' onclick='fnCancel(this,1," + ssid + ","
+										+ goodsid + ")'></span>";
+									ware[j].getElementsByClassName("markup")[0].innerHTML = aa;
+									reducespinfo[j].innerHTML = "";
+								} else {
+									ware[j].getElementsByClassName("markup")[0].innerHTML = "";
+									reducespinfo[j].innerHTML = "";
+								}
+								break;
+							}
+						}
+						break;
+					case 8:
+						for (var k = 0; k < alldata[i].goodsinfolist[j].singlelist.length; k++) {
+							if (alldata[i].goodsinfolist[j].singlelist[k].sptype == 8
+								&& spruleid_ == alldata[i].goodsinfolist[j].singlelist[k].spruleid) {
+								if (alldata[i].goodsinfolist[j].singlelist[k].startvalue < count
+									&& count <= alldata[i].goodsinfolist[j].singlelist[k].endvalue) {
+									var aa = "<span class='title'>赠品</span><span class='presentid'>"
+										+ alldata[i].goodsinfolist[j].singlelist[k].presentid
+										+ "</span><span class='presentname'>"
+										+ alldata[i].goodsinfolist[j].singlelist[k].presentname
+										+ "</span><span>￥<span class='addprice'>0"
+										// 										+ alldata[i].goodsinfolist[j].singlelist[k].addprice
+										+ "</span></span><span>x<span class='presentqty'>"
+										+ alldata[i].goodsinfolist[j].singlelist[k].presentqty
+										+ "</span></span><span class='btn' onclick='fnCancel(this,1," + ssid + ","
+										+ goodsid + ")'></span>";
+									ware[j].getElementsByClassName("markup")[0].innerHTML = aa;
+									reducespinfo[j].innerHTML = "";
+								} else {
+									ware[j].getElementsByClassName("markup")[0].innerHTML = "";
+									reducespinfo[j].innerHTML = "";
+								}
+								break;
+							}
+						}
+						break;
+					// 加价购不自动执行
+					case 10:
+						var singlecheckendsp = false;
+						for (var l = 0; l < singlearr.length; l++) {
+							if (singlearr[l][0] == ssid && singlearr[l][1] == goodsid && singlearr[l][2] == "1") {
+								singlecheckendsp = true;
+								break;
+							}
+						}
+						for (var k = 0; k < alldata[i].goodsinfolist[j].singlelist.length; k++) {
+							if (alldata[i].goodsinfolist[j].singlelist[k].sptype == 10 && singlecheckendsp == true
+								&& spruleid_ == alldata[i].goodsinfolist[j].singlelist[k].spruleid) {
+								if (count >= alldata[i].goodsinfolist[j].singlelist[k].goodsqty) {
+									var aa = "<span class='title'>加价购</span><span class='presentid'>"
+										+ alldata[i].goodsinfolist[j].singlelist[k].presentid
+										+ "</span><span class='presentname'>"
+										+ alldata[i].goodsinfolist[j].singlelist[k].presentname
+										+ "</span><span>￥<span class='addprice'>"
+										+ alldata[i].goodsinfolist[j].singlelist[k].addprice
+										+ "</span></span><span>x<span class='presentqty'>"
+										+ alldata[i].goodsinfolist[j].singlelist[k].presentqty
+										+ "</span></span><span class='btn' onclick='fnCancel(this,1," + ssid + ","
+										+ goodsid + ")'>取消</span>";
+									ware[j].getElementsByClassName("markup")[0].innerHTML = aa;
+									reducespinfo[j].innerHTML = "";
+									// singletotalreduce -= alldata[i].goodsinfolist[j].singlelist[k].addprice;
+									if (sche == true) {
+										singlejia += parseFloat(alldata[i].goodsinfolist[j].singlelist[k].addprice);
+									}
+								} else {
+									ware[j].getElementsByClassName("markup")[0].innerHTML = "";
+									reducespinfo[j].innerHTML = "";
+								}
+								break;
+							}
+						}
+						break;
+					case 11:
+						var singlecheckendsp = false;
+						for (var l = 0; l < singlearr.length; l++) {
+							if (singlearr[l][0] == ssid && singlearr[l][1] == goodsid && singlearr[l][2] == "1") {
+								singlecheckendsp = true;
+								break;
+							}
+						}
+						for (var k = 0; k < alldata[i].goodsinfolist[j].singlelist.length; k++) {
+							if (alldata[i].goodsinfolist[j].singlelist[k].sptype == 11 && singlecheckendsp == true
+								&& spruleid_ == alldata[i].goodsinfolist[j].singlelist[k].spruleid) {
+								if (alldata[i].goodsinfolist[j].singlelist[k].startvalue < count
+									&& count <= alldata[i].goodsinfolist[j].singlelist[k].endvalue) {
+									var aa = "<span class='title'>加价购</span><span class='presentid'>"
+										+ alldata[i].goodsinfolist[j].singlelist[k].presentid
+										+ "</span><span class='presentname'>"
+										+ alldata[i].goodsinfolist[j].singlelist[k].presentname
+										+ "</span><span>￥<span class='addprice'>"
+										+ alldata[i].goodsinfolist[j].singlelist[k].addprice
+										+ "</span></span><span>x<span class='presentqty'>"
+										+ alldata[i].goodsinfolist[j].singlelist[k].presentqty
+										+ "</span></span><span  class='btn' onclick='fnCancel(this,1," + ssid + ","
+										+ goodsid + ")'>取消</span>";
+									ware[j].getElementsByClassName("markup")[0].innerHTML = aa;
+									//singletotalreduce -= alldata[i].goodsinfolist[j].singlelist[k].addprice;
+									reducespinfo[j].innerHTML = "";
+									if (sche == true) {
+										singlejia += parseFloat(alldata[i].goodsinfolist[j].singlelist[k].addprice);
+									}
+								} else {
+									ware[j].getElementsByClassName("markup")[0].innerHTML = "";
+									reducespinfo[j].innerHTML = "";
+								}
+								break;
+							}
+						}
+						break;
+					}
+				}
+
+				// 				var sparr1 = new Array();//[门店ID,整单优惠和,细单优惠,整单加价和,细单加价,商品id]
+				sparr1[0] = ssid;
+				// 				sparr1[1] = wholetotalreduce;
+				sparr1[2] = singletotalreduce;
+				// 				sparr1[3] = wholejia;
+				sparr1[4] = singlejia;
+				sparr1[5] = goodsid;
+				sparr.push(sparr1);
+
+			}
+
+			// 细单优惠之和
+			var singlesum = 0;
+			for (var j = 0; j < sparr.length; j++) {
+				var shid = shop[i].getElementsByClassName("shopid")[0].innerHTML;
+				if (sparr[j][0] == shid) {
+					singlesum += parseFloat(sparr[j][2]);
+				}
+			}
+			// 计算总单
+			// 整单加价购总和
+			var wholejia = 0;
+			// 整单优惠金额总和
+			var wholetotalreduce = 0;
+			if (whole[i].innerHTML != "") {
+				// 门店总价格
+				var amountValue = 0;
+				for (var k = 0; k < ware.length; k++) {
+					var schecked = ware[k].getElementsByTagName("input")[0].checked;
+					if (schecked == true) {
+						amountValue += parseFloat(ware[k].getElementsByClassName('price')[0].innerHTML)
+						* parseInt(ware[k].getElementsByClassName('count')[0].value);
+					}
+				}
+				// 将单品优惠减去之后在执行整单优惠
+				amountValue -= parseFloat(singlesum);
+
+				var wche = false;
+				for (var k = 0; k < ware.length; k++) {
+					wche = ware[k].getElementsByTagName("input")[0].checked;
+					if (wche == true) {
+						break;
+					}
+				}
+				var wholesptype = whole[i].getElementsByClassName("wholesptype")[0].innerHTML;
+				var wholespruleid_ = whole[i].getElementsByClassName("wholespruleid")[0].innerHTML;
+
+				switch (parseInt(wholesptype)) {
+				case 1:
+					for (var k = 0; k < alldata[i].wholelist.length; k++) {
+						if (alldata[i].wholelist[k].sptype == 1 && alldata[i].wholelist[k].spruleid == wholespruleid_) {
+							if (amountValue >= alldata[i].wholelist[k].amount) {
+								shop[i].getElementsByClassName("wholemarkup")[0].innerHTML = "";
+								shop[i].getElementsByClassName("couponmarkup")[0].innerHTML = "";
+								if (wche == true) {
+									wholetotalreduce += parseFloat(alldata[i].wholelist[k].subtractamount);
+								}
+							}
+							break;
+						}
+					}
+					break;
+				case 3:
+					for (var k = 0; k < alldata[i].wholelist.length; k++) {
+						if (alldata[i].wholelist[k].sptype == 3 && alldata[i].wholelist[k].spruleid == wholespruleid_) {
+							if (alldata[i].wholelist[k].startvalue < amountValue
+								&& amountValue <= alldata[i].wholelist[k].endvalue) {
+								shop[i].getElementsByClassName("wholemarkup")[0].innerHTML = "";
+								shop[i].getElementsByClassName("couponmarkup")[0].innerHTML = "";
+								if (wche == true) {
+									wholetotalreduce += parseFloat(amountValue
+										- (amountValue * alldata[i].wholelist[k].discount) / 10);
+								}
+							}
+							break;
+						}
+					}
+					break;
+				case 4:
+					for (var k = 0; k < alldata[i].wholelist.length; k++) {
+						if (alldata[i].wholelist[k].sptype == 4 && alldata[i].wholelist[k].spruleid == wholespruleid_) {
+							if (alldata[i].wholelist[k].startvalue < amountValue
+								&& amountValue <= alldata[i].wholelist[k].endvalue) {
+								shop[i].getElementsByClassName("wholemarkup")[0].innerHTML = "";
+								shop[i].getElementsByClassName("couponmarkup")[0].innerHTML = "";
+								if (wche == true) {
+									wholetotalreduce += parseFloat(alldata[i].wholelist[k].subtractamount);
+								}
+							}
+							break;
+						}
+					}
+					break;
+				// 赠品
+				case 2:
+					for (var k = 0; k < alldata[i].wholelist.length; k++) {
+						if (alldata[i].wholelist[k].sptype == 2 && alldata[i].wholelist[k].spruleid == wholespruleid_) {
+							if (amountValue >= alldata[i].wholelist[k].amount) {
+								var aa = "<span class='title'>赠品</span><span class='presentid'>"
+									+ alldata[i].wholelist[k].presentid + "</span><span class='presentname'>"
+									+ alldata[i].wholelist[k].presentname + "</span><span>￥<span class='addprice'>0"
+									+ "</span></span><span>x<span class='presentqty'>"
+									+ alldata[i].wholelist[k].presentqty
+									+ "</span></span><span  class='btn' onclick='fnCancel(this,0," + ssid
+									+ ",\"\")'></span>";
+								shop[i].getElementsByClassName("wholemarkup")[0].innerHTML = aa;
+								shop[i].getElementsByClassName("couponmarkup")[0].innerHTML = "";
+							} else {
+								shop[i].getElementsByClassName("wholemarkup")[0].innerHTML = "";
+								shop[i].getElementsByClassName("couponmarkup")[0].innerHTML = "";
+							}
+							break;
+						}
+					}
+					break;
+				case 5:
+					for (var k = 0; k < alldata[i].wholelist.length; k++) {
+						if (alldata[i].wholelist[k].sptype == 5 && alldata[i].wholelist[k].spruleid == wholespruleid_) {
+							if (alldata[i].wholelist[k].startvalue < amountValue
+								&& amountValue <= alldata[i].wholelist[k].endvalue) {
+								var aa = "<span class='title'>赠品</span><span class='presentid'>"
+									+ alldata[i].wholelist[k].presentid + "</span><span class='presentname'>"
+									+ alldata[i].wholelist[k].presentname + "</span><span>￥<span class='addprice'>0"
+									+ "</span></span><span>x<span class='presentqty'>"
+									+ alldata[i].wholelist[k].presentqty
+									+ "</span></span><span  class='btn' onclick='fnCancel(this,0," + ssid
+									+ ",\"\")'></span>";
+								shop[i].getElementsByClassName("wholemarkup")[0].innerHTML = aa;
+								shop[i].getElementsByClassName("couponmarkup")[0].innerHTML = "";
+							} else {
+								shop[i].getElementsByClassName("wholemarkup")[0].innerHTML = "";
+								shop[i].getElementsByClassName("couponmarkup")[0].innerHTML = "";
+							}
+							break;
+						}
+					}
+					break;
+				// 赠券
+				case 6:
+					for (var k = 0; k < alldata[i].wholelist.length; k++) {
+						if (alldata[i].wholelist[k].sptype == 6 && alldata[i].wholelist[k].spruleid == wholespruleid_) {
+							if (amountValue >= alldata[i].wholelist[k].amount) {
+								var aa = "<span class='title'>赠券</span><span>金额:<span class='couponamount'>"
+									+ alldata[i].wholelist[k].couponamount
+									+ "</span></span><span>有效期:<span class='validdate'>"
+									+ alldata[i].wholelist[k].validdate
+									+ "</span>天</span><span class='userange'>"
+									+ alldata[i].wholelist[k].userange + "</span>";
+								shop[i].getElementsByClassName("couponmarkup")[0].innerHTML = aa;
+								shop[i].getElementsByClassName("wholemarkup")[0].innerHTML = "";
+							} else {
+								shop[i].getElementsByClassName("couponmarkup")[0].innerHTML = "";
+								shop[i].getElementsByClassName("wholemarkup")[0].innerHTML = "";
+							}
+							break;
+						}
+					}
+					break;
+				case 7:
+					for (var k = 0; k < alldata[i].wholelist.length; k++) {
+						if (alldata[i].wholelist[k].sptype == 7 && alldata[i].wholelist[k].spruleid == wholespruleid_) {
+							if (alldata[i].wholelist[k].startvalue < amountValue
+								&& amountValue <= alldata[i].wholelist[k].endvalue) {
+								var aa = "<span class='title'>赠券</span><span>金额:<span class='couponamount'>"
+									+ alldata[i].wholelist[k].couponamount
+									+ "</span></span><span>有效期:<span class='validdate'>"
+									+ alldata[i].wholelist[k].validdate
+									+ "</span>天</span><span class='userange'>"
+									+ alldata[i].wholelist[k].userange + "</span>";
+								shop[i].getElementsByClassName("couponmarkup")[0].innerHTML = aa;
+								shop[i].getElementsByClassName("wholemarkup")[0].innerHTML = "";
+							} else {
+								shop[i].getElementsByClassName("couponmarkup")[0].innerHTML = "";
+								shop[i].getElementsByClassName("wholemarkup")[0].innerHTML = "";
+							}
+							break;
+						}
+					}
+					break;
+				case 8:
+					for (var k = 0; k < alldata[i].wholelist.length; k++) {
+						if (alldata[i].wholelist[k].sptype == 8 && alldata[i].wholelist[k].spruleid == wholespruleid_) {
+							if (alldata[i].wholelist[k].startvalue < amountValue
+								&& amountValue <= alldata[i].wholelist[k].endvalue) {
+								var couponamount = Math.floor((parseFloat(amountValue) * parseFloat(alldata[i].wholelist[k].coupondiscount) / 100));
+								var aa = "<span class='title'>赠券</span><span>金额:<span class='couponamount'>"
+									+ couponamount
+									+ "</span></span><span>有效期:<span class='validdate'>"
+									+ alldata[i].wholelist[k].validdate
+									+ "</span>天</span><span class='userange'>"
+									+ alldata[i].wholelist[k].userange + "</span>";
+								shop[i].getElementsByClassName("couponmarkup")[0].innerHTML = aa;
+								shop[i].getElementsByClassName("wholemarkup")[0].innerHTML = "";
+							} else {
+								shop[i].getElementsByClassName("couponmarkup")[0].innerHTML = "";
+								shop[i].getElementsByClassName("wholemarkup")[0].innerHTML = "";
+							}
+							break;
+						}
+					}
+					break;
+				// 加价购不自动执行
+				case 9:
+					var wholecheckendsp = false;
+					for (var l = 0; l < wholearr.length; l++) {
+						if (wholearr[l][0] == ssid && wholearr[l][1] == "1") {
+							wholecheckendsp = true;
+							break;
+						}
+					}
+					for (var k = 0; k < alldata[i].wholelist.length; k++) {
+						if (alldata[i].wholelist[k].sptype == 9 && alldata[i].wholelist[k].spruleid == wholespruleid_) {
+							if (amountValue >= alldata[i].wholelist[k].amount && wholecheckendsp == true) {
+								var aa = "<span class='title'>加价购</span><span class='presentid'>"
+									+ alldata[i].wholelist[k].presentid + "</span><span class='presentname'>"
+									+ alldata[i].wholelist[k].presentname + "</span><span>￥<span class='addprice'>"
+									+ alldata[i].wholelist[k].addprice
+									+ "</span></span><span>x<span class='presentqty'>"
+									+ alldata[i].wholelist[k].presentqty
+									+ "</span></span><span  class='btn' onclick='fnCancel(this,0," + ssid
+									+ ",\"\")'>取消</span>";
+								shop[i].getElementsByClassName("wholemarkup")[0].innerHTML = aa;
+								shop[i].getElementsByClassName("couponmarkup")[0].innerHTML = "";
+								if (wche == true) {
+									wholejia += parseFloat(alldata[i].wholelist[k].addprice);
+								}
+							} else {
+								shop[i].getElementsByClassName("wholemarkup")[0].innerHTML = "";
+								shop[i].getElementsByClassName("couponmarkup")[0].innerHTML = "";
+							}
+							break;
+						}
+					}
+					break;
+				case 10:
+					var wholecheckendsp = false;
+					for (var l = 0; l < wholearr.length; l++) {
+						if (wholearr[l][0] == ssid && wholearr[l][1] == "1") {
+							wholecheckendsp = true;
+							break;
+						}
+					}
+					for (var k = 0; k < alldata[i].wholelist.length; k++) {
+						if (alldata[i].wholelist[k].sptype == 10 && alldata[i].wholelist[k].spruleid == wholespruleid_) {
+							if (alldata[i].wholelist[k].startvalue < amountValue
+								&& amountValue <= alldata[i].wholelist[k].endvalue && wholecheckendsp == true) {
+								var aa = "<span class='title'>加价购</span><span class='presentid'>"
+									+ alldata[i].wholelist[k].presentid + "</span><span class='presentname'>"
+									+ alldata[i].wholelist[k].presentname + "</span><span>￥<span class='addprice'>"
+									+ alldata[i].wholelist[k].addprice
+									+ "</span></span><span>x<span class='presentqty'>"
+									+ alldata[i].wholelist[k].presentqty
+									+ "</span></span><span  class='btn' onclick='fnCancel(this,0," + ssid
+									+ ",\"\")'>取消</span>";
+								shop[i].getElementsByClassName("wholemarkup")[0].innerHTML = aa;
+								shop[i].getElementsByClassName("couponmarkup")[0].innerHTML = "";
+								if (wche == true) {
+									wholejia += parseFloat(alldata[i].wholelist[k].addprice);
+								}
+							} else {
+								shop[i].getElementsByClassName("wholemarkup")[0].innerHTML = "";
+								shop[i].getElementsByClassName("couponmarkup")[0].innerHTML = "";
+							}
+							break;
+						}
+					}
+					break;
+				}
+			}
+			for (var j = 0; j < sparr.length; j++) {
+				var shid = shop[i].getElementsByClassName("shopid")[0].innerHTML;
+				if (sparr[j][0] == shid) {
+					sparr[j][1] = wholetotalreduce.toFixed(2);
+					sparr[j][3] = wholejia;
+				}
+			}
+
+		}
+		console.log(sparr);
+	}
+
+	// 加价购取消
+	function fnCancel(this_, spflag_, shopid_, goodsid_) {
+		if (spflag_ == 0) {
+			$(this_).parent().html("");
+			for (var l = 0; l < wholearr.length; l++) {
+				if (wholearr[l][0] == shopid_) {
+					wholearr[l][1] = "";
+				}
+			}
+		} else {
+			$(this_).parent().html("");
+			for (var i = 0; i < singlearr.length; i++) {
+				if (singlearr[i][0] == shopid_ && singlearr[i][1] == goodsid_) {
+					singlearr[i][2] = "";
+				}
+			}
+		}
+		fnGetShoppingCartAmount();
+	}
+
+	// 结算
+	function fnOpenOrderWin() {
+		var ware,
+			warecheckss = $('.warelabel input'),
+			counts = $(".count"),
+			str = "";
+		var goodsname = $(".goodsname");
+		var inventoryqty = $(".inventoryqty");
+		var msg = "";
+		// 		for (var i = 0; i < goodsname.length; i++) {
+		// 			var qty = inventoryqty[i].getElementsByTagName("span")[0].innerHTML;
+		// 			if (parseInt(counts[i].value) > parseInt(qty)) {
+		// 				msg += goodsname[i].innerHTML + "数量不足,订单数量" + counts[i].value + ",库存数量" + qty;
+		// 				break;
+		// 			}
+		// 		}
+		// 		if (msg != "") {
+		// 			layer.open({
+		// 				content : msg,
+		// 				skin : 'msg',
+		// 				time : 3
+		// 			});
+		// 			return;
+		// 		}
+		var lastamount = $("#amount").html();
+		if (lastamount <= 0) {
+			layer.open({
+				content : "合计金额不能小于零!",
+				btn : '确定',
+				shadeClose : false,
+				yes : function(index) {
+					window.location.reload();
+				}
+			});
+			return;
+		}
+
+		for (var j = 0; j < warecheckss.length; j++) {
+			ware = warecheckss[j].parentNode.parentNode.children[2];
+			goodsid = ware.getElementsByClassName("goodsid")[0].innerHTML;
+			shopid = ware.parentNode.parentNode.getElementsByClassName("shopid")[0].innerHTML;
+			if (warecheckss[j].checked == true) {
+				var qty = inventoryqty[j].getElementsByTagName("span")[0].innerHTML;
+				if (parseInt(counts[j].value) > parseInt(qty)) {
+					msg += goodsname[j].innerHTML + "数量不足,订单数量" + counts[j].value + ",库存数量" + qty + "</br>";
+				}
+				str += shopid + "-" + goodsid + "-" + counts[j].value + ",";
+			}
+		}
+		if (msg != "") {
+			layer.open({
+				content : msg,
+				skin : 'msg',
+				time : 3
+			});
+			return;
+		}
+		if (str.length == 0) {
+			layer.open({
+				content : '请选择商品哦',
+				skin : 'msg',
+				time : 2
+			});
+			return;
+		}
+
+		var arr = [];
+		var couponarr = [];
+		var shop = $(".shop");
+		for (var i = 0; i < shop.length; i++) {
+			var ware = shop[i].getElementsByClassName("wareinfo");
+			var wholemarkup = shop[i].getElementsByClassName("wholemarkup")[0];
+
+			for (var k = 0; k < ware.length; k++) {
+				var sa = ware[k].getElementsByClassName("warelabel")[0].getElementsByTagName("input")[0];
+				var markup = ware[k].getElementsByClassName("markup")[0];
+				var wjiaarr = [];
+				var sjiaarr = [];
+
+				if (sa.checked) {
+					if (wholemarkup.innerHTML != "") {
+						var wpresentid = wholemarkup.getElementsByClassName("presentid")[0].innerHTML;
+						var wpresentname = wholemarkup.getElementsByClassName("presentname")[0].innerHTML;
+						var waddprice = wholemarkup.getElementsByClassName("addprice")[0].innerHTML;
+						var wpresentqty = wholemarkup.getElementsByClassName("presentqty")[0].innerHTML;
+						wjiaarr[0] = wpresentid;
+						wjiaarr[1] = wpresentname;
+						wjiaarr[2] = waddprice;
+						wjiaarr[3] = wpresentqty;
+					}
+					if (markup.innerHTML != "") {
+						var spresentid = markup.getElementsByClassName("presentid")[0].innerHTML;
+						var spresentname = markup.getElementsByClassName("presentname")[0].innerHTML;
+						var saddprice = markup.getElementsByClassName("addprice")[0].innerHTML;
+						var spresentqty = markup.getElementsByClassName("presentqty")[0].innerHTML;
+						sjiaarr[0] = spresentid;
+						sjiaarr[1] = spresentname;
+						sjiaarr[2] = saddprice;
+						sjiaarr[3] = spresentqty;
+					}
+
+					var obj = [];
+					var shopid = shop[i].getElementsByClassName("shopid")[0].innerHTML;
+					var count = ware[k].getElementsByClassName("count")[0].value;
+					var goodsid = ware[k].getElementsByClassName("goodsid")[0].innerHTML;
+					obj[0] = shopid;
+					obj[1] = goodsid;
+					obj[2] = count;
+					obj[4] = wjiaarr.join("~");
+					obj[5] = sjiaarr.join("`");
+
+					for (var j = 0; j < sparr.length; j++) {
+						if (sparr[j][0] == shopid && sparr[j][5] == goodsid) {
+							obj[3] = sparr[j];
+						}
+					}
+
+					arr.push(obj);
+				}
+			}
+
+			var couponmarkup = shop[i].getElementsByClassName("couponmarkup")[0];
+			if (couponmarkup.innerHTML != "") {
+				var couponamount = couponmarkup.getElementsByClassName("couponamount")[0].innerHTML;
+				var validdate = couponmarkup.getElementsByClassName("validdate")[0].innerHTML;
+				var userange = couponmarkup.getElementsByClassName("userange")[0].innerHTML;
+				var shopcouponarr = [ shop[i].getElementsByClassName("shopid")[0].innerHTML, couponamount, validdate, userange ];
+				couponarr.push(shopcouponarr);
+			}
+		}
+		window.top.location = "html/order.html?spstr=" + encodeURIComponent(arr.join("-"))
+		+ "&couponstr=" + encodeURIComponent(couponarr.join("-"))
+		+ "&" + timestamp();
+	}
+
+	// 删除
+	function fnDeleteBill() {
+		var index = layer.open({
+			shadeClose : false,
+			type : 2
+		});
+		var warecheckss = $('.warelabel input'),
+			shopid,
+			goodsid,
+			str = "";
+		for (var j = 0; j < warecheckss.length; j++) {
+			ware = warecheckss[j].parentNode.parentNode.children[2];
+			goodsid = ware.getElementsByClassName("goodsid")[0].innerHTML;
+			shopid = ware.parentNode.parentNode.getElementsByClassName("shopid")[0].innerHTML;
+			if (warecheckss[j].checked == true) {
+				str += shopid + "-" + goodsid + ",";
+			}
+		}
+		if (str == '' || str == null) {
+			layer.close(index);
+			layer.open({
+				content : '请选择你要删除的商品哦',
+				skin : 'msg',
+				time : 2
+			});
+			return;
+		}
+		str = (str.substring(str.length - 1) == ',') ? str.substring(0, str.length - 1) : str;
+		$.ajax({
+			url : ip() + 'deletegoods.do',
+			type : "post",
+			data : {
+				"userid" : user.userid,
+				"str" : str
+			},
+			dataType : "json",
+			success : function(data) {
+				layer.close(index);
+				window.location.reload();
+			},
+			error : function(data) {
+				layer.close(index);
+				window.location.reload();
+			}
+		});
+		$("#count").html(0);
+		$("#amount").html("￥0");
+	}
+
+	// 进入门店
+	function fnShopDetail(shopid, shopname) {
+		event.stopPropagation();
+		var url = encodeURI("html/shop.html?shopid=" + shopid + "&shopname=" + shopname + "&" + timestamp());
+		window.top.location = url;
+	}
+
+	// 查看商品
+	function fnGoodsDetail(shopid, goodsid, shopname, goodsname) {
+		event.stopPropagation();
+		var url = encodeURI("html/goodsdetail.html?shopid=" + shopid + "&goodsid=" + goodsid + "&shopname=" + shopname
+			+ "&goodsname=" + goodsname + "&htmlflag=3&" + timestamp());
+		window.top.location = url;
+	}
+
+	// 关闭选择促销窗口
+	function fnClose() {
+		$(".box").css("display", "none");
+		document.body.parentNode.style.overflow = "auto"; //开启横向纵向两个滚动条
+	}
+
+	// 点击关闭弹窗阴影
+	$(".box").click(function() {
+		$(".box .spcontainer").click(function() {
+			event.stopPropagation(); //阻止事件向上冒泡
+		});
+		fnClose();
+	});
+</script>
+</html>

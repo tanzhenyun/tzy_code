@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title></title>
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Cache-control" content="no-cache">
+<meta http-equiv="Cache" content="no-cache">
+<meta charset="UTF-8">
+<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0" />
+<meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+<link rel="stylesheet" type="text/css" href="../css/styles.css" />
+<style type="text/css">
+body {
+	background: #f2f2f2;
+}
+
+#list {
+	padding: 0 10px;
+}
+
+#pushStatus {
+	width: 100%;
+	height: 40px;
+	font-size: 16px;
+	color: #888;
+	line-height: 40px;
+	text-align: center;
+}
+
+.info {
+	width: 100%;
+	background: #fff;
+	margin-top: 10px;
+}
+
+.goodspic {
+	display: inline-block;
+	width: 70px;
+	height: 70px;
+	background: url(../image/logo.png);
+	background-size: 70px 70px;
+	background-repeat: no-repeat;
+	background-position: center center;
+	margin-left: 15px;
+}
+
+.goodsinfo {
+	display: inline-block;
+	width: 60%;
+}
+
+.row1 {
+	width: 100%;
+	height: 25px;
+	line-height: 25px;
+	padding: 0 10px;
+	font-size: 13px;
+	color: #9d9d9d;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	font-size: 13px;
+}
+</style>
+</head>
+<body>
+	<section id="list"></section>
+	<div id="container">
+		<script type="text/template" id="template">
+			{{for(var i=0;i< it.length;i++) { }}
+			<div onclick="fnGetGoods({{=it[i].goodsid}},'{{=it[i].goodsname}}');" class="info">
+					{{ if(it[i].picname != ""){ }}
+					<div class="goodspic" style="background:url(http://{{=it[i].folderpath}}/ecpic/ecgoodspic/{{=it[i].goodsid}}/{{=it[i].picname}});background-size:70px 70px;"></div>
+					{{ }else{ }}
+					<div class="goodspic"></div>
+					{{ } }}
+					<div class="goodsinfo">
+						<div class="row1">{{=it[i].goodsname}}</div>
+						<div class="row1">{{=it[i].goodsspecs}}/{{=it[i].goodsid}}</div>
+						<div class="row1">{{=it[i].factoryname}}</div>
+					</div>
+			</div>
+			{{ } }}
+		</script>
+	</div>
+	<div id="pushStatus" onclick="fnGetGoodsList(true)">点击显示更多</div>
+	<script type="text/javascript" src="../js/jquery-3.1.1.min.js"></script>
+	<script type="text/javascript" src="../js/doT.min.js"></script>
+	<script type="text/javascript" src="../js/config.js"></script>
+	<script type="text/javascript" src="../js/layer/mobile/layer.js"></script>
+	<script type="text/javascript">
+		var minclassid;
+		$(document).ready(function() {
+			$('title').html(titleName());
+			minclassid = getParameter("minclassid");
+			fnGetGoodsList(false);
+		});
+		
+		// 特殊监听返回
+// 		pushHistory();
+// 		window.addEventListener("popstate", function(e) {
+// 			window.location.href = "../index.html?flag=1";
+// 		}, false);
+// 		function pushHistory() {
+// 			var state = {
+// 				title : "title",
+// 				url : "#"
+// 			};
+// 			window.history.pushState(state, "title", "#");
+// 		}
+
+		//-----------滑动到底部自动加载start-------------
+		//文档高度
+		function getDocumentTop() {
+			var scrollTop = 0, bodyScrollTop = 0, documentScrollTop = 0;
+			if (document.body) {
+				bodyScrollTop = document.body.scrollTop;
+			}
+			if (document.documentElement) {
+				documentScrollTop = document.documentElement.scrollTop;
+			}
+			scrollTop = (bodyScrollTop - documentScrollTop > 0) ? bodyScrollTop : documentScrollTop;
+			return scrollTop;
+		}
+		//可视窗口高度
+		function getWindowHeight() {
+			var windowHeight = 0;
+			if (document.compatMode == "CSS1Compat") {
+				windowHeight = document.documentElement.clientHeight;
+			} else {
+				windowHeight = document.body.clientHeight;
+			}
+			return windowHeight;
+		}
+		//滚动条滚动高度
+		function getScrollHeight() {
+			var scrollHeight = 0, bodyScrollHeight = 0, documentScrollHeight = 0;
+			if (document.body) {
+				bodyScrollHeight = document.body.scrollHeight;
+			}
+			if (document.documentElement) {
+				documentScrollHeight = document.documentElement.scrollHeight;
+			}
+			scrollHeight = (bodyScrollHeight - documentScrollHeight > 0) ? bodyScrollHeight : documentScrollHeight;
+			return scrollHeight;
+		}
+		$(window).scroll(function() {
+			//监听事件内容
+			if (getScrollHeight() == (getWindowHeight() + getDocumentTop())) {
+				//当滚动条到底时,这里是触发内容
+				//异步请求数据,局部刷新dom
+				fnGetGoodsList(true);
+			}
+		});
+		//-----------滑动到底部自动加载end-------------
+
+		// 获取商品
+		var skip = 0, LIMIT = 20;
+		function fnGetGoodsList(loadMore_) {
+			var index = layer.open({
+				shadeClose : false,
+				type : 2
+			});
+			// 如果是加载更多，需要实现分页
+			if (loadMore_) {
+				skip += LIMIT;
+			} else {
+				skip = 0;
+			}
+			$.ajax({
+				url : ip() + 'druggoodslist.do',
+				type : "post",
+				data : {
+					"minclassid" : minclassid,
+					"skip" : skip,
+					"limit" : LIMIT,
+				},
+				dataType : "json",
+				success : function(data) {
+					var resultHTML = doT.template($("#template").text())(data);
+					if (data.length < LIMIT) {
+						$("#pushStatus").html("没有啦");
+					}
+					if (loadMore_) {
+						$("#list").append(resultHTML.toString());
+						layer.close(index);
+					} else {
+						$("#list").html(resultHTML.toString());
+						layer.close(index);
+					}
+
+// 					var goodspic = document.getElementsByClassName("goodspic");
+// 					for (var i = 0; i < data.length; i++) {
+// 						if (data[i].picname == null || data[i].picname == "") {
+// 						} else {
+// 							var path = ip() + 'goodspic.do?goodsid=' + data[i].goodsid + '&name=' + data[i].picname;
+// 							goodspic[i + skip].style.background = "url(" + path + ")";
+// 						}
+// 						goodspic[i + skip].style.backgroundRepeat = "no-repeat";
+// 						goodspic[i + skip].style.backgroundSize = "70px 70px";
+// 						goodspic[i + skip].style.backgroundPosition = "center center";
+// 					}
+				}
+			});
+		}
+
+		// 商品列表
+		function fnGetGoods(goodsid, goodsname_) {
+			var url = encodeURI("goodslist.html?&goodsid=" + goodsid + "&goodsname=" + goodsname_ + "&" + timestamp());
+			window.top.location = url;
+		}
+	</script>
+</body>
+</html>

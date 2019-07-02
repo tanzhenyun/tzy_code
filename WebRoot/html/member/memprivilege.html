@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>会员特权</title>
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Cache-control" content="no-cache">
+<meta http-equiv="Cache" content="no-cache">
+<meta charset="utf-8">
+<meta name="viewport"
+	content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0" />
+<meta name="format-detection"
+	content="telephone=no,email=no,date=no,address=no">
+<link rel="stylesheet" type="text/css" href="../../css/styles.css">
+<style type="text/css">
+body {
+	padding: 10px;
+	overflow-y: auto;
+	overflow-x: hidden;
+	color: #666;
+}
+
+.privilege_con {
+	margin-bottom: 15px;
+	font-size: 15px;
+}
+
+.privilege_integral {
+	margin-bottom: 5px;
+}
+
+.privilege_int_title {
+	height: 26px;
+	line-height: 26px;
+	background: #E0EEE0;
+	text-align: center;
+}
+
+.usepoint {
+	border-top: 2px dashed #8DB6CD;
+}
+
+.privilege_int_con {
+	font-size: 13px;
+	line-height: 22px;
+	text-indent: 25px;
+	padding-right: 15px;
+}
+
+.privilege_type_title {
+	padding: 3px 0px;
+	width: 65px;
+	text-align: right;
+}
+
+.privilege_type_con {
+	font-size: 14px;
+	padding-left:60px;
+}
+</style>
+</head>
+<body>
+	<div class="privilege" id="container">
+		<script type="text/template" charset="utf-8" id="content">
+		{{for(var i=0;i<it.length; i++){}}
+      	<div class="privilege_con">
+			<div class="privilege_integral">
+				<div class="privilege_int_title usepoint">积分使用说明</div>
+				<div class="privilege_int_con">{{=it[i].memberpointdesc }}</div>
+			</div>
+			<div class="privilege_integral">
+				<div class="privilege_int_title">会员升降级规则</div>
+				<div class="privilege_int_con">{{=it[i].membermechanism}}</div>
+			</div>
+			<div class="privilege_memtype">
+				<div class="privilege_int_title">每个级别的会员享受的权益</div>
+				{{for(var j=0;j<it[i].dtllist.length; j++){}}
+				<div class="privilege_type_title">{{=it[i].dtllist[j].membertypename}}:</div>
+				<div class="privilege_type_con">{{=it[i].dtllist[j].memberprivilege}}</div>
+	   			{{ } }}
+			</div>
+		</div>
+	    {{ } }}
+		</script>
+	</div>
+</body>
+<script type="text/javascript" src="../../js/jquery-3.1.1.min.js"></script>
+<script type="text/javascript" src="../../js/config.js"></script>
+<script type="text/javascript" src="../../js/doT.min.js"></script>
+<script type="text/javascript" src="../../layui/layui.js"></script>
+<script type="text/javascript">
+	var membertypeid;
+	$(document).ready(function() {
+		membertypeid = decodeURI(getParameter("membertypeid"));
+		fnGetMyselfPrivilege();
+	});
+	
+	// 特殊监听返回
+	listenback();
+	
+	//获取会员相关信息
+	function fnGetMyselfPrivilege() {
+		$.ajax({
+			url : ip() + 'getprivilegeinfo.do',
+			type : "post",
+			data : {
+			// 			membertypeid : membertypeid
+			},
+			dataType : "json",
+			success : function(data) {
+				$("#container").html(doT.template($("#content").text())(data));
+			}
+		});
+	}
+</script>
+</html>

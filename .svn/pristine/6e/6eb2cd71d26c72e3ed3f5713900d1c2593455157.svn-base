@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title></title>
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Cache-control" content="no-cache">
+<meta http-equiv="Cache" content="no-cache">
+<meta charset="UTF-8">
+<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0" />
+<link rel="stylesheet" type="text/css" href="../css/layui.css">
+<link rel="stylesheet" type="text/css" href="../css/styles.css" />
+<style type="text/css">
+body {
+	background: #f2f2f2;
+}
+
+.layui-tab-item {
+	padding: 10px;
+}
+
+.info {
+	width: 100%;
+	background: #fff;
+	margin-top: 10px;
+}
+
+.goodspic,.goodspic1 {
+	display: inline-block;
+	width: 70px;
+	height: 70px;
+	background: url(../image/logo.png);
+	background-size: 70px 70px;
+	background-repeat: no-repeat;
+	background-position: center center;
+	margin-left: 15px;
+}
+
+.goodsname {
+	display: inline-block;
+	width: 60%;
+}
+
+.row1 {
+	width: 100%;
+	height: 25px;
+	line-height: 25px;
+	padding: 0 10px;
+	font-size: 13px;
+	color: #9d9d9d;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	font-size: 13px;
+}
+
+.more {
+	width: 100%;
+	height: 40px;
+	font-size: 16px;
+	color: #888;
+	line-height: 40px;
+	text-align: center;
+	box-sizing: border-box;
+	display: none;
+}
+
+.layui-tab-title li {
+	font-size: 15px;
+	width: 25%;
+}
+
+.row {
+	width: 100%;
+	/* 	height: 25px; */
+	line-height: 25px;
+	font-size: 15px;
+	line-height: 25px /* 	margin-top: 5px; */
+}
+
+.arrow_right {
+	display: inline-block;
+	width: 25px;
+	height: 25px;
+	background: url(../image/arrow_right.png) no-repeat;
+	background-size: 10px;
+	background-position: 7px 7px;
+	float: right;
+	transform: rotate(90deg);
+	-webkit-transform: rotate(90deg);
+}
+
+.minclass {
+	padding-left: 60px;
+	font-size: 13px;
+}
+</style>
+</head>
+<body>
+	<div class="layui-tab layui-tab-brief">
+		<ul class="layui-tab-title">
+			<li class="layui-this">全部</li>
+			<li>疾病介绍</li>
+			<li>治疗方案</li>
+			<li>治疗药物</li>
+		</ul>
+		<div class="layui-tab-content">
+			<div class="layui-tab-item layui-show" id="info">
+				<script type="text/template" charset="utf-8" id="allcontent">
+					<div class="row">疾病介绍:</div>
+					<div class="minclass"> {{=it.diseasedesc}}</div>
+					<div class="row">治疗方案: </div>
+					<div class="minclass">{{=it.treatmentplan}}</div>
+					<div class="row drugrow">治疗药物: <span class="arrow_right"><span></div>
+					{{ if(it.dtllist.length >0){ }}
+					{{ for(var i=0;i<it.dtllist.length;i++) { }}
+						<div onclick="fnGetGoods({{=it.dtllist[i].goodsid}},'{{=it.dtllist[i].goodsname}}');" class="info">
+							{{ if(it.dtllist[i].picname != ""){ }}
+							<div class="goodspic" style="background:url(http://{{=it.dtllist[i].folderpath}}/ecpic/ecgoodspic/{{=it.dtllist[i].goodsid}}/{{=it.dtllist[i].picname}});background-size:70px 70px;"></div>
+							{{ }else{ }}
+							<div class="goodspic"></div>
+							{{ } }}
+							<div class="goodsname">
+								<div class="row1">{{=it.dtllist[i].goodsname}}</div>
+								<div class="row1">{{=it.dtllist[i].goodsspecs}}/{{=it.dtllist[i].goodsid}}</div>
+								<div class="row1">{{=it.dtllist[i].factoryname}}</div>
+							</div>
+						</div>
+					{{ } }}
+					{{ }else{ }}
+					{{ } }}
+				</script>
+			</div>
+			<div class="layui-tab-item diseasedesc"></div>
+			<div class="layui-tab-item treatmentplan"></div>
+			<div class="layui-tab-item" id="goodsinfo"></div>
+			<div>
+				<script type="text/template" charset="utf-8" id="mincontent">
+					{{ if(it.length >0){ }}
+					{{ for(var i=0;i<it.length;i++) { }}
+						<div onclick="fnGetGoods({{=it[i].goodsid}});" class="info">
+							{{ if(it[i].picname != ""){ }}
+							<div class="goodspic" style="background:url(http://{{=it[i].folderpath}}/ecpic/ecgoodspic/{{=it[i].goodsid}}/{{=it[i].picname}});background-size:70px 70px;"></div>
+							{{ }else{ }}
+							<div class="goodspic"></div>
+							{{ } }}
+							<div class="goodsname">
+								<div class="row1">{{=it[i].goodsname}}</div>
+								<div class="row1">{{=it[i].goodsspecs}}</div>
+								<div class="row1">{{=it[i].factoryname}}</div>
+							</div>
+						</div>
+					{{ } }}
+					{{ }else{ }}
+					{{ } }}
+				</script>
+				<div onclick="fnGetMore();" class="more">点击查看更多</div>
+			</div>
+		</div>
+	</div>
+	<script type="text/javascript" src="../js/jquery-3.1.1.min.js"></script>
+	<script type="text/javascript" src="../js/config.js"></script>
+	<script type="text/javascript" src="../js/doT.min.js"></script>
+	<script type="text/javascript" src="../layui/layui.js"></script>
+	<!-- 	<script type="text/javascript" src="../layui/lay/modules/element.js"></script> -->
+	<script type="text/javascript" src="../js/layer/mobile/layer.js"></script>
+	<script type="text/javascript">
+		var minclassid, minclassname, info;
+		$(document).ready(function() {
+			minclassid = decodeURI(getParameter("minclassid"));
+			minclassname = decodeURI(getParameter("minclassname"));
+			$('title').html(minclassname);
+			fnGetDescriptor();
+		});
+
+		//tab样式及点击切换
+		layui.use('element', function() {
+		});
+		
+		// 特殊监听返回
+		pushHistory();
+		window.addEventListener("popstate", function(e) {
+			window.location.href = "../index.html?flag=1";
+		}, false);
+		function pushHistory() {
+			var state = {
+				title : "title",
+				url : "#"
+			};
+			window.history.pushState(state, "title", "#");
+		}
+
+		// 小类描述
+		var skip = 0, limit = 10;
+		function fnGetDescriptor() {
+			var index = layer.open({
+				shadeClose : false,
+				type : 2,
+			});
+			$.ajax({
+				url : ip() + 'getdescriptor.do',
+				type : "post",
+				data : {
+					"minclassid" : minclassid,
+					"skip" : skip,
+					"limit" : limit,
+				},
+				dataType : "json",
+				success : function(data) {
+					info = data;
+					if (data == "" || data == null || data.dtllist == undefined) {
+						layer.close(index);
+					} else {
+
+						var resultHTML = doT.template($("#mincontent").text())(data.dtllist);
+						$("#goodsinfo").html(resultHTML.toString());
+						layer.close(index);
+						if ($("#goodsinfo .info").length > 0) {
+							$(".more").css("display", "inline-block");
+						}
+						var str = "<div class='row'>疾病介绍:</div>";
+						str += "<div class='minclass'>" + data.diseasedesc + "</div>";
+						var str1 = "<div class='row'>治疗方案:</div>";
+						str1 += "<div class='minclass'>" + data.treatmentplan + "</div>";
+						$(".diseasedesc").html(str);
+						$(".treatmentplan").html(str1);
+						$("#info").html(doT.template($("#allcontent").text())(data));
+						layer.close(index);
+// 						if (data.dtllist.length > 0) {
+// 							var goodspic = document.getElementsByClassName("goodspic");
+// // 							var goodspic1 = document.getElementsByClassName("goodspic1");
+// 							for (var j = 0; j < data.dtllist.length; j++) {
+// 								if (data.dtllist[j].picname == "" || data.dtllist[j].picname == null) {
+// 								} else {
+// 									var path = ip() + 'goodspic.do?goodsid=' + data.dtllist[j].goodsid + '&name='
+// 											+ data.dtllist[j].picname;
+// 									goodspic[j].style.background = "url(" + path + ")";
+// // 									goodspic1[j].style.background = "url(" + path + ")";
+// 								}
+// 								goodspic[j].style.backgroundRepeat = "no-repeat";
+// 								goodspic[j].style.backgroundSize = "70px 70px";
+// 								goodspic[j].style.backgroundPosition = "center center";
+// // 								goodspic1[j].style.backgroundRepeat = "no-repeat";
+// // 								goodspic1[j].style.backgroundSize = "70px 70px";
+// // 								goodspic1[j].style.backgroundPosition = "center center";
+// 							}
+// 						}
+						$(".drugrow").click(function() {
+							$(".info").toggle();
+						});
+					}
+				}
+			});
+		}
+
+		// 设置显示更多按钮
+		$(".layui-tab-title li").click(function() {
+			var length = $("#goodsinfo .info").length;
+			if (($(this).index() == 3 && length > 0) || ($(this).index() == 0 && length > 0)) {
+				$(".more").css("display", "inline-block");
+			} else {
+				$(".more").css("display", "none");
+			}
+		});
+
+		// 获取更多小类商品
+		function fnGetMore() {
+			var url = encodeURI("mindruggoodslist.html?minclassid=" + minclassid + "&" + timestamp());
+			window.top.location = url;
+		}
+
+		// 商品列表
+		function fnGetGoods(goodsid, goodsname_) {
+			var url = encodeURI("goodslist.html?&goodsid=" + goodsid + "&goodsname=" + goodsname_ + "&" + timestamp());
+			window.top.location = url;
+		}
+	</script>
+</body>
+</html>

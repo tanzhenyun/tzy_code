@@ -1,0 +1,770 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Cache-control" content="no-cache">
+<meta http-equiv="Cache" content="no-cache">
+<meta charset="UTF-8">
+<meta name="viewport"
+	content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0" />
+<meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+<meta name="format-detection" content="telephone=yes" />
+<title></title>
+<style>
+html, body {
+	background-color: #FFF;
+	margin: 0px;
+	padding: 0px;
+	overflow-x: hidden;
+}
+
+.tab {
+	width: 100%;
+	height: 30px;
+	text-align: center;
+	position: fixed;
+	top: 48px;
+	z-index: 9;
+	background: #fff;
+	line-height: 32px;
+}
+
+.tab span {
+	display: inline-block;
+}
+
+.tab .tabgoods {
+	width: 72%;
+	background: -webkit-linear-gradient(left top, #C1FFC1, #7AC5CD);
+}
+
+.tab .tabshops {
+	width: 26%;
+	background: #7AC5CD;
+}
+
+#list, #shoplist {
+	margin-top: 80px;
+	overflow: hidden
+}
+
+.push-status, .push-status1 {
+	height: 30px;
+	line-height: 30px;
+	text-align: center;
+	font-size: 15px;
+	display: none;
+}
+
+.content {
+	display: flex;
+	width: 100%;
+	-webkit-justify-content: flex-start;
+	-webkit-align-items: center;
+	flex-flow: row nowrap;
+	background: #F2F2F2;
+	border-bottom: 1px solid #2489C5;
+	padding: 12px 0px 5px 15px;
+}
+
+.content .searchpic {
+	width: 70px;
+	height: 70px;
+	background: url(../image/logo.png);
+	background-repeat: no-repeat;
+	background-size: 70px 70px;
+	margin-right: 15px;
+}
+
+.info {
+	width: 66%;
+}
+
+.info div {
+	height: 22px;
+	line-height: 22px;
+	font-size: 14px;
+}
+
+.info .name {
+	font-weight: bolder;
+}
+
+.info .factoryname, .info .name {
+	width: 100%;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+
+.return-top {
+	width: 40px;
+	height: 40px;
+	background-image: url(../image/return_top.png);
+	background-repeat: no-repeat;
+	background-size: 40px 40px;
+	position: fixed;
+	bottom: 20px;
+	right: 20px;
+	text-align: center;
+	cursor: pointer;
+	display: none;
+}
+
+.active {
+	display: block;
+}
+
+.hi {
+	display: none;
+}
+
+.shopname {
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+
+.shopinfo {
+	width: 100%;
+	color: #333;
+	font-size: 16px;
+	text-align: left;
+	height: auto;
+	line-height: 22px;
+	border-bottom: 1px solid #ccc;
+	padding: 10px 0px 5px 0px;
+	overflow: hidden;
+	position: relative;
+}
+
+.shopinfo .shoppic {
+	width: 70px;
+	height: 70px;
+	background: url(../image/logo.png);
+	background-repeat: no-repeat;
+	background-size: 70px 70px;
+	position: absolute;
+	left: 15px;
+	position: absolute;
+}
+
+.shopinfo .shopname {
+	width: 70%;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	margin-left: 20px;
+	height: 26px;
+	line-height: 26px;
+	position: relative;
+	left: 80px;
+}
+
+.shopinfo .address {
+	font-size: 12px;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	margin-left: 20px;
+	height: 26px;
+	line-height: 26px;
+	position: relative;
+	left: 80px;
+}
+
+.shopinfo .contactphone {
+	height: 26px;
+	line-height: 26px;
+	font-size: 14px;
+	margin-left: 20px;
+	position: relative;
+	left: 80px;
+}
+
+.shopinfo .contactphone a {
+	text-decoration: none;
+}
+
+.shopinfo .contactphone img {
+	width: 18px;
+	height: 18px;
+	vertical-align: sub;
+}
+
+.header {
+	width: 100%;
+	padding: 5px 2%;
+	position: fixed;
+	top: 0px;
+	overflow: hidden;
+	background: #fff;
+	z-index: 9;
+}
+
+.header span {
+	float: left;
+}
+
+.s_input {
+	height: 36px;
+	width: 76%;
+}
+
+.s_btn {
+	width: 20%;
+	height: 36px;
+	border: 1px solid #38f;
+	background-color: #38f;
+}
+
+.serchInput {
+	width: 100%;
+	height: 18px;
+	padding: 18px 5px;
+	border: 1px solid #b8b8b8;
+	border-bottom: 1px solid #ccc;
+	border-right: 0;
+	vertical-align: top;
+	outline: none;
+	box-shadow: none;
+}
+
+.serchBtn {
+	color: white;
+	background-color: #38f;
+	width: 100%;
+	height: 36px;
+	font-size: 16px;
+	border: 0;
+}
+
+.ware {
+	position: relative;
+}
+
+.ware .shop .shopinfo {
+	font-size: 16px;
+	line-height: 38px;
+	position: relative;
+	text-align: left;
+	padding-left: 10px;
+	background: #f2f2f2;
+	margin-bottom: 3px;
+}
+
+.singlesp, .wholesp {
+	text-align: left;
+	color: #ff0000;
+	font-size: 10px;
+	padding: 5px 20px;
+	line-height: 12px;
+}
+
+.spinfo_content {
+	display: none;
+}
+
+.toggle {
+	margin: 0;
+	padding: 0;
+	/* 	background: #F2F2F2; */
+	/* 	border-top:1px dashed red; */
+	/* 	margin-bottom: 2px; */
+}
+
+.toggleinfo {
+	display: inline-block;
+	height: 20px;
+	line-height: 20px;
+	/* 	position: absolute; */
+	/* 	top: 5px; */
+	/* 	right: 0px; */
+	text-align: center;
+	font-size: 12px;
+	margin-left: 10px;
+	color: #FF69B4;
+}
+</style>
+</head>
+<body>
+	<div class="header">
+		<span class="s_input">
+			<input type="search" class="serchInput" placeholder="请输入您想要的商品或门店">
+		</span>
+		<span class="s_btn">
+			<input type="submit" value="搜索" class="serchBtn" onclick="fnGetSearch(false,1);">
+		</span>
+	</div>
+	<div class="tab">
+		<span class="tabgoods" onclick="fnShowGoods();">商品</span>
+		<span class="tabshops" onclick="fnShowShop(false);">门店</span>
+	</div>
+	<section id="list"></section>
+	<div id="container">
+		<script type="text/template" id="template">
+		{{for(var i=0;i< it.length;i++) { }}
+		<div class="ware ware-1 ware_{{=it[i].goodsid}}" onclick="fnGetShop1(this)">
+			<div class="content">
+				{{ if(it[i].picname != ""){ }}
+				<div class="searchpic" style="background:url(http://{{=it[i].folderpath}}/ecpic/ecgoodspic/{{=it[i].goodsid}}/{{=it[i].picname}});background-size:70px 70px;"></div>
+				{{ }else{ }}
+				<div class="searchpic"></div>
+				{{ } }}
+				<div class="info">
+					<div class="name">
+						</span>
+						{{=it[i].goodsname}}
+					</div>
+					<div class="description">
+						{{=it[i].goodsspecs}}/{{=it[i].basepackname}}/
+						<span class="">{{=it[i].goodsid}} 
+					</div>
+					<div class="description factoryname">{{=it[i].factoryname}}</div>
+				</div>
+			</div>
+			<div class="shop hi">
+			{{for(var k=0;k< it[i].list.length;k++) { }}
+				<div style="font-size:16px;line-height:38px;position:relative;text-align:left;padding-left:10px;background:#f2f2f2;margin-bottom:3px;"
+					 onclick="fnGoodsDetail({{=it[i].list[k].shopid}},{{=it[i].goodsid}},'{{=it[i].list[k].shopname}}','{{=it[i].goodsname}}')">
+					<div>
+						<span class="hi">{{=it[i].list[k].shopid}}</span>
+						{{=it[i].list[k].shopname}}
+						<span style="padding-left:10px;">￥:{{=it[i].list[k].price}}</span>
+						{{if(it[i].list[k].singlesplist.length > 0 || it[i].list[k].wholesplist.length > 0 ){ }}
+							<div style='background:url(../image/sale.png);height:37px;width:39px;position:absolute;right:0;top:6px;background-size:30px;background-repeat: no-repeat;'></div>
+						{{ } }}
+					</div>
+				</div>
+			{{ } }}
+			</div>
+		</div>
+		{{ } }}
+		</script>
+	</div>
+	<section id="shoplist" style="display:none;"></section>
+	<div id="shopcontainer">
+		<script type="text/template" id="template1">
+			{{for(var i=0;i< it.length;i++) { }}
+			<div class="shopinfo" onclick="fnShopDetail('{{=it[i].shopid}}','{{=it[i].shopname}}')">
+			{{ if(it[i].picname != ""){ }}
+			<div class="shoppic" style="background:url(http://{{=it[i].folderpath}}/附件存储/{{=it[i].attachmentid}}/{{=it[i].picname}});background-size:70px 70px"></div>
+			{{ }else{ }}
+			<div class="shoppic"></div>
+			{{ } }}
+			<div class="shopname">{{=it[i].shopname}}</div>
+			<div class="address">{{=it[i].address}}</div>
+			<div class="contactphone"><img src="../image/phone.png" />: <a href="tel:{{=it[i].tel}}">{{=it[i].tel}}</a></div>
+			</div>
+			{{ } }}
+		</script>
+	</div>
+	<div class="push-status">点击显示更多</div>
+	<div class="push-status1">点击显示更多</div>
+	<div class="return-top" onclick="fnReturnTop()"></div>
+</body>
+<script type="text/javascript" src="../js/jquery-3.1.1.min.js"></script>
+<script type="text/javascript" src="../js/doT.min.js"></script>
+<script type="text/javascript" src="../js/config.js"></script>
+<script type="text/javascript" src="../js/layer/mobile/layer.js"></script>
+<!-- <script type="text/javascript" src="../js/swiper.min.js"></script> -->
+<script type="text/javascript">
+	document.onkeydown = function(event) {
+		var e = event || window.event || arguments.callee.caller.arguments[0];
+		if (e && e.keyCode == 13) { // enter 键
+			$(".serchInput").blur();
+			fnGetSearch(false, 1);
+		}
+	};
+
+	// 特殊监听返回
+// 	pushHistory();
+// 	window.addEventListener("popstate", function(e) {
+// 		window.location.href = "../index.html?flag=0";
+// 	}, false);
+// 	function pushHistory() {
+// 		var state = {
+// 			title : "title",
+// 			url : "#"
+// 		};
+// 		window.history.pushState(state, "title", "#");
+// 	}
+
+	//------------回到顶部start-------------
+	window.onscroll = function() {
+		//sTop :滚动条距离顶部的距离数值
+		var sTop = document.body.scrollTop || document.documentElement.scrollTop;
+		if (sTop > 200) {
+			$(".return-top").addClass("active");
+		} else {
+			$(".return-top").removeClass("active");
+		}
+	};
+	// 回到顶部
+	function fnReturnTop() {
+		$("html,body").animate({
+			scrollTop : 0
+		}, 100);
+	}
+	//------------回到顶部end-------------
+
+	//-----------滑动到底部自动加载start-------------
+	//文档高度
+	function getDocumentTop() {
+		var scrollTop = 0,
+			bodyScrollTop = 0,
+			documentScrollTop = 0;
+		if (document.body) {
+			bodyScrollTop = document.body.scrollTop;
+		}
+		if (document.documentElement) {
+			documentScrollTop = document.documentElement.scrollTop;
+		}
+		scrollTop = (bodyScrollTop - documentScrollTop > 0) ? bodyScrollTop : documentScrollTop;
+		return scrollTop;
+	}
+	//可视窗口高度
+	function getWindowHeight() {
+		var windowHeight = 0;
+		if (document.compatMode == "CSS1Compat") {
+			windowHeight = document.documentElement.clientHeight;
+		} else {
+			windowHeight = document.body.clientHeight;
+		}
+		return windowHeight;
+	}
+	//滚动条滚动高度
+	function getScrollHeight() {
+		var scrollHeight = 0,
+			bodyScrollHeight = 0,
+			documentScrollHeight = 0;
+		if (document.body) {
+			bodyScrollHeight = document.body.scrollHeight;
+		}
+		if (document.documentElement) {
+			documentScrollHeight = document.documentElement.scrollHeight;
+		}
+		scrollHeight = (bodyScrollHeight - documentScrollHeight > 0) ? bodyScrollHeight : documentScrollHeight;
+		return scrollHeight;
+	}
+	$(window).scroll(function() {
+		//监听事件内容
+		if (getScrollHeight() == (getWindowHeight() + getDocumentTop())) {
+			//当滚动条到底时,这里是触发内容
+			//异步请求数据,局部刷新dom
+
+			var gh = $(".tabgoods").width();
+			var sh = $(".tabshops").width();
+			if (gh > sh) {
+				fnGetSearch(true);
+			} else {
+				fnShowShop(true);
+			}
+		}
+	});
+	//-----------滑动到底部自动加载end-------------
+
+	var word1,
+		skip = 0,
+		LIMIT = 10,
+		skip1 = 0,
+		LIMIT1 = 10;
+	var alldata;
+	var goodsname,
+		goodsid,
+		shopid;
+	$(function() {
+		var word = decodeURI(getParameter("word"));
+		if (word) {
+			$(".serchInput").val(word);
+			fnGetSearch(false, 1);
+		}
+		$(".push-status").click(function() {
+			fnGetSearch(true);
+		});
+		$(".push-status1").click(function() {
+			fnShowShop(true);
+		});
+		var word1 = $(".serchInput").val();
+		if (word1) {
+			fnGetSearch(false, 1);
+		}
+
+	});
+	// 获取商品列表，通过loadMore_参数区分是首次加载还是加载更多
+	function fnGetSearch(loadMore_, newflag) {
+		$(".tabgoods").css({
+			"width" : "72%",
+			"transition" : "width .3s"
+		});
+		$(".tabshops").css({
+			"width" : "26%",
+			"transition" : "width .3s"
+		});
+		var index = layer.open({
+			shadeClose : false,
+			type : 2
+		});
+		// 点击搜索时将门店隐藏,显示商品搜索结果
+		$("#shoplist").css("display", "none");
+		$(".push-status1").css("display", "none");
+		$("#list").css("display", "block");
+		var word = $(".serchInput").val();
+		if (word == "" || word == null) {
+			layer.close(index);
+			return;
+		} else {
+			// 如果是加载更多，需要实现分页
+			if (loadMore_ == true) {
+				skip += LIMIT;
+			} else {
+				skip = 0;
+				if (newflag == 1) {
+					var newurl = changeURLPar("word", word);
+					var stateObject = {};
+					history.replaceState(stateObject, "", newurl);
+					console.log(newurl);
+					// 防止有时重新搜索是不会到最上
+					$('html , body').animate({
+						scrollTop : 0
+					}, 1);
+				}
+			}
+			$.ajax({
+				url : ip() + 'searchgoods.do',
+				type : "post",
+				data : {
+					"skip" : skip,
+					"limit" : LIMIT,
+					"word" : word
+				},
+				dataType : "json",
+				success : function(data) {
+					var result = doT.template($("#template").text())(data.goodslist);
+					if (data.goodslist.length < LIMIT) {
+						$(".push-status").html("没有啦");
+					} else {
+						$(".push-status").html("点击显示更多");
+					}
+					if (loadMore_ == true) {
+						$("#list").append(result);
+					} else {
+						$("#list").html(result);
+					}
+					layer.close(index);
+					$(".push-status").css("display", "block");
+
+// 					var searchpics = document.getElementsByClassName("searchpic");
+// 					for (var i = 0; i < data.goodslist.length; i++) {
+// 						if (data.goodslist[i].picname == null || data.goodslist[i].picname == "") {
+// 							continue;
+// 						} else {
+// 							if (data.goodslist[i].picname.indexOf("-") < 0) {
+// 								continue;
+// 							} else if (data.goodslist[i].picname.split("-")[1].indexOf("s") >= 0
+// 								|| data.goodslist[i].picname.split("-")[1].indexOf("S") >= 0) {
+// 								continue;
+// 							} else {
+// 								var path = ip() + 'goodspic.do?goodsid=' + data.goodslist[i].goodsid + '&name='
+// 								+ data.goodslist[i].picname;
+// 								searchpics[i + skip].style.background = "url(" + path + ")";
+// 							}
+// 						}
+// 						searchpics[i + skip].style.backgroundRepeat = "no-repeat";
+// 						searchpics[i + skip].style.backgroundSize = "70px 70px";
+// 					}
+				},
+				error : function(data) {
+					layer.close(index);
+				}
+			});
+		}
+	}
+
+	// 点击显示促销信息
+	function fnToggle(this_) {
+		$(this_).next().slideToggle("fast", function() {
+			if ($(this_).next().is(':hidden')) {
+				$(this_).find(".toggleimg").css("transform", "rotate(90deg)");
+			} else {
+				$(this_).find(".toggleimg").css("transform", "rotate(-90deg)");
+			}
+		});
+	}
+
+	function fnShopDetail(shopid, shopname) {
+		event.stopPropagation();
+		var url = encodeURI("shop.html?shopid=" + shopid + "&shopname=" + shopname);
+		window.top.location = url;
+	}
+
+	function fnGoodsDetail(shopid, goodsid, shopname, goodsname) {
+		// 		event.stopPropagation();
+		var url = encodeURI("goodsdetail.html?shopid=" + shopid + "&goodsid=" + goodsid + "&shopname=" + shopname
+			+ "&goodsname=" + goodsname + "&" + timestamp());
+		window.top.location = url;
+	}
+
+	// 显示商品
+	function fnShowGoods() {
+		$("#shoplist").css("display", "none");
+		$("#list").css("display", "block");
+		$(".push-status1").css("display", "none");
+		$(".push-status").css("display", "block");
+		$(".tabgoods").css({
+			"width" : "72%",
+			"transition" : "width .5s"
+		});
+		$(".tabshops").css({
+			"width" : "26%",
+			"transition" : "width .5s"
+		});
+	}
+
+	// 显示门店
+	function fnShowShop(loadMore_) {
+		$("#list").css("display", "none");
+		$("#shoplist").css("display", "block");
+		$(".push-status").css("display", "none");
+		$(".tabgoods").css({
+			"width" : "26%",
+			"transition" : "width .5s"
+		});
+		$(".tabshops").css({
+			"width" : "72%",
+			"transition" : "width .5s"
+		});
+		var index = layer.open({
+			shadeClose : false,
+			type : 2
+		});
+		var word = $(".serchInput").val();
+		if (word == "" || word == null) {
+			layer.close(index);
+			return;
+		} else {
+			// 如果是加载更多，需要实现分页
+			if (loadMore_ == true) {
+				skip1 += LIMIT1;
+			} else {
+				skip1 = 0;
+				LIMIT1 = 10;
+			}
+			$.ajax({
+				url : ip() + 'searchshop.do',
+				type : "post",
+				data : {
+					"skip" : skip1,
+					"limit" : LIMIT1,
+					"word" : word
+				},
+				dataType : "json",
+				success : function(data) {
+					var result1 = doT.template($("#template1").text())(data.shoplist);
+					if (data.shoplist.length < LIMIT1) {
+						$(".push-status1").html("没有啦");
+					} else {
+						$(".push-status1").html("点击显示更多");
+					}
+					if (loadMore_ == true) {
+						$("#shoplist").append(result1);
+						layer.close(index);
+					} else {
+						$("#shoplist").html(result1);
+						layer.close(index);
+					}
+					$(".push-status1").css("display", "block");
+
+// 					var shoppics = document.getElementsByClassName("shoppic");
+// 					for (var i = 0; i < data.shoplist.length; i++) {
+// 						if (data.shoplist[i].picname == null || data.shoplist[i].picname == "") {
+// 						} else {
+// 							var path = ip() + 'shoppic.do?attachmentid=' + data.shoplist[i].attachmentid + '&name='
+// 							+ data.shoplist[i].picname;
+// 							shoppics[i].style.background = "url(" + path + ")";
+// 						}
+// 						shoppics[i].style.backgroundRepeat = "no-repeat";
+// 						shoppics[i].style.backgroundSize = "70px 70px";
+// 					}
+
+				},
+				error : function(data) {
+					layer.close(index);
+				}
+			});
+		}
+	}
+
+	// 选择门店
+	// 	function fnChooseShop(goodsid_, goodsname_) {
+	// 		var index1 = layer.open({
+	// 			shadeClose : false,
+	// 			type : 2
+	// 		});
+	// 		$.ajax({
+	// 			url : ip() + 'queryshop.do',
+	// 			type : "post",
+	// 			data : {
+	// 				"goodsid" : goodsid_,
+	// 			},
+	// 			dataType : "json",
+	// 			success : function(data) {
+	// 				var str = ""
+	// 				for (var i = 0; i < data.length; i++) {
+	// 					str += "<div style='border:1px solid #009688;font-size:16px;line-height:38px;position:relative;text-align:left;padding-left:10px' onclick='fnGoodsDetail(" + data[i].shopid
+	// 						+ "," + goodsid_ + ",\"" + data[i].shopname + "\",\"" + goodsname_ + "\")'>";
+	// 					str += "<div><span class='hi'>" + data[i].shopid + "</span>" + data[i].shopname
+	// 						+ "<span style='padding-left:10px;'>￥:" + parseInt(data[i].price).toFixed(2) + "</span></div>";
+	// 					if (data[i].singlesplist.length > 0 || data[i].wholesplist.length > 0) {
+	// 						str += "<div style='background:url(../image/sale.jpg);height:37px;width:39px;position:absolute;right:0;top:6px;background-size:30px;background-repeat: no-repeat;'></div>";
+	// 					}
+	// 					str += "</div>";
+	// 				}
+	// 				document.body.parentNode.style.overflow = "hidden"; //隐藏且禁用横向纵向两个滚动条
+	// 				layer.close(index1);
+	// 				layer.open({
+	// 					title : [ goodsname_, 'margin:0;padding: 0 10px;height:50px;line-height:50px;border-bottom:1px solid #f2f2f2' ],
+	// 					content : str,
+	// 					btn : [ '取消' ],
+	// 					yes : function(index) {
+	// 						layer.close(index);
+	// 						document.body.parentNode.style.overflow = "auto"; //开启横向纵向两个滚动条
+	// 					}
+	// 				});
+	// 				$(".layui-m-layercont").css("padding", "10px");
+	// 			},
+	// 			error : function(data) {
+	// 				console.log(data);
+	// 			}
+	// 		});
+	// 	}
+
+
+	/*选择门店*/
+	function fnGetShop1(this_) {
+		// 		document.body.addEventListener('touchmove', function(e) {
+		// 			e.preventDefault(); //阻止默认的处理方式(阻止下拉滑动的效果)
+		// 		}, {
+		// 			passive : false
+		// 		}); //passive 参数不能省略，用来兼容ios和android
+		// 		document.body.style.overflow = 'hidden';
+		layer.open({
+			title : [ $(this_).find(".name").html(), 'margin:0;padding: 0 10px;height:50px;line-height:50px;border-bottom:1px solid #f2f2f2' ],
+			content : $(this_).find(".shop").html(),
+			btn : [ '取消' ],
+			success : function() {
+				$(".layui-m-layershade").bind("touchmove", function(e) {
+					e.preventDefault();
+				});
+				$(".layui-m-layermain").find(".layui-m-layersection").bind("touchmove", function(e) {
+					e.preventDefault();
+				});
+			},
+			yes : function(index) {
+				layer.close(index);
+			}
+		});
+		$(".layui-m-layercont").css("padding", "0");
+	}
+</script>
+</html>

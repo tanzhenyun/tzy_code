@@ -1,0 +1,13 @@
+#wechat config
+appid=wx4080291b86385d80
+appsecret=22fd5ccec81c2e24a9e8b7c29bf81637
+mchid=1345470301
+apikey=shinesend2008shinesend2008shines
+picpath=\\\\192.168.1.240\\pic\\pic_khcs
+projectname=grape_mall
+#message config
+smsuserid=1176
+smsaccount=sskjhy
+smspassword=sskjhy
+#path of picture(nginx)
+folderpath=//219.159.44.194\:9998/pic_khcs/
